@@ -1,54 +1,76 @@
 {
-  "hero_words": ["Music", "Brands", "Potential", "Projects"],
-  "hero_desc": "A London creative studio across <em>music, production and strategy.</em> We help artists and brands work out what to build &amp; build it.",
-
-  "about_heading": "The intersection is the point.",
-  "about_lead": "Most of what's needed to succeed already exists. <em>The architecture is what's missing.</em>",
   "about_col_1": "Artakia was built on a simple belief: <em>great artists deserve great support.</em> We combine the reach of a major-distribution network with the intimacy and vision of an independent label.",
   "about_col_2": "Beyond music, we've evolved into a full creative collective spanning <em>entertainment, studio, digital strategy, and creative production</em> for artists, labels, and cultural brands ready to go global.",
-
-  "stats": {
-    "years": 5,
-    "streams": 30,
-    "viewers": 10
-  },
-
+  "phil_quote_bright": "We keep outgrowing them.",
+  "phil_quote_muted": "The industry keeps building boxes.",
+  "hero_words": [
+    "Music",
+    "Brands",
+    "Potential",
+    "Projects"
+  ],
+  "footer_eyebrow": "every dream needs a teammm",
   "ma_col_1": "<em>Selective</em> by design. We work with a <em>few projects</em> at a time, so each one <em>gets the attention</em> it needs, keeping us close to the <em>artistic side</em>, the <em>business strategy</em> and the <em>music</em> behind them.",
-  "ma_col_2": "An independent label music production studio, distributed globally through <em>The Orchard, a Sony Music company.</em>",
-
   "bg_heading": "Where the work comes from.",
   "bg_p_1": "Artakia draws on time spent across <em>four disciplines</em>. We have worked in <em>talent management</em>, representing leading screen talent and understanding how <em>reputation is built and protected</em>. In <em>media management</em>, positioning talent and projects across press and public.",
+  "ma_col_2": "An independent label music production studio, distributed globally through <em>The Orchard, a Sony Music company.</em>",
   "bg_p_2": "In social media marketing and <em>audience building</em>, building <em>presence that holds over time</em>. And in <em>video production</em> across every phase, from <em>concept to final cut</em>. Together these experiences gave us one place where talent management, <em>story, strategy and production</em> work as one.",
-
-  "phil_quote_muted": "The industry keeps building boxes.",
-  "phil_quote_bright": "We keep outgrowing them.",
-
-  "phil_center": "Every project starts with one question: <em>what does this need to do?</em> Data is not the opposite of art. It is the map that lets art <em>travel further.</em>",
+  "about_lead": "Most of what's needed to succeed already exists. <em>The architecture is what's missing.</em>",
+  "about_heading": "The intersection is the point.",
   "philosophy": [
-    { "title": "Listening.",   "desc": "Understanding the feeling, before the form." },
-    { "title": "Amplifying.", "desc": "Detecting potential. Multiplying it." },
-    { "title": "Producing.",  "desc": "End to end, what the work calls for." },
-    { "title": "Scaling.",    "desc": "Building infrastructure that lasts, beyond the moment." }
+    {
+      "title": "Listening.",
+      "desc": "Understanding the feeling, before the form."
+    },
+    {
+      "title": "Amplifying.",
+      "desc": "Detecting potential. Multiplying it."
+    },
+    {
+      "title": "Producing.",
+      "desc": "End to end, what the work calls for."
+    },
+    {
+      "title": "Scaling.",
+      "desc": "Building infrastructure that lasts, beyond the moment."
+    }
   ],
-
+  "hero_desc": "A London creative studio across <em>music, production and strategy.</em> We help artists and brands work out what to build &amp; build it.",
+  "phil_center": "Every project starts with one question: <em>what does this need to do?</em> Data is not the opposite of art. It is the map that lets art <em>travel further.</em>",
+  "contact_email": "info@artakia.com",
   "services": [
     {
       "name": "Label &\nDevelopment",
       "desc": "M.A Records — a private label within Artakia. Developing artists from the ground up: A&R, creative direction, commercial strategy, release planning. Global distribution through The Orchard · Sony Music.",
-      "tags": ["A&R", "Talent Management"]
+      "tags": [
+        "A&R",
+        "Talent Management"
+      ]
     },
     {
       "name": "Production &\nContent",
       "desc": "Photo and video production for artists and brands. Full-cycle delivery — from concept and creative direction to final cut.",
-      "tags": ["Brand Content", "Film", "360°", "Music Video"]
+      "tags": [
+        "Brand Content",
+        "Film",
+        "360°",
+        "Music Video"
+      ]
     },
     {
       "name": "Strategy &\nMarketing",
       "desc": "The most requested. Figuring out what should happen — and in what order. Campaigns, releases, brand identity, digital growth. Diagnosing before prescribing.",
-      "tags": ["Release Strategy", "Brand", "Digital", "Growth"]
+      "tags": [
+        "Release Strategy",
+        "Brand",
+        "Digital",
+        "Growth"
+      ]
     }
   ],
-
-  "contact_email": "info@artakia.com",
-  "footer_eyebrow": "every dream needs a team"
+  "stats": {
+    "years": 5,
+    "streams": 30,
+    "viewers": 10
+  }
 }
