@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artakia — Brands Amplified</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ─── CUSTOM CURSOR ────────────────────────────────────── -->
+<div class="cursor" aria-hidden="true"></div>
+
+<!-- ─── LOADER (Osmo Supply 3-step) ──────────────────────── -->
+<div class="loading-container">
+  <div class="loading-screen">
+    <div class="loading__progress">
+      <div class="loading__progress-inner"></div>
+    </div>
+    <div class="loading__numbers">
+      <div class="loading__number-group is--first">
+        <div class="loading__number-wrap">
+          <span class="loading__number">0</span>
+          <span class="loading__number">1</span>
+        </div>
+      </div>
+      <div class="loading__number-group is--second">
+        <div class="loading__number-wrap">
+          <span class="loading__number">0</span>
+          <span class="loading__number">1</span>
+          <span class="loading__number">2</span>
+          <span class="loading__number">3</span>
+          <span class="loading__number">4</span>
+          <span class="loading__number">5</span>
+          <span class="loading__number">6</span>
+          <span class="loading__number">7</span>
+          <span class="loading__number">8</span>
+          <span class="loading__number">9</span>
+          <span class="loading__number">0</span>
+        </div>
+      </div>
+      <div class="loading__number-group is--third">
+        <div class="loading__number-wrap">
+          <span class="loading__number">0</span>
+          <span class="loading__number">1</span>
+          <span class="loading__number">2</span>
+          <span class="loading__number">3</span>
+          <span class="loading__number">4</span>
+          <span class="loading__number">5</span>
+          <span class="loading__number">6</span>
+          <span class="loading__number">7</span>
+          <span class="loading__number">8</span>
+          <span class="loading__number">9</span>
+          <span class="loading__number">0</span>
+        </div>
+      </div>
+      <div class="loading__percentage-wrap">
+        <span class="loading__percentage">%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NAV ──────────────────────────────────────────────── -->
+<nav class="nav">
+  <a href="#top" class="nav-logo">Artakia</a>
+
+  <div class="progress-nav" data-progress-nav-list>
+    <div class="progress-nav__indicator"></div>
+    <button class="progress-nav__btn" data-progress-nav-target="#top">Home</button>
+    <button class="progress-nav__btn" data-progress-nav-target="#about">About</button>
+    <button class="progress-nav__btn" data-progress-nav-target="#records">Records</button>
+    <button class="progress-nav__btn" data-progress-nav-target="#work">Work</button>
+    <button class="progress-nav__btn" data-progress-nav-target="#services">Services</button>
+    <button class="progress-nav__btn" data-progress-nav-target="#philosophy">Philosophy</button>
+    <button class="progress-nav__btn" data-progress-nav-target="#contact">Contact</button>
+  </div>
+
+  <a href="#contact" class="nav-cta">Let's collaborate</a>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────────────── -->
+<section class="hero" id="top" data-progress-nav-anchor>
+  <div class="hero-top">
+    <div class="location-pill">
+      <span class="loc-dot"></span>
+      <span class="loc-city">London</span>
+      <span class="loc-sep"></span>
+      <span class="loc-world">Worldwide</span>
+    </div>
+    <h1 class="hero-hl">
+      <span class="hero-hl-italic"><span data-typewriter>music</span></span>
+      <span class="hero-hl-bold">— amplified.</span>
+    </h1>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc" data-fade-in>
+      A London creative studio across
+      <em>music, production and strategy.</em>
+      We help artists and brands work out what to build &amp; build it.
+    </p>
+    <a href="#work" class="hero-cta">
+      <span class="hero-cta-label">What we do</span>
+      <span class="hero-cta-bars" aria-hidden="true">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </span>
+    </a>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ───────────────────────────────────────────── -->
+<!--
+  Заміна логотипів:
+  1. Поклади свій .svg в assets/svg/logos/
+  2. Заміни src нижче на свій файл
+  3. Дублюй обидва блоки однаково — для безшовної петлі
+-->
+<section class="marquee" aria-label="Partners">
+  <div class="marquee-track" aria-hidden="true">
+    <!-- set 1 -->
+    <div class="logo-card"><img src="assets/svg/logos/awal.svg" alt="AWAL"></div>
+    <div class="logo-card"><img src="assets/svg/logos/sony music.svg" alt="Sony Music"></div>
+    <div class="logo-card"><img src="assets/svg/logos/orchard.svg" alt="The Orchard"></div>
+    <div class="logo-card"><img src="assets/svg/logos/warnermusicgroup.svg" alt="Warner Music Group"></div>
+    <div class="logo-card"><img src="assets/svg/logos/epic.svg" alt="Epic"></div>
+    <div class="logo-card"><img src="assets/svg/logos/loudKult.svg" alt="Loud Kult"></div>
+    <!-- set 2 — точна копія set 1 -->
+    <div class="logo-card"><img src="assets/svg/logos/awal.svg" alt="AWAL"></div>
+    <div class="logo-card"><img src="assets/svg/logos/sony music.svg" alt="Sony Music"></div>
+    <div class="logo-card"><img src="assets/svg/logos/orchard.svg" alt="The Orchard"></div>
+    <div class="logo-card"><img src="assets/svg/logos/warnermusicgroup.svg" alt="Warner Music Group"></div>
+    <div class="logo-card"><img src="assets/svg/logos/epic.svg" alt="Epic"></div>
+    <div class="logo-card"><img src="assets/svg/logos/loudKult.svg" alt="Loud Kult"></div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─────────────────────────────────────────────── -->
+<section class="about" id="about" data-progress-nav-anchor>
+  <div class="about-inner">
+    <div class="about-left">
+      <div class="label">
+        <span class="label-line"></span>
+        <span class="label-text">About</span>
+      </div>
+      <h2 class="about-h" data-split="heading" data-split-reveal="chars">The intersection is the point.</h2>
+    </div>
+    <div class="about-right">
+      <p class="about-lead" data-fade-in>
+        Most of what's needed to succeed already exists.
+        <em>The architecture is what's missing.</em>
+      </p>
+      <div class="about-cols">
+        <p class="about-col" data-fade-in>
+          Artakia was built on a simple belief:
+          <em>great artists deserve great support.</em>
+          We combine the reach of a major-distribution network with the
+          intimacy and vision of an independent label.
+        </p>
+        <p class="about-col" data-fade-in>
+          Beyond music, we've evolved into a full creative collective spanning
+          <em>entertainment, studio, digital strategy, and creative production</em>
+          for artists, labels, and cultural brands ready to go global.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ─────────────────────────────────────────────── -->
+<div class="stats">
+  <div class="stat" data-odometer-group>
+    <div class="stat-row">
+      <span class="stat-pfx">+</span>
+      <div class="stat-body">
+        <div class="stat-value-row">
+          <span class="stat-num" data-odometer-element data-odometer-target="5">0</span>
+        </div>
+        <span class="stat-lbl">Years Operating</span>
+      </div>
+    </div>
+  </div>
+  <div class="stat" data-odometer-group>
+    <div class="stat-row">
+      <span class="stat-pfx">+</span>
+      <div class="stat-body">
+        <div class="stat-value-row">
+          <span class="stat-num" data-odometer-element data-odometer-target="30">0</span>
+          <span class="stat-unit">MLN</span>
+        </div>
+        <span class="stat-lbl">Streams</span>
+      </div>
+    </div>
+  </div>
+  <div class="stat" data-odometer-group>
+    <div class="stat-row">
+      <span class="stat-pfx">+</span>
+      <div class="stat-body">
+        <div class="stat-value-row">
+          <span class="stat-num" data-odometer-element data-odometer-target="10">0</span>
+          <span class="stat-unit">MLN</span>
+        </div>
+        <span class="stat-lbl">Viewers &amp; engagement</span>
+      </div>
+    </div>
+  </div>
+  <div class="stat" data-odometer-group>
+    <div class="stat-row">
+      <span class="stat-pfx stat-pfx-a">°</span>
+      <div class="stat-body">
+        <div class="stat-value-row">
+          <span class="stat-num" data-odometer-element data-odometer-target="360">0</span>
+        </div>
+        <span class="stat-lbl">Full-service approach</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── M.A RECORDS ──────────────────────────────────────── -->
+<section class="ma" id="records" data-progress-nav-anchor>
+  <div class="ma-inner">
+    <div class="ma-left">
+      <div class="label">
+        <span class="label-line"></span>
+        <span class="label-text">Part of Artakia</span>
+      </div>
+    </div>
+    <div class="ma-right">
+      <h2 class="ma-h" data-split="heading" data-split-reveal="chars">M.A <span>Records.</span></h2>
+      <div class="ma-body">
+        <div class="ma-cols">
+          <p class="ma-col" data-fade-in>
+            <em>Selective</em> by design. We work with a <em>few projects</em>
+            at a time, so each one <em>gets the attention</em> it needs, keeping
+            us close to the <em>artistic side</em>, the <em>business strategy</em>
+            and the <em>music</em> behind them.
+          </p>
+          <p class="ma-col" data-fade-in>
+            An independent label music production studio, distributed globally
+            through <em>The Orchard, a Sony Music company.</em>
+          </p>
+        </div>
+        <!-- Orchard logo — заміни на assets/svg/logos/orchard-footer.svg або свій файл -->
+        <div class="orchard-logo">
+          <img src="assets/svg/logos/orchard.svg" alt="The Orchard · Sony Music">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BACKGROUND ───────────────────────────────────────── -->
+<section class="bg-section" id="background">
+  <div class="bg-inner">
+    <div class="bg-top">
+      <div class="label">
+        <span class="label-line"></span>
+        <span class="label-text">Background</span>
+      </div>
+      <h2 class="bg-h" data-split="heading" data-split-reveal="chars">Where the work comes from.</h2>
+    </div>
+    <div class="bg-body">
+      <p class="bg-tagline">( layers of experience )</p>
+      <div class="bg-texts">
+        <p class="bg-p" data-fade-in>
+          Artakia draws on time spent across <em>four disciplines</em>. We have worked in
+          <em>talent management</em>, representing leading screen talent and understanding
+          how <em>reputation is built and protected</em>. In <em>media management</em>, positioning
+          talent and projects across press and public.
+        </p>
+        <p class="bg-p" data-fade-in>
+          In social media marketing and <em>audience building</em>, building
+          <em>presence that holds over time</em>. And in <em>video production</em> across every phase,
+          from <em>concept to final cut</em>. Together these experiences gave us one place where
+          talent management, <em>story, strategy and production</em> work as one.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SELECTED WORK ─────────────────────────────────────── -->
+<!--
+  Заміна відео-заглушки:
+  Варіант A — картинка: <img src="assets/img/showreel-cover.jpg" alt="Showreel">
+  Варіант B — відео:    <video src="assets/video/showreel.mp4" autoplay muted loop playsinline></video>
+-->
+<section class="work" id="work" data-progress-nav-anchor>
+  <div class="label">
+    <span class="label-line"></span>
+    <span class="label-text">Selected Work</span>
+  </div>
+  <div class="video-box">
+    <span class="video-placeholder-label">video</span>
+  </div>
+</section>
+
+<!-- ─── SERVICES ──────────────────────────────────────────── -->
+<section class="services" id="services" data-progress-nav-anchor>
+  <div class="label">
+    <span class="label-line"></span>
+    <span class="label-text">Services</span>
+  </div>
+  <div class="svc-list" data-directional-hover data-type="y">
+    <div class="svc-row" data-directional-hover-item>
+      <div class="svc-hover-tile" data-directional-hover-tile></div>
+      <span class="svc-num">(001)</span>
+      <div class="svc-content">
+        <span class="svc-name">Label &amp;<br>Development</span>
+        <div class="svc-detail">
+          <div class="tags">
+            <span class="tag">A&amp;R</span>
+            <span class="tag">Talent Management</span>
+          </div>
+          <p class="svc-desc" data-fade-in>
+            M.A Records — a private label within Artakia. Developing artists from the
+            ground up: A&amp;R, creative direction, commercial strategy, release
+            planning. Global distribution through The Orchard · Sony Music.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="svc-row" data-directional-hover-item>
+      <div class="svc-hover-tile" data-directional-hover-tile></div>
+      <span class="svc-num">(002)</span>
+      <div class="svc-content">
+        <span class="svc-name">Production &amp;<br>Content</span>
+        <div class="svc-detail">
+          <div class="tags">
+            <span class="tag">Brand Content</span>
+            <span class="tag">Film</span>
+            <span class="tag">360°</span>
+            <span class="tag">Music Video</span>
+          </div>
+          <p class="svc-desc" data-fade-in>
+            Photo and video production for artists and brands. Full-cycle delivery —
+            from concept and creative direction to final cut.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="svc-row" data-directional-hover-item>
+      <div class="svc-hover-tile" data-directional-hover-tile></div>
+      <span class="svc-num">(003)</span>
+      <div class="svc-content">
+        <span class="svc-name">Strategy &amp;<br>Marketing</span>
+        <div class="svc-detail">
+          <div class="tags">
+            <span class="tag">Release Strategy</span>
+            <span class="tag">Brand</span>
+            <span class="tag">Digital</span>
+            <span class="tag">Growth</span>
+          </div>
+          <p class="svc-desc" data-fade-in>
+            The most requested. Figuring out what should happen — and in what order.
+            Campaigns, releases, brand identity, digital growth.
+            Diagnosing before prescribing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PHILOSOPHY QUOTE ──────────────────────────────────── -->
+<section class="phil-quote">
+  <p class="phil-quote-line" data-highlight-text><span class="phil-quote-muted">The industry keeps building boxes.</span> <span class="phil-quote-bright">We keep outgrowing them.</span></p>
+</section>
+
+<!-- ─── PHILOSOPHY GRID ───────────────────────────────────── -->
+<section class="philosophy" id="philosophy" data-progress-nav-anchor>
+  <div class="label">
+    <span class="label-line"></span>
+    <span class="label-text">Philosophy</span>
+  </div>
+  <div class="phil-grid">
+    <div class="phil-center">
+      <p class="phil-center-text" data-fade-in>
+        Every project starts with one question:
+        <em>what does this need to do?</em>
+        Data is not the opposite of art.
+        It is the map that lets art <em>travel further.</em>
+      </p>
+    </div>
+    <div class="phil-right">
+      <div class="phil-item">
+        <span class="phil-n">(001)</span>
+        <div class="phil-body">
+          <p class="phil-title">Listening.</p>
+          <p class="phil-desc" data-fade-in>Understanding the feeling, before the form.</p>
+        </div>
+      </div>
+      <div class="phil-item">
+        <span class="phil-n">(002)</span>
+        <div class="phil-body">
+          <p class="phil-title">Amplifying.</p>
+          <p class="phil-desc" data-fade-in>Detecting potential. Multiplying it.</p>
+        </div>
+      </div>
+      <div class="phil-item">
+        <span class="phil-n">(003)</span>
+        <div class="phil-body">
+          <p class="phil-title">Producing.</p>
+          <p class="phil-desc" data-fade-in>End to end, what the work calls for.</p>
+        </div>
+      </div>
+      <div class="phil-item">
+        <span class="phil-n">(004)</span>
+        <div class="phil-body">
+          <p class="phil-title">Scaling.</p>
+          <p class="phil-desc" data-fade-in>Building infrastructure that lasts, beyond the moment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────── -->
+<div data-footer-parallax>
+  <div data-footer-parallax-dark aria-hidden="true"></div>
+  <footer class="footer" id="contact" data-footer-parallax-inner data-progress-nav-anchor>
+    <div class="footer-top">
+      <div class="footer-links">
+        <div class="footer-nav-cols">
+          <div class="footer-nc">
+            <span class="footer-nc-lbl">Social</span>
+            <div class="footer-nc-links">
+              <a href="#" data-underline-link>
+                LinkedIn
+                <img src="assets/svg/icons/arrow.svg" alt="">
+              </a>
+            </div>
+          </div>
+          <div class="footer-nc">
+            <span class="footer-nc-lbl">Navigation</span>
+            <div class="footer-nc-links">
+              <a href="#top"        data-underline-link>Home</a>
+              <a href="#about"      data-underline-link>About</a>
+              <a href="#records"    data-underline-link>Records</a>
+              <a href="#work"       data-underline-link>Work</a>
+              <a href="#services"   data-underline-link>Services</a>
+              <a href="#philosophy" data-underline-link>Philosophy</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-cta">
+          <p class="footer-eyebrow">every dream needs a team</p>
+          <button class="footer-cta-btn" data-copy-button data-copy-email="info@artakia.com" aria-label="Copy email to clipboard">
+            <div class="footer-cta-row">
+              <div class="footer-cta-text-wrap">
+                <span class="footer-cta-slide">Let's talk</span>
+                <span class="footer-cta-slide">info@artakia.com</span>
+                <span class="footer-cta-slide">Copied!</span>
+              </div>
+              <span class="footer-cta-arrow">
+                <img src="assets/svg/icons/arrow.svg" alt="↗">
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-width wordmark marquee -->
+    <div class="footer-wordmark-wrap" aria-hidden="true">
+      <div class="footer-wordmark-track">
+        <span class="footer-wordmark-text">Artakia</span>
+        <img class="footer-wordmark-star" src="assets/svg/icons/Star.svg" alt="">
+        <span class="footer-wordmark-text">Artakia</span>
+        <img class="footer-wordmark-star" src="assets/svg/icons/Star.svg" alt="">
+        <span class="footer-wordmark-text">Artakia</span>
+        <img class="footer-wordmark-star" src="assets/svg/icons/Star.svg" alt="">
+        <!-- duplicate for seamless loop -->
+        <span class="footer-wordmark-text">Artakia</span>
+        <img class="footer-wordmark-star" src="assets/svg/icons/Star.svg" alt="">
+        <span class="footer-wordmark-text">Artakia</span>
+        <img class="footer-wordmark-star" src="assets/svg/icons/Star.svg" alt="">
+        <span class="footer-wordmark-text">Artakia</span>
+        <img class="footer-wordmark-star" src="assets/svg/icons/Star.svg" alt="">
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <span class="copyright">© 2026 Artakia · All rights reserved</span>
+        <div class="designed-by">
+          <span class="by">designed by</span>
+          <span class="who">Ovcharenko Denys</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ─── GSAP ──────────────────────────────────────────────── -->
+<script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/js/vendor/SplitText.min.js"></script>
+<script src="assets/js/vendor/ScrollToPlugin.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

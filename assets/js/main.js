@@ -1,0 +1,458 @@
+/* ═══════════════════════════════════════════════════════
+   ARTAKIA — main.js
+   Osmo Supply resources: Loader · Odometer · SplitText
+   Reveal · Progress Nav · Footer Parallax · Directional
+   Hover · Smooth Scroll · Highlight Text · Fade In
+═══════════════════════════════════════════════════════ */
+
+gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin);
+
+/* ─── 1. NUMBER LOADER (Osmo Supply 3-step) ──────────── */
+function initLoaderThreeSteps() {
+  const container = document.querySelector('.loading-container');
+  const screen    = document.querySelector('.loading-screen');
+  if (!container || !screen) return;
+
+  const H = 165; // must match CSS .loading__number-group { height: 165px }
+
+  const tl = gsap.timeline({
+    onComplete() {
+      gsap.to(screen, {
+        yPercent: -100,
+        duration: 0.8,
+        ease: 'power3.inOut',
+        onComplete() { container.style.display = 'none'; },
+      });
+    },
+  });
+
+  tl.set(screen, { display: 'flex' })
+    .set('.loading__progress-inner', { scaleY: 0, transformOrigin: 'bottom' })
+    .set('.loading__number-wrap',    { y: 0 })
+
+    // Step 1 — 0 → 33
+    .to('.loading__progress-inner',          { scaleY: 0.33, duration: 0.9, ease: 'power2.inOut' })
+    .to('.is--second .loading__number-wrap', { y: -(3 * H), duration: 0.9, ease: 'power2.inOut' }, '<')
+    .to('.is--third  .loading__number-wrap', { y: -(3 * H), duration: 0.9, ease: 'power2.inOut' }, '<')
+
+    .to({}, { duration: 0.3 })
+
+    // Step 2 — 33 → 67
+    .to('.loading__progress-inner',          { scaleY: 0.67, duration: 0.7, ease: 'power2.inOut' })
+    .to('.is--second .loading__number-wrap', { y: -(6 * H), duration: 0.7, ease: 'power2.inOut' }, '<')
+    .to('.is--third  .loading__number-wrap', { y: -(7 * H), duration: 0.7, ease: 'power2.inOut' }, '<')
+
+    .to({}, { duration: 0.25 })
+
+    // Step 3 — 67 → 100
+    .to('.loading__progress-inner',          { scaleY: 1,        duration: 0.6, ease: 'power2.inOut' })
+    .to('.is--first  .loading__number-wrap', { y: -(1  * H),     duration: 0.6, ease: 'power2.inOut' }, '<')
+    .to('.is--second .loading__number-wrap', { y: -(10 * H),     duration: 0.6, ease: 'power2.inOut' }, '<')
+    .to('.is--third  .loading__number-wrap', { y: -(10 * H),     duration: 0.6, ease: 'power2.inOut' }, '<')
+
+    .to({}, { duration: 0.4 });
+}
+
+/* ─── 2. MASKED TEXT REVEAL (chars) ─────────────────────── */
+function initMaskTextReveal() {
+  const els = document.querySelectorAll('[data-split="heading"][data-split-reveal="chars"]');
+  if (!els.length) return;
+
+  els.forEach(el => {
+    el.style.visibility = 'visible';
+    const split = new SplitText(el, {
+      type: 'chars,words',
+      charsClass: 'char',
+      wordsClass: 'split-word',
+    });
+
+    gsap.fromTo(
+      split.chars,
+      { yPercent: 110, opacity: 0 },
+      {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.65,
+        stagger: 0.022,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 82%',
+          once: true,
+        },
+      }
+    );
+  });
+}
+
+/* ─── 3. NUMBER ODOMETER ────────────────────────────────── */
+function initNumberOdometer() {
+  const groups = document.querySelectorAll('[data-odometer-group]');
+  if (!groups.length) return;
+
+  groups.forEach(group => {
+    const el = group.querySelector('[data-odometer-element]');
+    if (!el) return;
+    const target = parseInt(el.dataset.odometerTarget, 10);
+    const obj = { v: 0 };
+
+    ScrollTrigger.create({
+      trigger: group,
+      start: 'top 80%',
+      once: true,
+      onEnter() {
+        gsap.to(obj, {
+          v: target,
+          duration: 1.8,
+          ease: 'power2.out',
+          onUpdate() { el.textContent = Math.round(obj.v); },
+        });
+      },
+    });
+  });
+}
+
+/* ─── 4. PROGRESS NAVIGATION ────────────────────────────── */
+function initProgressNavigation() {
+  const navList = document.querySelector('[data-progress-nav-list]');
+  if (!navList) return;
+
+  const buttons   = navList.querySelectorAll('[data-progress-nav-target]');
+  const indicator = navList.querySelector('.progress-nav__indicator');
+
+  function moveIndicator(btn) {
+    if (!indicator || !btn) return;
+    const bRect = btn.getBoundingClientRect();
+    const lRect = navList.getBoundingClientRect();
+    gsap.to(indicator, {
+      x:        bRect.left - lRect.left - 4,
+      width:    bRect.width,
+      duration: 0.35,
+      ease:     'power2.out',
+    });
+  }
+
+  function activate(target) {
+    buttons.forEach(b => b.classList.remove('active'));
+    const btn = navList.querySelector(`[data-progress-nav-target="${target}"]`);
+    if (btn) { btn.classList.add('active'); moveIndicator(btn); }
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const id = btn.dataset.progressNavTarget;
+      const section = document.querySelector(id);
+      if (section) {
+        gsap.to(window, { scrollTo: { y: section, offsetY: 72 }, duration: 0.9, ease: 'power3.inOut' });
+      }
+      activate(id);
+    });
+  });
+
+  document.querySelectorAll('[data-progress-nav-anchor]').forEach(section => {
+    const id = '#' + section.id;
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top 55%',
+      end:   'bottom 55%',
+      onEnter:     () => activate(id),
+      onEnterBack: () => activate(id),
+    });
+  });
+
+  if (buttons.length) {
+    buttons[0].classList.add('active');
+    requestAnimationFrame(() => moveIndicator(buttons[0]));
+  }
+}
+
+/* ─── 5. FOOTER PARALLAX ────────────────────────────────── */
+function initFooterParallax() {
+  const wrapper = document.querySelector('[data-footer-parallax]');
+  if (!wrapper) return;
+
+  const inner = wrapper.querySelector('[data-footer-parallax-inner]');
+  const dark  = wrapper.querySelector('[data-footer-parallax-dark]');
+
+  if (inner) {
+    gsap.fromTo(inner,
+      { yPercent: -10 },
+      {
+        yPercent: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top bottom',
+          end:   'bottom bottom',
+          scrub: true,
+        },
+      }
+    );
+  }
+
+  if (dark) {
+    gsap.fromTo(dark,
+      { opacity: 0 },
+      {
+        opacity: 0.5,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top 80%',
+          end:   'top 20%',
+          scrub: true,
+        },
+      }
+    );
+  }
+}
+
+/* ─── 6. DIRECTIONAL LIST HOVER ─────────────────────────── */
+function initDirectionalListHover() {
+  const lists = document.querySelectorAll('[data-directional-hover]');
+  if (!lists.length) return;
+
+  lists.forEach(list => {
+    list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
+      const tile = item.querySelector('[data-directional-hover-tile]');
+      if (!tile) return;
+
+      gsap.set(tile, { yPercent: 102 });
+
+      function getDir(e) {
+        const r = item.getBoundingClientRect();
+        return (e.clientY - r.top) < r.height / 2 ? -1 : 1;
+      }
+
+      item.addEventListener('mouseenter', e => {
+        const d = getDir(e);
+        gsap.killTweensOf(tile);
+        gsap.fromTo(tile,
+          { yPercent: d * 102 },
+          { yPercent: 0, duration: 0.22, ease: 'power3.out', overwrite: true }
+        );
+      });
+
+      item.addEventListener('mouseleave', e => {
+        const d = getDir(e);
+        gsap.killTweensOf(tile);
+        gsap.to(tile, { yPercent: d * 102, duration: 0.2, ease: 'power3.in', overwrite: true });
+      });
+    });
+  });
+}
+
+/* ─── 7. WORD CYCLING — char-by-char reveal ──────────────── */
+function initTypewriter() {
+  const el = document.querySelector('[data-typewriter]');
+  if (!el) return;
+
+  const words = ['Music', 'Brands', 'Potential', 'Projects'];
+  let current = 0;
+
+  function buildChars(word) {
+    el.innerHTML = '';
+    [...word].forEach(ch => {
+      const s = document.createElement('span');
+      s.className = 'tw-char';
+      s.textContent = ch;
+      el.appendChild(s);
+    });
+    return el.querySelectorAll('.tw-char');
+  }
+
+  const init = buildChars(words[0]);
+  gsap.set(init, { yPercent: 0, opacity: 1 });
+
+  function cycle() {
+    const next    = (current + 1) % words.length;
+    const leaving = [...el.querySelectorAll('.tw-char')];
+
+    gsap.to(leaving, {
+      yPercent: -115,
+      opacity:  0,
+      duration: 0.28,
+      stagger:  { amount: 0.18, from: 'start' },
+      ease:     'power2.in',
+      onComplete() {
+        const entering = buildChars(words[next]);
+        gsap.set(entering, { yPercent: 90, opacity: 0 });
+        gsap.to(entering, {
+          yPercent: 0,
+          opacity:  1,
+          duration: 0.32,
+          stagger:  { amount: 0.22, from: 'start' },
+          ease:     'power3.out',
+          onComplete() {
+            current = next;
+            setTimeout(cycle, 2600);
+          },
+        });
+      },
+    });
+  }
+
+  setTimeout(cycle, 2600);
+}
+
+/* ─── 8. MA RECORDS TEXT REVEAL ──────────────────────────── */
+function initMaTextReveal() {
+  const section = document.querySelector('.ma');
+  if (!section) return;
+
+  const ems = section.querySelectorAll('.ma-col em');
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top 65%',
+    once: true,
+    onEnter() {
+      gsap.to(ems, {
+        color: '#f2f0ed',
+        duration: 0.45,
+        stagger: 0.09,
+        ease: 'power2.out',
+      });
+    },
+  });
+}
+
+/* ─── 8b. BACKGROUND TEXT REVEAL ────────────────────────── */
+function initBgTextReveal() {
+  const section = document.querySelector('.bg-section');
+  if (!section) return;
+  const ems = section.querySelectorAll('.bg-p em');
+  if (!ems.length) return;
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top 65%',
+    once: true,
+    onEnter() {
+      gsap.to(ems, { color: '#f2f0ed', duration: 0.45, stagger: 0.09, ease: 'power2.out' });
+    },
+  });
+}
+
+/* ─── 9. HIGHLIGHT TEXT ON SCROLL (word opacity scrub) ───── */
+function initHighlightText() {
+  const els = document.querySelectorAll('[data-highlight-text]');
+  if (!els.length) return;
+
+  els.forEach(el => {
+    const split = new SplitText(el, { type: 'words', wordsClass: 'hl-word' });
+
+    gsap.fromTo(split.words,
+      { opacity: 0.08 },
+      {
+        opacity: 1,
+        ease: 'none',
+        stagger: { each: 0.1 },
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          end:   'bottom 52%',
+          scrub: 0.8,
+        },
+      }
+    );
+  });
+}
+
+/* ─── 10. FADE-IN REVEAL (paragraphs & small text) ──────── */
+function initFadeInReveal() {
+  const els = document.querySelectorAll('[data-fade-in]');
+  if (!els.length) return;
+
+  els.forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 22 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          once: true,
+        },
+      }
+    );
+  });
+}
+
+/* ─── 11. SMOOTH SCROLL ───────────────────────────────────── */
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        gsap.to(window, { scrollTo: { y: target, offsetY: 72 }, duration: 0.9, ease: 'power3.inOut' });
+      }
+    });
+  });
+}
+
+/* ─── 12. CUSTOM CURSOR ──────────────────────────────────── */
+function initBasicCustomCursor() {
+  const cursor = document.querySelector('.cursor');
+  if (!cursor) return;
+
+  gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+
+  const xTo = gsap.quickTo(cursor, 'x', { duration: 0.6, ease: 'power3' });
+  const yTo = gsap.quickTo(cursor, 'y', { duration: 0.6, ease: 'power3' });
+
+  window.addEventListener('mousemove', e => {
+    xTo(e.clientX);
+    yTo(e.clientY);
+  });
+}
+
+/* ─── 13. COPY EMAIL TO CLIPBOARD (3-state) ─────────────── */
+function initCopyEmailClipboard() {
+  document.querySelectorAll('[data-copy-button]').forEach(btn => {
+    let timer;
+
+    btn.addEventListener('click', () => {
+      const email = btn.getAttribute('data-copy-email') ||
+        btn.querySelector('[data-copy-email-element]')?.textContent.trim();
+      if (!email) return;
+
+      navigator.clipboard.writeText(email).then(() => {
+        clearTimeout(timer);
+        btn.dataset.copyButton = 'copied';
+        timer = setTimeout(() => {
+          btn.dataset.copyButton = '';
+        }, 2200);
+      });
+    });
+  });
+}
+
+/* ─── INIT ────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  initBasicCustomCursor();
+  initCopyEmailClipboard();
+  initLoaderThreeSteps();
+
+  // 4.2s — enough for loader animation (≈ 3.95s) + brief overlap
+  gsap.delayedCall(4.2, () => {
+    initTypewriter();
+    initMaskTextReveal();
+    initNumberOdometer();
+    initProgressNavigation();
+    initFooterParallax();
+    initDirectionalListHover();
+    initMaTextReveal();
+    initBgTextReveal();
+    initHighlightText();
+    initFadeInReveal();
+    initSmoothScroll();
+    ScrollTrigger.refresh();
+  });
+});
