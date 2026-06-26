@@ -6,8 +6,8 @@ backend:
 
 locale: en
 
-media_folder: assets/img
-public_folder: /assets/img
+media_folder: assets/media
+public_folder: /assets/media
 
 collections:
   - name: site
@@ -19,16 +19,42 @@ collections:
         format: json
         fields:
 
+          # ── SEO & NAV ──────────────────────────────────────────
+          - label: "Page Title"
+            name: page_title
+            widget: string
+
+          - label: "Nav — CTA Button"
+            name: nav_cta
+            widget: string
+
           # ── HERO ──────────────────────────────────────────────
           - label: "Hero — Typewriter Words"
             name: hero_words
             widget: list
-            hint: "Words that cycle in the hero heading (Music, Brands, …)"
+            hint: "Words that cycle in the heading (one per line)"
+
+          - label: "Hero — Bold Line"
+            name: hero_bold
+            widget: string
+            hint: 'e.g. "— amplified."'
+
+          - label: "Hero — Location City"
+            name: hero_location_city
+            widget: string
+
+          - label: "Hero — Location World"
+            name: hero_location_world
+            widget: string
 
           - label: "Hero — Description"
             name: hero_desc
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
+
+          - label: "Hero — CTA Label"
+            name: hero_cta_label
+            widget: string
 
           # ── ABOUT ─────────────────────────────────────────────
           - label: "About — Heading"
@@ -38,52 +64,90 @@ collections:
           - label: "About — Lead"
             name: about_lead
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
 
           - label: "About — Column 1"
             name: about_col_1
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
 
           - label: "About — Column 2"
             name: about_col_2
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
 
           # ── STATS ─────────────────────────────────────────────
           - label: Stats
             name: stats
-            widget: object
+            widget: list
+            summary: "{{fields.label}}"
             fields:
-              - { label: "Years Operating", name: years,   widget: number }
-              - { label: "Streams (MLN)",   name: streams, widget: number }
-              - { label: "Viewers (MLN)",   name: viewers, widget: number }
+              - { label: Value,  name: value,  widget: number }
+              - { label: Label,  name: label,  widget: string }
+              - { label: Prefix, name: prefix, widget: string, hint: "+ or °" }
+              - { label: Unit,   name: unit,   widget: string, hint: "MLN or leave empty", required: false }
+
+          # ── PARTNERS (MARQUEE) ────────────────────────────────
+          - label: Partners
+            name: partners
+            widget: list
+            summary: "{{fields.name}}"
+            hint: "Upload SVG or PNG logos. Drag to reorder."
+            fields:
+              - { label: Name, name: name, widget: string }
+              - label: Logo
+                name: logo
+                widget: image
+                hint: "SVG or PNG, transparent background"
 
           # ── M.A RECORDS ───────────────────────────────────────
           - label: "M.A Records — Column 1"
             name: ma_col_1
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
 
           - label: "M.A Records — Column 2"
             name: ma_col_2
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
 
           # ── BACKGROUND ────────────────────────────────────────
           - label: "Background — Heading"
             name: bg_heading
             widget: string
 
+          - label: "Background — Tagline"
+            name: bg_tagline
+            widget: string
+
           - label: "Background — Paragraph 1"
             name: bg_p_1
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
 
           - label: "Background — Paragraph 2"
             name: bg_p_2
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
+
+          # ── SELECTED WORK (VIDEO) ─────────────────────────────
+          - label: "Video URL"
+            name: video_url
+            widget: string
+            required: false
+            hint: "YouTube or Vimeo URL. Leave empty to show placeholder."
+
+          # ── SERVICES ──────────────────────────────────────────
+          - label: Services
+            name: services
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: Name,        name: name, widget: string }
+              - { label: Description, name: desc, widget: text   }
+              - label: Tags
+                name: tags
+                widget: list
 
           # ── PHILOSOPHY QUOTE ──────────────────────────────────
           - label: "Quote — Part 1 (dim)"
@@ -98,7 +162,7 @@ collections:
           - label: "Philosophy — Center Text"
             name: phil_center
             widget: text
-            hint: "Wrap emphasis with <em>…</em>"
+            hint: "Use <em>…</em> for italic accent"
 
           - label: Philosophy Items
             name: philosophy
@@ -108,23 +172,23 @@ collections:
               - { label: Title,       name: title, widget: string }
               - { label: Description, name: desc,  widget: string }
 
-          # ── SERVICES ──────────────────────────────────────────
-          - label: Services
-            name: services
-            widget: list
-            summary: "{{fields.name}}"
-            fields:
-              - { label: Name,        name: name, widget: string }
-              - { label: Description, name: desc, widget: text   }
-              - label: Tags
-                name: tags
-                widget: list
-
           # ── FOOTER ────────────────────────────────────────────
-          - label: "Contact Email"
+          - label: "Footer — Eyebrow"
+            name: footer_eyebrow
+            widget: string
+
+          - label: "Footer — CTA Default Text"
+            name: footer_slide_1
+            widget: string
+
+          - label: "Footer — Contact Email"
             name: contact_email
             widget: string
 
-          - label: "Footer Eyebrow"
-            name: footer_eyebrow
+          - label: "Footer — Copied Text"
+            name: footer_slide_3
+            widget: string
+
+          - label: "Footer — Copyright"
+            name: footer_copyright
             widget: string

@@ -437,30 +437,92 @@ function injectContent(d) {
   const html = (sel, val) => { const el = document.querySelector(sel); if (el && val != null) el.innerHTML = val; };
   const text = (sel, val) => { const el = document.querySelector(sel); if (el && val != null) el.textContent = val; };
 
-  html('.hero-desc', d.hero_desc);
+  // SEO & Nav
+  if (d.page_title) document.title = d.page_title;
+  text('.nav-cta', d.nav_cta);
 
-  text('.about-h',   d.about_heading);
+  // Hero
+  text('.hero-hl-bold', d.hero_bold);
+  text('.loc-city',     d.hero_location_city);
+  text('.loc-world',    d.hero_location_world);
+  html('.hero-desc',    d.hero_desc);
+  text('.hero-cta-label', d.hero_cta_label);
+
+  // About
+  text('.about-h',    d.about_heading);
   html('.about-lead', d.about_lead);
   const aboutCols = document.querySelectorAll('.about-col');
   if (aboutCols[0] && d.about_col_1) aboutCols[0].innerHTML = d.about_col_1;
   if (aboutCols[1] && d.about_col_2) aboutCols[1].innerHTML = d.about_col_2;
 
-  if (d.stats) {
+  // Stats (array format)
+  if (Array.isArray(d.stats)) {
     const targets = document.querySelectorAll('[data-odometer-target]');
-    if (targets[0] && d.stats.years   != null) targets[0].dataset.odometerTarget = d.stats.years;
-    if (targets[1] && d.stats.streams != null) targets[1].dataset.odometerTarget = d.stats.streams;
-    if (targets[2] && d.stats.viewers != null) targets[2].dataset.odometerTarget = d.stats.viewers;
+    const labels  = document.querySelectorAll('.stat-lbl');
+    d.stats.forEach((s, i) => {
+      if (targets[i] && s.value != null) targets[i].dataset.odometerTarget = s.value;
+      if (labels[i]  && s.label)         labels[i].textContent = s.label;
+    });
   }
 
+  // Partners marquee
+  if (Array.isArray(d.partners) && d.partners.length) {
+    const track = document.querySelector('.marquee-track');
+    if (track) {
+      const cards = d.partners.map(p =>
+        `<div class="logo-card"><img src="${p.logo}" alt="${p.name}"></div>`
+      ).join('');
+      track.innerHTML = cards + cards;
+    }
+  }
+
+  // MA Records
   const maCols = document.querySelectorAll('.ma-col');
   if (maCols[0] && d.ma_col_1) maCols[0].innerHTML = d.ma_col_1;
   if (maCols[1] && d.ma_col_2) maCols[1].innerHTML = d.ma_col_2;
 
-  text('.bg-h', d.bg_heading);
+  // Background
+  text('.bg-h',      d.bg_heading);
+  text('.bg-tagline', d.bg_tagline);
   const bgPs = document.querySelectorAll('.bg-p');
   if (bgPs[0] && d.bg_p_1) bgPs[0].innerHTML = d.bg_p_1;
   if (bgPs[1] && d.bg_p_2) bgPs[1].innerHTML = d.bg_p_2;
 
+  // Video
+  if (d.video_url) {
+    const box = document.querySelector('.video-box');
+    if (box) {
+      const u = d.video_url;
+      let embed = '';
+      const ytId = u.match(/(?:v=|youtu\.be\/)([^&?/]+)/)?.[1];
+      const vmId = u.match(/vimeo\.com\/(\d+)/)?.[1];
+      if (ytId) {
+        embed = `<iframe src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen></iframe>`;
+      } else if (vmId) {
+        embed = `<iframe src="https://player.vimeo.com/video/${vmId}" frameborder="0" allowfullscreen></iframe>`;
+      } else {
+        embed = `<video src="${u}" autoplay muted loop playsinline></video>`;
+      }
+      box.innerHTML = embed;
+      box.querySelector('iframe,video').style.cssText = 'width:100%;height:100%;object-fit:cover;border:0;';
+    }
+  }
+
+  // Services
+  if (d.services) {
+    document.querySelectorAll('.svc-row').forEach((row, i) => {
+      const svc = d.services[i];
+      if (!svc) return;
+      const nameEl = row.querySelector('.svc-name');
+      const descEl = row.querySelector('.svc-desc');
+      const tagsEl = row.querySelector('.tags');
+      if (nameEl && svc.name) nameEl.textContent = svc.name;
+      if (descEl && svc.desc) descEl.textContent = svc.desc;
+      if (tagsEl && svc.tags) tagsEl.innerHTML = svc.tags.map(t => `<span class="tag">${t}</span>`).join('');
+    });
+  }
+
+  // Philosophy quote
   text('.phil-quote-muted',  d.phil_quote_muted);
   text('.phil-quote-bright', d.phil_quote_bright);
   html('.phil-center-text',  d.phil_center);
@@ -475,26 +537,17 @@ function injectContent(d) {
     });
   }
 
-  if (d.services) {
-    document.querySelectorAll('.svc-row').forEach((row, i) => {
-      const svc = d.services[i];
-      if (!svc) return;
-      const nameEl = row.querySelector('.svc-name');
-      const descEl = row.querySelector('.svc-desc');
-      const tagsEl = row.querySelector('.tags');
-      if (nameEl && svc.name) nameEl.innerHTML = svc.name.replace(/\n/g, '<br>');
-      if (descEl && svc.desc) descEl.textContent = svc.desc;
-      if (tagsEl && svc.tags) tagsEl.innerHTML = svc.tags.map(t => `<span class="tag">${t}</span>`).join('');
-    });
-  }
-
+  // Footer
+  text('.footer-eyebrow', d.footer_eyebrow);
+  const slides = document.querySelectorAll('.footer-cta-slide');
+  if (slides[0] && d.footer_slide_1) slides[0].textContent = d.footer_slide_1;
+  if (slides[2] && d.footer_slide_3) slides[2].textContent = d.footer_slide_3;
   if (d.contact_email) {
-    const slides = document.querySelectorAll('.footer-cta-slide');
     if (slides[1]) slides[1].textContent = d.contact_email;
     const btn = document.querySelector('[data-copy-button]');
     if (btn) btn.dataset.copyEmail = d.contact_email;
   }
-  text('.footer-eyebrow', d.footer_eyebrow);
+  text('.copyright', d.footer_copyright);
 }
 
 /* ─── INIT ────────────────────────────────────────────────── */

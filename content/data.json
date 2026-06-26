@@ -1,76 +1,77 @@
 {
-  "hero_words": [
-    "Music",
-    "Brands",
-    "Potential",
-    "Projects"
-  ],
+  "page_title": "Artakia — Brands Amplified",
+  "nav_cta": "Let's collaborate",
+
+  "hero_words": ["Music", "Brands", "Potential", "Projects"],
+  "hero_bold": "— amplified.",
+  "hero_location_city": "London",
+  "hero_location_world": "Worldwide",
   "hero_desc": "A London creative studio across <em>music, production and strategy.</em> We help artists and brands work out what to build &amp; build it.",
+  "hero_cta_label": "What we do",
+
   "about_heading": "The intersection is the point.",
   "about_lead": "Most of what's needed to succeed already exists. <em>The architecture is what's missing.</em>",
   "about_col_1": "Artakia was built on a simple belief: <em>great artists deserve great support.</em> We combine the reach of a major-distribution network with the intimacy and vision of an independent label.",
   "about_col_2": "Beyond music, we've evolved into a full creative collective spanning <em>entertainment, studio, digital strategy, and creative production</em> for artists, labels, and cultural brands ready to go global.",
-  "stats": {
-    "years": 5,
-    "streams": 30,
-    "viewers": 10
-  },
+
+  "stats": [
+    { "value": 5,   "label": "Years Operating",      "prefix": "+", "unit": "" },
+    { "value": 30,  "label": "Streams",              "prefix": "+", "unit": "MLN" },
+    { "value": 10,  "label": "Viewers & engagement", "prefix": "+", "unit": "MLN" },
+    { "value": 360, "label": "Full-service approach", "prefix": "°", "unit": "" }
+  ],
+
+  "partners": [
+    { "name": "AWAL",               "logo": "/assets/svg/logos/awal.svg" },
+    { "name": "Sony Music",         "logo": "/assets/svg/logos/sony music.svg" },
+    { "name": "The Orchard",        "logo": "/assets/svg/logos/orchard.svg" },
+    { "name": "Warner Music Group", "logo": "/assets/svg/logos/warnermusicgroup.svg" },
+    { "name": "Epic",               "logo": "/assets/svg/logos/epic.svg" },
+    { "name": "Loud Kult",          "logo": "/assets/svg/logos/loudKult.svg" }
+  ],
+
   "ma_col_1": "<em>Selective</em> by design. We work with a <em>few projects</em> at a time, so each one <em>gets the attention</em> it needs, keeping us close to the <em>artistic side</em>, the <em>business strategy</em> and the <em>music</em> behind them.",
   "ma_col_2": "An independent label music production studio, distributed globally through <em>The Orchard, a Sony Music company.</em>",
+
   "bg_heading": "Where the work comes from.",
+  "bg_tagline": "( layers of experience )",
   "bg_p_1": "Artakia draws on time spent across <em>four disciplines</em>. We have worked in <em>talent management</em>, representing leading screen talent and understanding how <em>reputation is built and protected</em>. In <em>media management</em>, positioning talent and projects across press and public.",
   "bg_p_2": "In social media marketing and <em>audience building</em>, building <em>presence that holds over time</em>. And in <em>video production</em> across every phase, from <em>concept to final cut</em>. Together these experiences gave us one place where talent management, <em>story, strategy and production</em> work as one.",
-  "phil_quote_muted": "The industry keeps building boxes.",
-  "phil_quote_bright": "We keep outgrowing them.",
-  "phil_center": "Every project starts with one question: <em>what does this need to do?</em> Data is not the opposite of art. It is the map that lets art <em>travel further.</em>",
-  "philosophy": [
-    {
-      "title": "Listening.",
-      "desc": "Understanding the feeling, before the form."
-    },
-    {
-      "title": "Amplifying.",
-      "desc": "Detecting potential. Multiplying it."
-    },
-    {
-      "title": "Producing.",
-      "desc": "End to end, what the work calls for."
-    },
-    {
-      "title": "Scaling.",
-      "desc": "Building infrastructure that lasts, beyond the moment."
-    }
-  ],
+
+  "video_url": "",
+
   "services": [
     {
-      "name": "Label &\nDevelopment",
+      "name": "Label & Development",
       "desc": "M.A Records — a private label within Artakia. Developing artists from the ground up: A&R, creative direction, commercial strategy, release planning. Global distribution through The Orchard · Sony Music.",
-      "tags": [
-        "A&R",
-        "Talent Management"
-      ]
+      "tags": ["A&R", "Talent Management"]
     },
     {
-      "name": "Production &\nContent",
+      "name": "Production & Content",
       "desc": "Photo and video production for artists and brands. Full-cycle delivery — from concept and creative direction to final cut.",
-      "tags": [
-        "Brand Content",
-        "Film",
-        "360°",
-        "Music Video"
-      ]
+      "tags": ["Brand Content", "Film", "360°", "Music Video"]
     },
     {
-      "name": "Strategy &\nMarketing",
+      "name": "Strategy & Marketing",
       "desc": "The most requested. Figuring out what should happen — and in what order. Campaigns, releases, brand identity, digital growth. Diagnosing before prescribing.",
-      "tags": [
-        "Release Strategy",
-        "Brand",
-        "Digital",
-        "Growth"
-      ]
+      "tags": ["Release Strategy", "Brand", "Digital", "Growth"]
     }
   ],
+
+  "phil_quote_muted": "The industry keeps building boxes.",
+  "phil_quote_bright": "We keep outgrowing them.",
+
+  "phil_center": "Every project starts with one question: <em>what does this need to do?</em> Data is not the opposite of art. It is the map that lets art <em>travel further.</em>",
+  "philosophy": [
+    { "title": "Listening.",   "desc": "Understanding the feeling, before the form." },
+    { "title": "Amplifying.", "desc": "Detecting potential. Multiplying it." },
+    { "title": "Producing.",  "desc": "End to end, what the work calls for." },
+    { "title": "Scaling.",    "desc": "Building infrastructure that lasts, beyond the moment." }
+  ],
+
+  "footer_eyebrow": "every dream needs a team",
+  "footer_slide_1": "Let's talk",
   "contact_email": "info@artakia.com",
-  "footer_eyebrow": "every dream needs a team"
+  "footer_slide_3": "Copied!",
+  "footer_copyright": "© 2026 Artakia · All rights reserved"
 }
