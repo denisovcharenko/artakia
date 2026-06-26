@@ -628,3 +628,104 @@ body:has([data-cursor]:hover) .cursor {
    PROGRESSIVE BLUR (disabled)
 ═══════════════════════════════════════════════════════ */
 .progressive-blur { display: none; }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Tablet (≤ 991px)
+═══════════════════════════════════════════════════════ */
+@media screen and (max-width: 991px) {
+
+  /* Nav */
+  .nav-links { display: none; }
+
+  /* Hero */
+  .hero    { height: auto; min-height: 100svh; padding-bottom: 2.25em; }
+  .hero-hl { font-size: 8em; }
+
+  /* Stats — 2×2 */
+  .stats { flex-wrap: wrap; }
+  .stat  { flex: 0 0 50%; height: auto; padding: 2em 2.25em; border-right: none; border-bottom: 1px solid var(--border); }
+  .stat:nth-child(odd)               { border-right: 1px solid var(--border); }
+  .stat:nth-last-child(1),
+  .stat:nth-last-child(2)            { border-bottom: none; }
+
+  /* About */
+  .about-inner { flex-direction: column; gap: 3em; }
+  .about-left, .about-right { width: 100%; }
+
+  /* M.A Records */
+  .ma-inner { flex-direction: column; gap: 3em; }
+  .ma-left, .ma-right { width: 100%; }
+
+  /* Background */
+  .bg-body  { padding-left: 0; }
+  .bg-texts { padding-left: 0; }
+
+  /* Services */
+  .svc-num     { display: none; }
+  .svc-content { flex-direction: column; gap: 1em; }
+  .svc-name    { width: 100%; }
+
+  /* Philosophy quote */
+  .phil-quote { padding-left: 2.25em; padding-right: 2.25em; }
+
+  /* Philosophy grid */
+  .phil-grid   { flex-direction: column; }
+  .phil-center { padding: 0 0 3em; justify-content: flex-start; }
+  .phil-right  { flex: none; width: 100%; }
+
+  /* Footer */
+  .footer-links { flex-direction: column; gap: 3em; }
+  .footer-cta   { width: 100%; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Mobile Landscape (≤ 767px)
+═══════════════════════════════════════════════════════ */
+@media screen and (max-width: 767px) {
+
+  /* Hero */
+  .hero-hl     { font-size: 5.5em; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2em; }
+
+  /* Philosophy quote */
+  .phil-quote-line { font-size: 4em; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE — Mobile Portrait (≤ 479px)
+═══════════════════════════════════════════════════════ */
+@media screen and (max-width: 479px) {
+
+  /* Nav */
+  .nav-cta { display: none; }
+
+  /* Hero */
+  .hero-hl { font-size: 4em; }
+
+  /* Display headings */
+  .about-h, .bg-h { font-size: 3.25em; }
+  .ma-h { font-size: 3.25em; white-space: normal; }
+
+  /* Stats — vertical */
+  .stats { flex-direction: column; }
+  .stat  { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+  .stat:last-child { border-bottom: none; }
+
+  /* Services */
+  .svc-row { padding: 2em 1.5em; }
+
+  /* Video box */
+  .video-box { height: 56vw; }
+
+  /* Philosophy quote */
+  .phil-quote-line { font-size: 3em; }
+
+  /* Philosophy grid — 1 column */
+  .phil-right { grid-template-columns: 1fr; }
+  .phil-item  { padding-right: 0; }
+
+  /* Footer */
+  .footer-nav-cols { flex-direction: column; gap: 2em; }
+  .footer-nc  { width: 100%; }
+  .footer-top { padding-top: 5em; }
+}
