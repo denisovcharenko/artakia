@@ -552,7 +552,7 @@ body:has([data-cursor]:hover) .cursor {
   padding: 0 9px;
 }
 .loading__percentage-wrap {
-  padding-bottom: 112px;
+  padding-bottom: 96px;
   margin-left: 6px;
 }
 .loading__percentage {
