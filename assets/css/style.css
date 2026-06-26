@@ -472,6 +472,7 @@ html, body {
 .cursor {
   position: fixed; inset: 0 auto auto 0;
   z-index: 999; pointer-events: none;
+  opacity: 0; visibility: hidden;
   width: 10px; height: 10px;
   background: var(--accent);
   border: 1px solid var(--accent);
