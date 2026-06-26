@@ -16,15 +16,97 @@ collections:
         file: content/data.json
         format: json
         fields:
-          - label: "Hero — Words (typewriter)"
+
+          # ── HERO ──────────────────────────────────────────────
+          - label: "Hero — Typewriter Words"
             name: hero_words
             widget: list
-            hint: "Words that cycle in the hero heading"
+            hint: "Words that cycle in the hero heading (Music, Brands, …)"
 
-          - label: Contact Email
-            name: contact_email
+          - label: "Hero — Description"
+            name: hero_desc
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          # ── ABOUT ─────────────────────────────────────────────
+          - label: "About — Heading"
+            name: about_heading
             widget: string
 
+          - label: "About — Lead"
+            name: about_lead
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          - label: "About — Column 1"
+            name: about_col_1
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          - label: "About — Column 2"
+            name: about_col_2
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          # ── STATS ─────────────────────────────────────────────
+          - label: Stats
+            name: stats
+            widget: object
+            fields:
+              - { label: "Years Operating", name: years,   widget: number }
+              - { label: "Streams (MLN)",   name: streams, widget: number }
+              - { label: "Viewers (MLN)",   name: viewers, widget: number }
+
+          # ── M.A RECORDS ───────────────────────────────────────
+          - label: "M.A Records — Column 1"
+            name: ma_col_1
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          - label: "M.A Records — Column 2"
+            name: ma_col_2
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          # ── BACKGROUND ────────────────────────────────────────
+          - label: "Background — Heading"
+            name: bg_heading
+            widget: string
+
+          - label: "Background — Paragraph 1"
+            name: bg_p_1
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          - label: "Background — Paragraph 2"
+            name: bg_p_2
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          # ── PHILOSOPHY QUOTE ──────────────────────────────────
+          - label: "Quote — Part 1 (dim)"
+            name: phil_quote_muted
+            widget: string
+
+          - label: "Quote — Part 2 (bright)"
+            name: phil_quote_bright
+            widget: string
+
+          # ── PHILOSOPHY GRID ───────────────────────────────────
+          - label: "Philosophy — Center Text"
+            name: phil_center
+            widget: text
+            hint: "Wrap emphasis with <em>…</em>"
+
+          - label: Philosophy Items
+            name: philosophy
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title,       name: title, widget: string }
+              - { label: Description, name: desc,  widget: string }
+
+          # ── SERVICES ──────────────────────────────────────────
           - label: Services
             name: services
             widget: list
@@ -35,3 +117,12 @@ collections:
               - label: Tags
                 name: tags
                 widget: list
+
+          # ── FOOTER ────────────────────────────────────────────
+          - label: "Contact Email"
+            name: contact_email
+            widget: string
+
+          - label: "Footer Eyebrow"
+            name: footer_eyebrow
+            widget: string

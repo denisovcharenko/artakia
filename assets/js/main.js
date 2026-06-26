@@ -432,6 +432,71 @@ function initCopyEmailClipboard() {
   });
 }
 
+/* ─── CONTENT INJECTION ──────────────────────────────────── */
+function injectContent(d) {
+  const html = (sel, val) => { const el = document.querySelector(sel); if (el && val != null) el.innerHTML = val; };
+  const text = (sel, val) => { const el = document.querySelector(sel); if (el && val != null) el.textContent = val; };
+
+  html('.hero-desc', d.hero_desc);
+
+  text('.about-h',   d.about_heading);
+  html('.about-lead', d.about_lead);
+  const aboutCols = document.querySelectorAll('.about-col');
+  if (aboutCols[0] && d.about_col_1) aboutCols[0].innerHTML = d.about_col_1;
+  if (aboutCols[1] && d.about_col_2) aboutCols[1].innerHTML = d.about_col_2;
+
+  if (d.stats) {
+    const targets = document.querySelectorAll('[data-odometer-target]');
+    if (targets[0] && d.stats.years   != null) targets[0].dataset.odometerTarget = d.stats.years;
+    if (targets[1] && d.stats.streams != null) targets[1].dataset.odometerTarget = d.stats.streams;
+    if (targets[2] && d.stats.viewers != null) targets[2].dataset.odometerTarget = d.stats.viewers;
+  }
+
+  const maCols = document.querySelectorAll('.ma-col');
+  if (maCols[0] && d.ma_col_1) maCols[0].innerHTML = d.ma_col_1;
+  if (maCols[1] && d.ma_col_2) maCols[1].innerHTML = d.ma_col_2;
+
+  text('.bg-h', d.bg_heading);
+  const bgPs = document.querySelectorAll('.bg-p');
+  if (bgPs[0] && d.bg_p_1) bgPs[0].innerHTML = d.bg_p_1;
+  if (bgPs[1] && d.bg_p_2) bgPs[1].innerHTML = d.bg_p_2;
+
+  text('.phil-quote-muted',  d.phil_quote_muted);
+  text('.phil-quote-bright', d.phil_quote_bright);
+  html('.phil-center-text',  d.phil_center);
+
+  if (d.philosophy) {
+    document.querySelectorAll('.phil-item').forEach((el, i) => {
+      if (!d.philosophy[i]) return;
+      const t = el.querySelector('.phil-title');
+      const p = el.querySelector('.phil-desc');
+      if (t) t.textContent = d.philosophy[i].title;
+      if (p) p.textContent = d.philosophy[i].desc;
+    });
+  }
+
+  if (d.services) {
+    document.querySelectorAll('.svc-row').forEach((row, i) => {
+      const svc = d.services[i];
+      if (!svc) return;
+      const nameEl = row.querySelector('.svc-name');
+      const descEl = row.querySelector('.svc-desc');
+      const tagsEl = row.querySelector('.tags');
+      if (nameEl && svc.name) nameEl.innerHTML = svc.name.replace(/\n/g, '<br>');
+      if (descEl && svc.desc) descEl.textContent = svc.desc;
+      if (tagsEl && svc.tags) tagsEl.innerHTML = svc.tags.map(t => `<span class="tag">${t}</span>`).join('');
+    });
+  }
+
+  if (d.contact_email) {
+    const slides = document.querySelectorAll('.footer-cta-slide');
+    if (slides[1]) slides[1].textContent = d.contact_email;
+    const btn = document.querySelector('[data-copy-button]');
+    if (btn) btn.dataset.copyEmail = d.contact_email;
+  }
+  text('.footer-eyebrow', d.footer_eyebrow);
+}
+
 /* ─── INIT ────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
   initBasicCustomCursor();
@@ -442,9 +507,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     const res  = await fetch('/content/data.json');
     const data = await res.json();
-    if (Array.isArray(data.hero_words) && data.hero_words.length) {
-      heroWords = data.hero_words;
-    }
+    if (Array.isArray(data.hero_words) && data.hero_words.length) heroWords = data.hero_words;
+    injectContent(data);
   } catch {}
 
   // 4.2s — enough for loader animation (≈ 3.95s) + brief overlap
