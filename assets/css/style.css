@@ -549,7 +549,7 @@ body:has([data-cursor]:hover) .cursor {
   font-size: 165px; font-weight: 600; font-style: normal;
   letter-spacing: -15px; line-height: 1;
   color: var(--text);
-  padding: 0 7px;
+  padding: 0 8px;
 }
 .loading__percentage-wrap {
   padding-bottom: 112px;
