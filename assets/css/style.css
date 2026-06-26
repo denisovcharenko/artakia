@@ -683,6 +683,9 @@ body:has([data-cursor]:hover) .cursor {
 ═══════════════════════════════════════════════════════ */
 @media screen and (max-width: 767px) {
 
+  /* Nav — progress-nav overflows at mobile widths */
+  .progress-nav { display: none; }
+
   /* Hero */
   .hero-hl     { font-size: 5.5em; }
   .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2em; }
@@ -706,6 +709,23 @@ body:has([data-cursor]:hover) .cursor {
   .about-h, .bg-h { font-size: 3.25em; }
   .ma-h { font-size: 3.25em; white-space: normal; }
 
+  /* Section padding — reduce for mobile */
+  .about     { padding: 4em 1.5em; }
+  .ma        { padding: 4em 1.5em; }
+  .bg-section { padding: 4em 1.5em; }
+  .work      { padding: 4em 1.5em; }
+  .services  { padding: 4em 0; }
+  .services > .label { padding-left: 1.5em; }
+  .phil-quote { padding-top: 4em; padding-bottom: 4em; }
+  .philosophy { padding: 4em 1.5em; }
+  .stats     { padding-bottom: 4em; }
+
+  /* About inner columns — stack */
+  .about-cols { flex-direction: column; }
+
+  /* M.A Records inner columns — stack */
+  .ma-cols { flex-direction: column; }
+
   /* Stats — vertical */
   .stats { flex-direction: column; }
   .stat  { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
@@ -728,4 +748,5 @@ body:has([data-cursor]:hover) .cursor {
   .footer-nav-cols { flex-direction: column; gap: 2em; }
   .footer-nc  { width: 100%; }
   .footer-top { padding-top: 5em; }
+  .footer-bottom-inner { flex-direction: column; align-items: center; gap: 0.75em; }
 }
