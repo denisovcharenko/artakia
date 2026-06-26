@@ -381,7 +381,7 @@ html, body {
 .footer-cta-row {
   display: flex; align-items: flex-end; justify-content: space-between;
   padding-bottom: 28px;
-  border-bottom: 1px solid var(--accent);
+  border-bottom: 4px solid var(--accent);
 }
 .footer-cta-text-wrap {
   font-size: 52px;
