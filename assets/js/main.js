@@ -19,7 +19,7 @@ function initLoaderThreeSteps() {
     onComplete() {
       gsap.to(screen, {
         yPercent: -100,
-        duration: 0.4,
+        duration: 0.6,
         ease: 'power3.inOut',
         onComplete() { container.style.display = 'none'; },
       });
@@ -31,26 +31,26 @@ function initLoaderThreeSteps() {
     .set('.loading__number-wrap',    { y: 0 })
 
     // Step 1 — 0 → 33
-    .to('.loading__progress-inner',          { scaleY: 0.33, duration: 0.45, ease: 'power2.inOut' })
-    .to('.is--second .loading__number-wrap', { y: -(3 * H), duration: 0.45, ease: 'power2.inOut' }, '<')
-    .to('.is--third  .loading__number-wrap', { y: -(3 * H), duration: 0.45, ease: 'power2.inOut' }, '<')
+    .to('.loading__progress-inner',          { scaleY: 0.33, duration: 0.68, ease: 'power2.inOut' })
+    .to('.is--second .loading__number-wrap', { y: -(3 * H), duration: 0.68, ease: 'power2.inOut' }, '<')
+    .to('.is--third  .loading__number-wrap', { y: -(3 * H), duration: 0.68, ease: 'power2.inOut' }, '<')
 
-    .to({}, { duration: 0.15 })
+    .to({}, { duration: 0.23 })
 
     // Step 2 — 33 → 67
-    .to('.loading__progress-inner',          { scaleY: 0.67, duration: 0.35, ease: 'power2.inOut' })
-    .to('.is--second .loading__number-wrap', { y: -(6 * H), duration: 0.35, ease: 'power2.inOut' }, '<')
-    .to('.is--third  .loading__number-wrap', { y: -(7 * H), duration: 0.35, ease: 'power2.inOut' }, '<')
+    .to('.loading__progress-inner',          { scaleY: 0.67, duration: 0.53, ease: 'power2.inOut' })
+    .to('.is--second .loading__number-wrap', { y: -(6 * H), duration: 0.53, ease: 'power2.inOut' }, '<')
+    .to('.is--third  .loading__number-wrap', { y: -(7 * H), duration: 0.53, ease: 'power2.inOut' }, '<')
 
-    .to({}, { duration: 0.13 })
+    .to({}, { duration: 0.19 })
 
     // Step 3 — 67 → 100
-    .to('.loading__progress-inner',          { scaleY: 1,        duration: 0.3, ease: 'power2.inOut' })
-    .to('.is--first  .loading__number-wrap', { y: -(1  * H),     duration: 0.3, ease: 'power2.inOut' }, '<')
-    .to('.is--second .loading__number-wrap', { y: -(10 * H),     duration: 0.3, ease: 'power2.inOut' }, '<')
-    .to('.is--third  .loading__number-wrap', { y: -(10 * H),     duration: 0.3, ease: 'power2.inOut' }, '<')
+    .to('.loading__progress-inner',          { scaleY: 1,        duration: 0.45, ease: 'power2.inOut' })
+    .to('.is--first  .loading__number-wrap', { y: -(1  * H),     duration: 0.45, ease: 'power2.inOut' }, '<')
+    .to('.is--second .loading__number-wrap', { y: -(10 * H),     duration: 0.45, ease: 'power2.inOut' }, '<')
+    .to('.is--third  .loading__number-wrap', { y: -(10 * H),     duration: 0.45, ease: 'power2.inOut' }, '<')
 
-    .to({}, { duration: 0.2 });
+    .to({}, { duration: 0.3 });
 }
 
 /* ─── 2. MASKED TEXT REVEAL (chars) ─────────────────────── */
@@ -400,12 +400,18 @@ function initBasicCustomCursor() {
   const cursor = document.querySelector('.cursor');
   if (!cursor) return;
 
-  gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+  gsap.set(cursor, { xPercent: -50, yPercent: -50, opacity: 0 });
 
   const xTo = gsap.quickTo(cursor, 'x', { duration: 0.6, ease: 'power3' });
   const yTo = gsap.quickTo(cursor, 'y', { duration: 0.6, ease: 'power3' });
 
+  let shown = false;
   window.addEventListener('mousemove', e => {
+    if (!shown) {
+      gsap.set(cursor, { x: e.clientX, y: e.clientY });
+      gsap.to(cursor, { opacity: 1, duration: 0.3 });
+      shown = true;
+    }
     xTo(e.clientX);
     yTo(e.clientY);
   });
@@ -564,8 +570,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     injectContent(data);
   } catch {}
 
-  // 2.3s — enough for loader animation (≈ 2.1s) + brief overlap
-  gsap.delayedCall(2.3, () => {
+  // 3.2s — enough for loader animation (≈ 3.0s) + brief overlap
+  gsap.delayedCall(3.2, () => {
     initTypewriter(heroWords);
     initMaskTextReveal();
     initNumberOdometer();
