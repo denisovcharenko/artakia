@@ -400,20 +400,20 @@ function initBasicCustomCursor() {
   const cursor = document.querySelector('.cursor');
   if (!cursor) return;
 
-  gsap.set(cursor, { xPercent: -50, yPercent: -50, opacity: 0 });
+  gsap.set(cursor, { xPercent: -50, yPercent: -50, autoAlpha: 0 });
 
   const xTo = gsap.quickTo(cursor, 'x', { duration: 0.6, ease: 'power3' });
   const yTo = gsap.quickTo(cursor, 'y', { duration: 0.6, ease: 'power3' });
 
-  let shown = false;
-  window.addEventListener('mousemove', e => {
-    if (!shown) {
-      gsap.set(cursor, { x: e.clientX, y: e.clientY });
-      gsap.to(cursor, { opacity: 1, duration: 0.3 });
-      shown = true;
-    }
-    xTo(e.clientX);
-    yTo(e.clientY);
+  window.addEventListener('mousemove', function onFirstMove(e) {
+    gsap.set(cursor, { x: e.clientX, y: e.clientY });
+    gsap.to(cursor, { autoAlpha: 1, duration: 0.4, ease: 'power2.out' });
+    window.removeEventListener('mousemove', onFirstMove);
+
+    window.addEventListener('mousemove', e => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+    });
   });
 }
 
