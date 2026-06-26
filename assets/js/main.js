@@ -389,6 +389,7 @@ function initSmoothScroll() {
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
+        document.body.removeAttribute('data-nav-open');
         gsap.to(window, { scrollTo: { y: target, offsetY: 72 }, duration: 0.9, ease: 'power3.inOut' });
       }
     });
@@ -556,10 +557,31 @@ function injectContent(d) {
   text('.copyright', d.footer_copyright);
 }
 
+/* ─── MOBILE NAV ─────────────────────────────────────────── */
+function initMobileNav() {
+  const toggle    = document.querySelector('[data-nav-toggle]');
+  const closeItems = document.querySelectorAll('[data-nav-close]');
+  if (!toggle) return;
+
+  function open()  { document.body.setAttribute('data-nav-open', '');  toggle.setAttribute('aria-expanded', 'true');  }
+  function close() { document.body.removeAttribute('data-nav-open');   toggle.setAttribute('aria-expanded', 'false'); }
+
+  toggle.addEventListener('click', () =>
+    document.body.hasAttribute('data-nav-open') ? close() : open()
+  );
+
+  closeItems.forEach(item => item.addEventListener('click', close));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.body.hasAttribute('data-nav-open')) close();
+  });
+}
+
 /* ─── INIT ────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
   initBasicCustomCursor();
   initCopyEmailClipboard();
+  initMobileNav();
   initLoaderThreeSteps();
 
   let heroWords = ['Music', 'Brands', 'Potential', 'Projects'];

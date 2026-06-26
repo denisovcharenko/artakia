@@ -625,6 +625,65 @@ body:has([data-cursor]:hover) .cursor {
 }
 
 /* ═══════════════════════════════════════════════════════
+   MOBILE NAV HAMBURGER
+═══════════════════════════════════════════════════════ */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 2.5em;
+  height: 2.5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.nav-hamburger__bar {
+  width: 22px;
+  height: 1.5px;
+  background: var(--text);
+  display: block;
+  border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(.65, 0, 0, 1), opacity 0.25s;
+}
+
+/* Mobile nav panel */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  z-index: 99;
+  background: var(--ground);
+  border-bottom: 1px solid var(--border);
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s cubic-bezier(.65, 0, 0, 1);
+}
+.mobile-nav__inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2.25em;
+}
+.mobile-nav__link {
+  font-size: 1.75em;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--dim);
+  text-decoration: none;
+  padding: 0.65em 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mobile-nav__link:first-child { border-top: 1px solid var(--border); }
+.mobile-nav__link:hover       { color: var(--text); }
+.mobile-nav__link--cta        { color: var(--accent); padding-bottom: 1.2em; }
+.mobile-nav__link--cta:hover  { color: var(--text); }
+
+/* ═══════════════════════════════════════════════════════
    PROGRESSIVE BLUR (disabled)
 ═══════════════════════════════════════════════════════ */
 .progressive-blur { display: none; }
@@ -683,12 +742,28 @@ body:has([data-cursor]:hover) .cursor {
 ═══════════════════════════════════════════════════════ */
 @media screen and (max-width: 767px) {
 
-  /* Nav — progress-nav overflows at mobile widths */
+  /* Nav — hide desktop elements, show hamburger */
   .progress-nav { display: none; }
+  .nav-cta      { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-nav   { display: grid; }
+
+  /* Hamburger open state */
+  body[data-nav-open] .mobile-nav { grid-template-rows: 1fr; }
+  body[data-nav-open] .nav-hamburger__bar:first-child { transform: translateY(3.75px) rotate(45deg); }
+  body[data-nav-open] .nav-hamburger__bar:last-child  { transform: translateY(-3.75px) rotate(-45deg); }
 
   /* Hero */
   .hero-hl     { font-size: 5.5em; }
   .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2em; }
+
+  /* About + MA — stack inner columns */
+  .about-cols { flex-direction: column; }
+  .ma-cols    { flex-direction: column; }
+
+  /* Philosophy center — left align */
+  .phil-center      { justify-content: flex-start; padding-bottom: 2em; }
+  .phil-center-text { text-align: left; max-width: 100%; }
 
   /* Philosophy quote */
   .phil-quote-line { font-size: 4em; }
@@ -726,10 +801,12 @@ body:has([data-cursor]:hover) .cursor {
   /* M.A Records inner columns — stack */
   .ma-cols { flex-direction: column; }
 
-  /* Stats — vertical */
+  /* Stats — vertical (override tablet nth-child specificity) */
   .stats { flex-direction: column; }
-  .stat  { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
-  .stat:last-child { border-bottom: none; }
+  .stat              { flex: none; width: 100%; border-bottom: 1px solid var(--border); }
+  .stat:nth-child(odd)    { border-right: none; }
+  .stat:nth-last-child(2) { border-bottom: 1px solid var(--border); }
+  .stat:last-child        { border-bottom: none; }
 
   /* Services */
   .svc-row { padding: 2em 1.5em; }
@@ -748,5 +825,17 @@ body:has([data-cursor]:hover) .cursor {
   .footer-nav-cols { flex-direction: column; gap: 2em; }
   .footer-nc  { width: 100%; }
   .footer-top { padding-top: 5em; }
-  .footer-bottom-inner { flex-direction: column; align-items: center; gap: 0.75em; }
+
+  /* Footer wordmark — smaller on mobile */
+  .footer-wordmark-text { font-size: 8em; }
+
+  /* Footer bottom — clean stack */
+  .footer-bottom-inner {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+  }
+  .copyright    { text-align: center; }
+  .designed-by  { justify-content: center; }
 }
