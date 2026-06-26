@@ -556,8 +556,43 @@ function injectContent(d) {
   text('.copyright', d.footer_copyright);
 }
 
+/* ─── NOISE OVERLAY ───────────────────────────────────────── */
+function initNoiseOverlay() {
+  const canvas = document.querySelector('.noise-overlay');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let w, h, imageData, data;
+
+  function resize() {
+    // 1/3 resolution scaled up — drastically reduces CPU while keeping visible grain
+    w = canvas.width  = Math.ceil(window.innerWidth  / 3);
+    h = canvas.height = Math.ceil(window.innerHeight / 3);
+    imageData = ctx.createImageData(w, h);
+    data = imageData.data;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  let lastTime = 0;
+  function render(time) {
+    requestAnimationFrame(render);
+    if (time - lastTime < 1000 / 20) return; // cap at 20fps
+    lastTime = time;
+    for (let i = 0; i < data.length; i += 4) {
+      const v = Math.random() * 255 | 0;
+      data[i] = data[i + 1] = data[i + 2] = v;
+      data[i + 3] = 255;
+    }
+    ctx.putImageData(imageData, 0, 0);
+  }
+  requestAnimationFrame(render);
+}
+
 /* ─── INIT ────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
+  initNoiseOverlay();
   initBasicCustomCursor();
   initCopyEmailClipboard();
   initLoaderThreeSteps();
