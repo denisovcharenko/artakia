@@ -13,7 +13,7 @@ function initLoaderThreeSteps() {
   const screen    = document.querySelector('.loading-screen');
   if (!container || !screen) return;
 
-  const H = 165; // must match CSS .loading__number-group { height: 165px }
+  const H = document.querySelector('.loading__number')?.offsetHeight || 165;
 
   const tl = gsap.timeline({
     onComplete() {
