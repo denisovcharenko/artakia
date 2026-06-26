@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: denisovcharenko/artakia
   branch: main
+  base_url: https://api.netlify.com
 
 locale: en
 
