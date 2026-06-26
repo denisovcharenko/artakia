@@ -811,6 +811,13 @@ body:has([data-cursor]:hover) .cursor {
   /* Services */
   .svc-row { padding: 2em 1.5em; }
 
+  /* Loader — scale down on mobile (JS reads offsetHeight from DOM) */
+  .loading__numbers       { left: 28px; bottom: 50px; }
+  .loading__number-group  { height: 103px; }
+  .loading__number        { height: 88px; font-size: 88px; letter-spacing: -8px; padding: 0 5px; }
+  .loading__percentage-wrap { padding-bottom: 52px; }
+  .loading__percentage    { font-size: 30px; letter-spacing: -7px; }
+
   /* Video box */
   .video-box { height: 56vw; }
 
