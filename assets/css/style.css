@@ -101,6 +101,7 @@ html, body {
   color: var(--ghost);
   overflow: hidden;
   padding-bottom: 42px;
+  position: relative; z-index: 0;
 }
 [data-typewriter] { display: inline-block; }
 .tw-char { display: inline-block; }
@@ -108,6 +109,7 @@ html, body {
   display: block; font-weight: 900; font-style: normal;
   color: var(--accent);
   margin-top: -42px;
+  position: relative; z-index: 1;
 }
 
 .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; }
@@ -439,7 +441,7 @@ html, body {
 }
 
 .footer-bottom {
-  padding: 9px 36px 40px;
+  padding: 28px 36px;
   display: flex; align-items: center; justify-content: center;
   border-top: 1px solid rgba(255, 255, 255, 0.04);
 }
@@ -447,7 +449,17 @@ html, body {
 .copyright { font-size: 14px; font-weight: 500; letter-spacing: -0.56px; color: #fff; opacity: .6; }
 .designed-by { display: flex; gap: 4px; align-items: center; }
 .designed-by .by  { font-size: 15px; font-weight: 500; letter-spacing: -0.6px; color: #faf5f5; opacity: .3; }
-.designed-by .who { font-size: 15px; font-weight: 500; letter-spacing: -0.6px; color: #faf5f5; }
+.designed-by .who {
+  font-size: 15px; font-weight: 500; letter-spacing: -0.6px; color: #faf5f5;
+  text-decoration: none; position: relative;
+}
+.designed-by .who::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s cubic-bezier(.65, 0, 0, 1);
+}
+.designed-by .who:hover::after { transform: scaleX(1); }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track, .footer-wordmark-track { animation: none; }
@@ -524,7 +536,8 @@ body:has([data-cursor]:hover) .cursor {
 }
 .loading__number-group {
   overflow: hidden;
-  height: 165px;
+  height: 180px;
+  padding-top: 15px;
 }
 .loading__number-wrap {
   display: flex; flex-direction: column;
@@ -553,8 +566,8 @@ body:has([data-cursor]:hover) .cursor {
 .progress-nav {
   position: absolute; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(6, 6, 6, 0.00) 0%, rgba(196, 212, 222, 0.07) 100%);
+  border: 1px solid rgba(196, 212, 222, 0.07);
   border-radius: 20px; padding: 4px;
   gap: 0;
   backdrop-filter: blur(12px);
