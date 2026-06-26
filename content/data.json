@@ -1,0 +1,21 @@
+{
+  "hero_words": ["Music", "Brands", "Potential", "Projects"],
+  "contact_email": "info@artakia.com",
+  "services": [
+    {
+      "name": "Label & Development",
+      "desc": "From zero to catalogue — we architect the label infrastructure, rights framework, and release pipeline that lets artists build lasting careers.",
+      "tags": ["Artist Management", "Label Setup", "Distribution", "Rights Management"]
+    },
+    {
+      "name": "Creative Direction",
+      "desc": "Identity, visual world, and campaign strategy unified into a single coherent voice that cuts through a saturated market.",
+      "tags": ["Brand Identity", "Art Direction", "Campaign Strategy", "Visual World"]
+    },
+    {
+      "name": "Sync & Licensing",
+      "desc": "Placing music in film, TV, ads, and games — negotiating deals that generate revenue while protecting the integrity of the work.",
+      "tags": ["Film & TV", "Advertising", "Games", "Publishing"]
+    }
+  ]
+}

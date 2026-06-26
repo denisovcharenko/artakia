@@ -1,0 +1,37 @@
+backend:
+  name: git-gateway
+  branch: main
+
+locale: en
+
+media_folder: assets/img
+public_folder: /assets/img
+
+collections:
+  - name: site
+    label: Site Content
+    files:
+      - name: data
+        label: Global Content
+        file: content/data.json
+        format: json
+        fields:
+          - label: "Hero — Words (typewriter)"
+            name: hero_words
+            widget: list
+            hint: "Words that cycle in the hero heading"
+
+          - label: Contact Email
+            name: contact_email
+            widget: string
+
+          - label: Services
+            name: services
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: Name,        name: name, widget: string }
+              - { label: Description, name: desc, widget: text   }
+              - label: Tags
+                name: tags
+                widget: list

@@ -244,11 +244,9 @@ function initDirectionalListHover() {
 }
 
 /* ─── 7. WORD CYCLING — char-by-char reveal ──────────────── */
-function initTypewriter() {
+function initTypewriter(words = ['Music', 'Brands', 'Potential', 'Projects']) {
   const el = document.querySelector('[data-typewriter]');
   if (!el) return;
-
-  const words = ['Music', 'Brands', 'Potential', 'Projects'];
   let current = 0;
 
   function buildChars(word) {
@@ -435,14 +433,23 @@ function initCopyEmailClipboard() {
 }
 
 /* ─── INIT ────────────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   initBasicCustomCursor();
   initCopyEmailClipboard();
   initLoaderThreeSteps();
 
+  let heroWords = ['Music', 'Brands', 'Potential', 'Projects'];
+  try {
+    const res  = await fetch('/content/data.json');
+    const data = await res.json();
+    if (Array.isArray(data.hero_words) && data.hero_words.length) {
+      heroWords = data.hero_words;
+    }
+  } catch {}
+
   // 4.2s — enough for loader animation (≈ 3.95s) + brief overlap
   gsap.delayedCall(4.2, () => {
-    initTypewriter();
+    initTypewriter(heroWords);
     initMaskTextReveal();
     initNumberOdometer();
     initProgressNavigation();
