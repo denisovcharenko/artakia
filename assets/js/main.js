@@ -13,7 +13,12 @@ function initLoaderThreeSteps() {
   const screen    = document.querySelector('.loading-screen');
   if (!container || !screen) return;
 
+  /* Read digit height while screen is hidden: temporarily reveal off-screen */
+  screen.style.visibility = 'hidden';
+  screen.style.display    = 'flex';
   const H = document.querySelector('.loading__number')?.offsetHeight || 165;
+  screen.style.display    = '';
+  screen.style.visibility = '';
 
   const tl = gsap.timeline({
     onComplete() {

@@ -754,8 +754,13 @@ body:has([data-cursor]:hover) .cursor {
   body[data-nav-open] .nav-hamburger__bar:last-child  { transform: translateY(-3.75px) rotate(-45deg); }
 
   /* Hero */
-  .hero-hl     { font-size: 5.5em; }
-  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 2em; }
+  .hero-hl      { font-size: 4em; }
+  .hero-hl-bold { white-space: nowrap; }
+  .hero-bottom  { flex-direction: column; align-items: flex-start; gap: 2em; }
+
+  /* Logo cards — narrower so 2-3 fit in view */
+  .logo-card     { width: 10em; height: 4em; }
+  .logo-card img { max-height: 1.5em; max-width: 7em; }
 
   /* About + MA — stack inner columns */
   .about-cols { flex-direction: column; }
@@ -778,7 +783,7 @@ body:has([data-cursor]:hover) .cursor {
   .nav-cta { display: none; }
 
   /* Hero */
-  .hero-hl { font-size: 4em; }
+  .hero-hl { font-size: 3em; }
 
   /* Display headings */
   .about-h, .bg-h { font-size: 3.25em; }
@@ -834,7 +839,7 @@ body:has([data-cursor]:hover) .cursor {
   .footer-top { padding-top: 5em; }
 
   /* Footer wordmark — smaller on mobile */
-  .footer-wordmark-text { font-size: 8em; }
+  .footer-wordmark-text { font-size: 5em; }
 
   /* Footer bottom — clean stack */
   .footer-bottom-inner {
