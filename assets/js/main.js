@@ -231,22 +231,22 @@ function initDirectionalListHover() {
         onEnter: () => {
           gsap.killTweensOf(tile);
           item.classList.add('is-svc-active');
-          gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.38, ease: 'power3.out', overwrite: true });
+          gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
         },
         onLeave: () => {
           gsap.killTweensOf(tile);
           item.classList.remove('is-svc-active');
-          gsap.to(tile, { yPercent: -102, duration: 0.3, ease: 'power3.in', overwrite: true });
+          gsap.to(tile, { yPercent: -102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
         },
         onEnterBack: () => {
           gsap.killTweensOf(tile);
           item.classList.add('is-svc-active');
-          gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.38, ease: 'power3.out', overwrite: true });
+          gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
         },
         onLeaveBack: () => {
           gsap.killTweensOf(tile);
           item.classList.remove('is-svc-active');
-          gsap.to(tile, { yPercent: 102, duration: 0.3, ease: 'power3.in', overwrite: true });
+          gsap.to(tile, { yPercent: 102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
         },
       });
     });
