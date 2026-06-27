@@ -414,7 +414,7 @@ html, body {
 .footer-cta-arrow img { width: 1.75em; height: 1.75em; }
 
 /* Footer wordmark marquee */
-.footer-wordmark-wrap { overflow: hidden; }
+.footer-wordmark-wrap { overflow-x: clip; }
 .footer-wordmark-track {
   display: flex; align-items: center; gap: 2em;
   width: max-content;
