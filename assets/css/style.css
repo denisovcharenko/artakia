@@ -788,7 +788,8 @@ body:has([data-cursor]:hover) .cursor {
   /* Nav */
   .nav-cta { display: none; }
 
-  /* Hero */
+  /* Hero — remove 100svh so partners marquee is visible in viewport */
+  .hero { min-height: 0; justify-content: flex-start; gap: 2.5em; padding-bottom: 2.25em; }
   .hero-hl { font-size: 3em; }
 
   /* Display headings */
