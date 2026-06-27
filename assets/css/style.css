@@ -748,10 +748,16 @@ body:has([data-cursor]:hover) .cursor {
   .nav-hamburger { display: flex; }
   .mobile-nav   { display: grid; }
 
+  /* Mobile nav — no bottom border */
+  .mobile-nav { border-bottom: none; }
+
   /* Hamburger open state */
   body[data-nav-open] .mobile-nav { grid-template-rows: 1fr; }
   body[data-nav-open] .nav-hamburger__bar:first-child { transform: translateY(3.75px) rotate(45deg); }
   body[data-nav-open] .nav-hamburger__bar:last-child  { transform: translateY(-3.75px) rotate(-45deg); }
+
+  /* Footer CTA — show email immediately (no hover on mobile) */
+  .footer-cta-slide { transform: translateY(-100%); }
 
   /* Hero */
   .hero-hl      { font-size: 4em; }
@@ -818,7 +824,7 @@ body:has([data-cursor]:hover) .cursor {
 
   /* Loader — scale down on mobile (JS reads offsetHeight from DOM) */
   .loading__numbers       { left: 28px; bottom: 50px; }
-  .loading__number-group  { height: 103px; }
+  .loading__number-group  { height: 96px; padding-top: 8px; }
   .loading__number        { height: 88px; font-size: 88px; letter-spacing: -8px; padding: 0 5px; }
   .loading__percentage-wrap { padding-bottom: 52px; }
   .loading__percentage    { font-size: 30px; letter-spacing: -7px; }
