@@ -846,7 +846,7 @@ body:has([data-cursor]:hover) .cursor {
   .nav-cta { display: none; }
 
   /* Hero — remove 100svh so partners marquee is visible in viewport */
-  .hero { min-height: 0; justify-content: flex-start; gap: 2.5em; padding-bottom: 1em; }
+  .hero { min-height: 0; justify-content: flex-start; gap: 2.5em; padding-left: 1em; padding-right: 1em; padding-bottom: 1em; }
   .hero-hl { font-size: 3.8em; }
   .hero-bottom { margin-top: 7em; }
   .hero-desc { font-size: 1.1em; }
@@ -865,7 +865,7 @@ body:has([data-cursor]:hover) .cursor {
   .work      { padding: 4em 1em; }
   .services  { padding: 4em 0; }
   .services > .label { padding-left: 1em; }
-  .phil-quote { padding-top: 4em; padding-bottom: 4em; }
+  .phil-quote { padding: 4em 1em; }
   .philosophy { padding: 4em 1em; }
   .stats     { padding: 0 1em 4em; }
 
