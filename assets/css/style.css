@@ -908,7 +908,7 @@ body:has([data-cursor]:hover) .cursor {
   .footer-wordmark-text { font-size: 6em; color: rgba(242, 240, 237, 0.14); }
 
   /* Logo cards — slightly brighter on small screens */
-  .logo-card { background: rgba(196, 212, 222, 0.08); border: 1px solid rgba(196, 212, 222, 0.13); }
+  .logo-card { background: rgba(196, 212, 222, 0.08); }
 
   /* Footer bottom — clean stack */
   .footer-bottom-inner {
