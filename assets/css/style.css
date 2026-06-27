@@ -463,7 +463,6 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .marquee-track, .footer-wordmark-track { animation: none; }
   .footer-wordmark-star { animation: none; }
-  .footer-wordmark-text .wm-char { opacity: 1 !important; transform: none !important; }
 }
 
 /* ═══════════════════════════════════════════════════════
