@@ -213,10 +213,12 @@ function initFooterParallax() {
   }
 }
 
-/* ─── 6. SERVICES SCROLL-ACTIVATED ROWS ─────────────────── */
+/* ─── 6. SERVICES — hover on desktop, scroll on touch ───── */
 function initDirectionalListHover() {
   const lists = document.querySelectorAll('[data-directional-hover]');
   if (!lists.length) return;
+
+  const useMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   lists.forEach(list => {
     list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
@@ -224,31 +226,52 @@ function initDirectionalListHover() {
       if (!tile) return;
       gsap.set(tile, { yPercent: 102 });
 
-      ScrollTrigger.create({
-        trigger: item,
-        start: 'top center',
-        end: 'bottom center',
-        onEnter: () => {
+      if (useMouse) {
+        /* Desktop / laptop — directional hover */
+        function getDir(e) {
+          const r = item.getBoundingClientRect();
+          return (e.clientY - r.top) < r.height / 2 ? -1 : 1;
+        }
+        item.addEventListener('mouseenter', e => {
+          const d = getDir(e);
           gsap.killTweensOf(tile);
           item.classList.add('is-svc-active');
-          gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
-        },
-        onLeave: () => {
+          gsap.fromTo(tile, { yPercent: d * 102 }, { yPercent: 0, duration: 0.22, ease: 'power3.out', overwrite: true });
+        });
+        item.addEventListener('mouseleave', e => {
+          const d = getDir(e);
           gsap.killTweensOf(tile);
           item.classList.remove('is-svc-active');
-          gsap.to(tile, { yPercent: -102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
-        },
-        onEnterBack: () => {
-          gsap.killTweensOf(tile);
-          item.classList.add('is-svc-active');
-          gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
-        },
-        onLeaveBack: () => {
-          gsap.killTweensOf(tile);
-          item.classList.remove('is-svc-active');
-          gsap.to(tile, { yPercent: 102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
-        },
-      });
+          gsap.to(tile, { yPercent: d * 102, duration: 0.2, ease: 'power3.in', overwrite: true });
+        });
+      } else {
+        /* Mobile / tablet — scroll-triggered */
+        ScrollTrigger.create({
+          trigger: item,
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => {
+            gsap.killTweensOf(tile);
+            item.classList.add('is-svc-active');
+            gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
+          },
+          onLeave: () => {
+            gsap.killTweensOf(tile);
+            item.classList.remove('is-svc-active');
+            gsap.to(tile, { yPercent: -102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
+          },
+          onEnterBack: () => {
+            gsap.killTweensOf(tile);
+            item.classList.add('is-svc-active');
+            gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
+          },
+          onLeaveBack: () => {
+            gsap.killTweensOf(tile);
+            item.classList.remove('is-svc-active');
+            gsap.to(tile, { yPercent: 102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
+          },
+        });
+      }
     });
   });
 }
