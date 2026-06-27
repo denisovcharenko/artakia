@@ -900,8 +900,8 @@ body:has([data-cursor]:hover) .cursor {
   .phil-item  { padding-right: 0; }
 
   /* Footer */
-  .footer-nav-cols { flex-direction: column; gap: 2em; }
-  .footer-nc  { width: 100%; }
+  .footer-nav-cols { flex-direction: row; gap: 0; }
+  .footer-nc  { flex: 1; width: auto; }
   .footer-top { padding-top: 5em; }
 
   /* Footer wordmark — smaller on mobile */
