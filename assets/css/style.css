@@ -905,6 +905,7 @@ body:has([data-cursor]:hover) .cursor {
   .footer-top { padding-top: 5em; }
 
   /* Footer wordmark — smaller on mobile */
+  .footer-eyebrow { font-size: 0.575em; }
   .footer-wordmark-text { font-size: 5em; }
 
   /* Footer bottom — clean stack */
