@@ -855,6 +855,7 @@ body:has([data-cursor]:hover) .cursor {
   /* Display headings */
   .about-h, .bg-h { font-size: 3.25em; }
   .ma-h { font-size: 3.25em; white-space: normal; }
+  .about-lead { font-size: 1.25em; }
 
   /* Section padding — reduce horizontal to 1em */
   .about     { padding: 4em 1em; }
