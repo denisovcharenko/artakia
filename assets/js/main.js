@@ -172,7 +172,43 @@ function initProgressNavigation() {
   }
 }
 
-/* ─── 5. FOOTER PARALLAX ────────────────────────────────── */
+/* ─── 5. FOOTER WORDMARK — CHAR REVEAL ──────────────────── */
+function initWordmarkCharReveal() {
+  const words = document.querySelectorAll('.footer-wordmark-text');
+  if (!words.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const CYCLE   = 9;
+  const APPEAR  = 0.48;
+  const STAGGER = 0.07;
+  const HOLD    = 2.8;
+  const FADEOUT = 0.4;
+
+  words.forEach((word, wi) => {
+    const letters = word.textContent.trim().split('');
+    word.textContent = '';
+    const chars = letters.map(ch => {
+      const s = document.createElement('span');
+      s.className = 'wm-char';
+      s.style.display = 'inline-block';
+      s.textContent = ch;
+      return s;
+    });
+    chars.forEach(s => word.appendChild(s));
+    gsap.set(chars, { opacity: 0, y: 18 });
+
+    const appearDuration = APPEAR + (chars.length - 1) * STAGGER;
+    const pause = Math.max(0, CYCLE - appearDuration - HOLD - FADEOUT);
+
+    gsap.timeline({ repeat: -1, delay: wi * (CYCLE / words.length) })
+      .to(chars, { opacity: 1, y: 0, duration: APPEAR, stagger: STAGGER, ease: 'power3.out' })
+      .to({}, { duration: HOLD })
+      .to(chars, { opacity: 0, duration: FADEOUT, ease: 'power2.in' })
+      .to({}, { duration: pause });
+  });
+}
+
+/* ─── 6. FOOTER PARALLAX ────────────────────────────────── */
 function initFooterParallax() {
   const wrapper = document.querySelector('[data-footer-parallax]');
   if (!wrapper) return;
@@ -625,6 +661,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initHighlightText();
     initFadeInReveal();
     initSmoothScroll();
+    initWordmarkCharReveal();
     ScrollTrigger.refresh();
   });
 });
