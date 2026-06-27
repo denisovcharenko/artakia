@@ -218,58 +218,37 @@ function initDirectionalListHover() {
   const lists = document.querySelectorAll('[data-directional-hover]');
   if (!lists.length) return;
 
-  const isDesktop = window.matchMedia('(hover: hover) and (min-width: 768px)').matches;
-
   lists.forEach(list => {
-    const items = list.querySelectorAll('[data-directional-hover-item]');
-
-    items.forEach(item => {
+    list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
       const tile = item.querySelector('[data-directional-hover-tile]');
       if (!tile) return;
       gsap.set(tile, { yPercent: 102 });
 
-      if (isDesktop) {
-        ScrollTrigger.create({
-          trigger: item,
-          start: 'top center',
-          end: 'bottom center',
-          onEnter: () => {
-            gsap.killTweensOf(tile);
-            item.classList.add('is-svc-active');
-            gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.38, ease: 'power3.out', overwrite: true });
-          },
-          onLeave: () => {
-            gsap.killTweensOf(tile);
-            item.classList.remove('is-svc-active');
-            gsap.to(tile, { yPercent: -102, duration: 0.3, ease: 'power3.in', overwrite: true });
-          },
-          onEnterBack: () => {
-            gsap.killTweensOf(tile);
-            item.classList.add('is-svc-active');
-            gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.38, ease: 'power3.out', overwrite: true });
-          },
-          onLeaveBack: () => {
-            gsap.killTweensOf(tile);
-            item.classList.remove('is-svc-active');
-            gsap.to(tile, { yPercent: 102, duration: 0.3, ease: 'power3.in', overwrite: true });
-          },
-        });
-      } else {
-        item.addEventListener('mouseenter', e => {
-          const r = item.getBoundingClientRect();
-          const d = (e.clientY - r.top) < r.height / 2 ? -1 : 1;
+      ScrollTrigger.create({
+        trigger: item,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => {
           gsap.killTweensOf(tile);
           item.classList.add('is-svc-active');
-          gsap.fromTo(tile, { yPercent: d * 102 }, { yPercent: 0, duration: 0.22, ease: 'power3.out', overwrite: true });
-        });
-        item.addEventListener('mouseleave', e => {
-          const r = item.getBoundingClientRect();
-          const d = (e.clientY - r.top) < r.height / 2 ? -1 : 1;
+          gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.38, ease: 'power3.out', overwrite: true });
+        },
+        onLeave: () => {
           gsap.killTweensOf(tile);
           item.classList.remove('is-svc-active');
-          gsap.to(tile, { yPercent: d * 102, duration: 0.2, ease: 'power3.in', overwrite: true });
-        });
-      }
+          gsap.to(tile, { yPercent: -102, duration: 0.3, ease: 'power3.in', overwrite: true });
+        },
+        onEnterBack: () => {
+          gsap.killTweensOf(tile);
+          item.classList.add('is-svc-active');
+          gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.38, ease: 'power3.out', overwrite: true });
+        },
+        onLeaveBack: () => {
+          gsap.killTweensOf(tile);
+          item.classList.remove('is-svc-active');
+          gsap.to(tile, { yPercent: 102, duration: 0.3, ease: 'power3.in', overwrite: true });
+        },
+      });
     });
   });
 }
