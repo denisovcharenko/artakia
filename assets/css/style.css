@@ -904,8 +904,8 @@ body:has([data-cursor]:hover) .cursor {
   .footer-nc  { flex: 1; width: auto; }
   .footer-top { padding-top: 5em; }
 
-  /* Footer wordmark — smaller on mobile; text must be light to contrast the dark footer */
-  .footer-wordmark-text { font-size: 5em; color: var(--text); }
+  /* Footer wordmark — larger so the subtle dark-on-dark effect stays perceptible */
+  .footer-wordmark-text { font-size: 8em; }
 
   /* Footer bottom — clean stack */
   .footer-bottom-inner {
