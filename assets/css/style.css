@@ -664,7 +664,7 @@ body:has([data-cursor]:hover) .cursor {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: calc(var(--nav-h) + 1.5em) 2.25em 2.25em;
+  padding: calc(var(--nav-h) + 1.5em) 1em 2.25em;
 }
 
 /* Nav links — fixed padding, sit at top */
