@@ -582,8 +582,9 @@ function injectContent(d) {
   if (slides[2] && d.footer_slide_3) slides[2].textContent = d.footer_slide_3;
   if (d.contact_email) {
     if (slides[1]) slides[1].textContent = d.contact_email;
-    const btn = document.querySelector('[data-copy-button]');
-    if (btn) btn.dataset.copyEmail = d.contact_email;
+    document.querySelectorAll('[data-copy-button]').forEach(btn => {
+      btn.dataset.copyEmail = d.contact_email;
+    });
   }
   text('.copyright', d.footer_copyright);
 }
