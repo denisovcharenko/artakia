@@ -213,37 +213,63 @@ function initFooterParallax() {
   }
 }
 
-/* ─── 6. DIRECTIONAL LIST HOVER ─────────────────────────── */
+/* ─── 6. SERVICES SCROLL-ACTIVATED ROWS ─────────────────── */
 function initDirectionalListHover() {
   const lists = document.querySelectorAll('[data-directional-hover]');
   if (!lists.length) return;
 
+  const isDesktop = window.matchMedia('(hover: hover) and (min-width: 768px)').matches;
+
   lists.forEach(list => {
-    list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
+    const items = list.querySelectorAll('[data-directional-hover-item]');
+
+    items.forEach(item => {
       const tile = item.querySelector('[data-directional-hover-tile]');
       if (!tile) return;
-
       gsap.set(tile, { yPercent: 102 });
 
-      function getDir(e) {
-        const r = item.getBoundingClientRect();
-        return (e.clientY - r.top) < r.height / 2 ? -1 : 1;
+      if (isDesktop) {
+        ScrollTrigger.create({
+          trigger: item,
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => {
+            gsap.killTweensOf(tile);
+            item.classList.add('is-svc-active');
+            gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.38, ease: 'power3.out', overwrite: true });
+          },
+          onLeave: () => {
+            gsap.killTweensOf(tile);
+            item.classList.remove('is-svc-active');
+            gsap.to(tile, { yPercent: -102, duration: 0.3, ease: 'power3.in', overwrite: true });
+          },
+          onEnterBack: () => {
+            gsap.killTweensOf(tile);
+            item.classList.add('is-svc-active');
+            gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.38, ease: 'power3.out', overwrite: true });
+          },
+          onLeaveBack: () => {
+            gsap.killTweensOf(tile);
+            item.classList.remove('is-svc-active');
+            gsap.to(tile, { yPercent: 102, duration: 0.3, ease: 'power3.in', overwrite: true });
+          },
+        });
+      } else {
+        item.addEventListener('mouseenter', e => {
+          const r = item.getBoundingClientRect();
+          const d = (e.clientY - r.top) < r.height / 2 ? -1 : 1;
+          gsap.killTweensOf(tile);
+          item.classList.add('is-svc-active');
+          gsap.fromTo(tile, { yPercent: d * 102 }, { yPercent: 0, duration: 0.22, ease: 'power3.out', overwrite: true });
+        });
+        item.addEventListener('mouseleave', e => {
+          const r = item.getBoundingClientRect();
+          const d = (e.clientY - r.top) < r.height / 2 ? -1 : 1;
+          gsap.killTweensOf(tile);
+          item.classList.remove('is-svc-active');
+          gsap.to(tile, { yPercent: d * 102, duration: 0.2, ease: 'power3.in', overwrite: true });
+        });
       }
-
-      item.addEventListener('mouseenter', e => {
-        const d = getDir(e);
-        gsap.killTweensOf(tile);
-        gsap.fromTo(tile,
-          { yPercent: d * 102 },
-          { yPercent: 0, duration: 0.22, ease: 'power3.out', overwrite: true }
-        );
-      });
-
-      item.addEventListener('mouseleave', e => {
-        const d = getDir(e);
-        gsap.killTweensOf(tile);
-        gsap.to(tile, { yPercent: d * 102, duration: 0.2, ease: 'power3.in', overwrite: true });
-      });
     });
   });
 }
@@ -564,12 +590,21 @@ function injectContent(d) {
 
 /* ─── MOBILE NAV ─────────────────────────────────────────── */
 function initMobileNav() {
-  const toggle    = document.querySelector('[data-nav-toggle]');
+  const toggle     = document.querySelector('[data-nav-toggle]');
+  const mobileNav  = document.querySelector('[data-mobile-nav]');
   const closeItems = document.querySelectorAll('[data-nav-close]');
   if (!toggle) return;
 
-  function open()  { document.body.setAttribute('data-nav-open', '');  toggle.setAttribute('aria-expanded', 'true');  }
-  function close() { document.body.removeAttribute('data-nav-open');   toggle.setAttribute('aria-expanded', 'false'); }
+  function open() {
+    document.body.setAttribute('data-nav-open', '');
+    toggle.setAttribute('aria-expanded', 'true');
+    mobileNav?.setAttribute('aria-hidden', 'false');
+  }
+  function close() {
+    document.body.removeAttribute('data-nav-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    mobileNav?.setAttribute('aria-hidden', 'true');
+  }
 
   toggle.addEventListener('click', () =>
     document.body.hasAttribute('data-nav-open') ? close() : open()
