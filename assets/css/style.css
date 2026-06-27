@@ -849,22 +849,24 @@ body:has([data-cursor]:hover) .cursor {
   .hero { min-height: 0; justify-content: flex-start; gap: 2.5em; padding-bottom: 1em; }
   .hero-hl { font-size: 3.8em; }
   .hero-bottom { margin-top: 7em; }
+  .hero-desc { font-size: 1.1em; }
   .marquee { padding: 1.5em 0; }
 
   /* Display headings */
   .about-h, .bg-h { font-size: 3.25em; }
   .ma-h { font-size: 3.25em; white-space: normal; }
 
-  /* Section padding — reduce for mobile */
-  .about     { padding: 4em 1.5em; }
-  .ma        { padding: 4em 1.5em; }
-  .bg-section { padding: 4em 1.5em; }
-  .work      { padding: 4em 1.5em; }
+  /* Section padding — reduce horizontal to 1em */
+  .about     { padding: 4em 1em; }
+  .ma        { padding: 4em 1em; }
+  .bg-section { padding: 4em 1em; }
+  .bg-tagline { font-size: 1.25em; }
+  .work      { padding: 4em 1em; }
   .services  { padding: 4em 0; }
-  .services > .label { padding-left: 1.5em; }
+  .services > .label { padding-left: 1em; }
   .phil-quote { padding-top: 4em; padding-bottom: 4em; }
-  .philosophy { padding: 4em 1.5em; }
-  .stats     { padding-bottom: 4em; }
+  .philosophy { padding: 4em 1em; }
+  .stats     { padding: 0 1em 4em; }
 
   /* About inner columns — stack */
   .about-cols { flex-direction: column; }
@@ -872,15 +874,15 @@ body:has([data-cursor]:hover) .cursor {
   /* M.A Records inner columns — stack */
   .ma-cols { flex-direction: column; }
 
-  /* Stats — vertical (override tablet nth-child specificity) */
+  /* Stats — vertical, left-aligned */
   .stats { flex-direction: column; }
-  .stat              { flex: none; width: 100%; border-bottom: 1px solid var(--border); }
+  .stat              { flex: none; width: 100%; padding: 1.5em 0; border-bottom: 1px solid var(--border); }
   .stat:nth-child(odd)    { border-right: none; }
   .stat:nth-last-child(2) { border-bottom: 1px solid var(--border); }
   .stat:last-child        { border-bottom: none; }
 
   /* Services */
-  .svc-row { padding: 2em 1.5em; }
+  .svc-row { padding: 1.5em 1em; }
 
   /* Loader — scale down on mobile (JS reads offsetHeight from DOM) */
   .loading__numbers       { left: 28px; bottom: 50px; }
@@ -893,7 +895,7 @@ body:has([data-cursor]:hover) .cursor {
   .video-box { height: 56vw; }
 
   /* Philosophy quote */
-  .phil-quote-line { font-size: 3em; }
+  .phil-quote-line { font-size: 2.5em; }
 
   /* Philosophy grid — 1 column */
   .phil-right { grid-template-columns: 1fr; }
@@ -902,7 +904,8 @@ body:has([data-cursor]:hover) .cursor {
   /* Footer */
   .footer-nav-cols { flex-direction: row; gap: 2.5em; }
   .footer-nc  { flex: 1; width: auto; }
-  .footer-top { padding-top: 5em; }
+  .footer-top { padding: 5em 1em 3em; }
+  .footer-bottom { padding-left: 1em; padding-right: 1em; }
 
   /* Footer wordmark — slightly lighter than desktop dark-on-dark */
   .footer-wordmark-text { font-size: 6em; color: rgba(242, 240, 237, 0.14); }
@@ -910,13 +913,14 @@ body:has([data-cursor]:hover) .cursor {
   /* Logo cards — slightly brighter on small screens */
   .logo-card { background: rgba(196, 212, 222, 0.08); }
 
-  /* Footer bottom — clean stack */
+  /* Footer bottom — copyright left, website-by right */
   .footer-bottom-inner {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5em;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1em;
   }
-  .copyright    { text-align: center; }
-  .designed-by  { justify-content: center; }
+  .copyright     { text-align: left; }
+  .copyright-sub { display: block; }
+  .designed-by   { flex-direction: column; align-items: flex-end; gap: 1px; }
 }
