@@ -425,7 +425,14 @@ html, body {
   letter-spacing: -0.049em; line-height: 1.2;
   text-transform: uppercase; color: #0e0e0e;
   white-space: nowrap; user-select: none;
+  animation: wm-appear 9s ease-in-out infinite;
 }
+/* Wave stagger — each "Artakia" is 1.5 s ahead in the cycle */
+.footer-wordmark-text:nth-child(3)  { animation-delay: -1.5s; }
+.footer-wordmark-text:nth-child(5)  { animation-delay: -3.0s; }
+.footer-wordmark-text:nth-child(7)  { animation-delay: -4.5s; }
+.footer-wordmark-text:nth-child(9)  { animation-delay: -6.0s; }
+.footer-wordmark-text:nth-child(11) { animation-delay: -7.5s; }
 .footer-wordmark-star {
   width: 3.25em; height: 3.25em; flex-shrink: 0;
   animation: star-spin 8s linear infinite;
@@ -433,6 +440,11 @@ html, body {
 @keyframes wm-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+@keyframes wm-appear {
+  0%, 5%    { opacity: 0; transform: translateY(20px); }
+  22%, 78%  { opacity: 1; transform: translateY(0); }
+  95%, 100% { opacity: 0; transform: translateY(20px); }
 }
 @keyframes star-spin {
   from { transform: rotate(0deg); }
@@ -463,6 +475,7 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .marquee-track, .footer-wordmark-track { animation: none; }
   .footer-wordmark-star { animation: none; }
+  .footer-wordmark-text { animation: none; opacity: 1; transform: none; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -904,8 +917,8 @@ body:has([data-cursor]:hover) .cursor {
   .footer-nc  { flex: 1; width: auto; }
   .footer-top { padding-top: 5em; }
 
-  /* Footer wordmark — larger so the subtle dark-on-dark effect stays perceptible */
-  .footer-wordmark-text { font-size: 8em; }
+  /* Footer wordmark — slightly lighter than desktop dark-on-dark */
+  .footer-wordmark-text { font-size: 8em; color: rgba(242, 240, 237, 0.14); }
 
   /* Footer bottom — clean stack */
   .footer-bottom-inner {
