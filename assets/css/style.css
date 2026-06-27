@@ -895,7 +895,7 @@ body:has([data-cursor]:hover) .cursor {
   .video-box { height: 56vw; }
 
   /* Philosophy quote */
-  .phil-quote-line { font-size: 2.5em; }
+  .phil-quote-line { font-size: 1.75em; }
 
   /* Philosophy grid — 1 column */
   .phil-right { grid-template-columns: 1fr; }
