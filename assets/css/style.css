@@ -287,7 +287,7 @@ html, body {
 ═══════════════════════════════════════════════════════ */
 .work { padding: 7.5em 2.25em; display: flex; flex-direction: column; gap: 2.5em; }
 .video-box {
-  background: #fff; height: 44.625em;
+  background: var(--ground); height: 44.625em;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
