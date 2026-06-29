@@ -285,7 +285,8 @@ html, body {
 /* ═══════════════════════════════════════════════════════
    SELECTED WORK
 ═══════════════════════════════════════════════════════ */
-.work { padding: 7.5em 2.25em; display: flex; flex-direction: column; gap: 2.5em; }
+.work { padding: 7.5em 0 0; display: flex; flex-direction: column; gap: 2.5em; }
+.work > .label { padding-left: 2.25em; }
 .video-box {
   background: var(--ground); height: 44.625em;
   display: flex; align-items: center; justify-content: center;
@@ -862,7 +863,8 @@ body:has([data-cursor]:hover) .cursor {
   .ma        { padding: 4em 1em; }
   .bg-section { padding: 4em 1em; }
   .bg-tagline { font-size: 1.25em; }
-  .work      { padding: 4em 1em; }
+  .work      { padding: 4em 0 0; }
+  .work > .label { padding-left: 1.5em; }
   .services  { padding: 4em 0; }
   .services > .label { padding-left: 1em; }
   .phil-quote { padding: 4em 1em; }
