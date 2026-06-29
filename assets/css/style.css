@@ -583,7 +583,8 @@ body:has([data-cursor]:hover) .cursor {
   background: none; border: none; cursor: pointer;
   border-radius: 0.875em; transition: color .2s; white-space: nowrap;
 }
-.progress-nav__btn.active { color: var(--ground); }
+.progress-nav__btn.active,
+.progress-nav__btn.active:hover { color: var(--ground); }
 .progress-nav__btn:hover  { color: var(--text); }
 
 /* ═══════════════════════════════════════════════════════
