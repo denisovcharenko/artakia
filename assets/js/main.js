@@ -632,7 +632,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let heroWords = ['Music', 'Brands', 'Potential', 'Projects'];
   try {
-    const res  = await fetch('/content/data.json');
+    const res  = await fetch('/content/data.json?v=' + Date.now());
     const data = await res.json();
     if (Array.isArray(data.hero_words) && data.hero_words.length) heroWords = data.hero_words;
     injectContent(data);
