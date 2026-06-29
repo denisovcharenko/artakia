@@ -534,9 +534,12 @@ function injectContent(d) {
     if (box) {
       const u = d.video_url;
       let embed = '';
-      const ytId = u.match(/(?:v=|youtu\.be\/)([^&?/]+)/)?.[1];
+      const isYtEmbed = u.includes('youtube.com/embed/');
+      const ytId = !isYtEmbed && u.match(/(?:v=|youtu\.be\/)([^&?/]+)/)?.[1];
       const vmId = u.match(/vimeo\.com\/(\d+)/)?.[1];
-      if (ytId) {
+      if (isYtEmbed) {
+        embed = `<iframe src="${u}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+      } else if (ytId) {
         embed = `<iframe src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen></iframe>`;
       } else if (vmId) {
         embed = `<iframe src="https://player.vimeo.com/video/${vmId}" frameborder="0" allowfullscreen></iframe>`;
