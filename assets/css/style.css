@@ -288,9 +288,18 @@ html, body {
 .work { padding: 7.5em 0 0; display: flex; flex-direction: column; gap: 2.5em; }
 .work > .label { padding-left: 2.25em; }
 .video-box {
-  background: var(--ground); height: 44.625em;
-  display: flex; align-items: center; justify-content: center;
+  background: var(--ground);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
   overflow: hidden;
+}
+.video-box iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 .video-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .video-box .video-placeholder-label {
@@ -895,7 +904,6 @@ body:has([data-cursor]:hover) .cursor {
   .loading__percentage    { font-size: 30px; letter-spacing: -7px; }
 
   /* Video box */
-  .video-box { height: 56vw; }
 
   /* Philosophy quote */
   .phil-quote-line { font-size: 2.25em; }
