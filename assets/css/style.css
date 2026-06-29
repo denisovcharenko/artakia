@@ -562,7 +562,7 @@ body:has([data-cursor]:hover) .cursor {
    PROGRESS NAV
 ═══════════════════════════════════════════════════════ */
 .progress-nav {
-  position: absolute; left: 54%; transform: translateX(-50%);
+  position: absolute; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center;
   background: radial-gradient(50% 50% at 50% 50%, rgba(6, 6, 6, 0.00) 0%, rgba(196, 212, 222, 0.07) 100%);
   border: 1px solid rgba(196, 212, 222, 0.07);
@@ -572,7 +572,7 @@ body:has([data-cursor]:hover) .cursor {
 .progress-nav__indicator {
   position: absolute; top: 4px; left: 4px;
   height: calc(100% - 8px);
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--accent);
   border-radius: 0.875em; pointer-events: none; width: 3.75em;
 }
 .progress-nav__btn {
@@ -583,7 +583,7 @@ body:has([data-cursor]:hover) .cursor {
   background: none; border: none; cursor: pointer;
   border-radius: 0.875em; transition: color .2s; white-space: nowrap;
 }
-.progress-nav__btn.active { color: var(--text); }
+.progress-nav__btn.active { color: var(--ground); }
 .progress-nav__btn:hover  { color: var(--text); }
 
 /* ═══════════════════════════════════════════════════════
