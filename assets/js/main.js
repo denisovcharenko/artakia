@@ -251,8 +251,8 @@ function initDirectionalListHover() {
         /* Mobile — instant trigger at center crossing */
         ScrollTrigger.create({
           trigger: item,
-          start: 'top center',
-          end:   'bottom center',
+          start: 'top 40%',
+          end:   'bottom 40%',
           onEnter: () => {
             gsap.killTweensOf(tile);
             item.classList.add('is-svc-active');
