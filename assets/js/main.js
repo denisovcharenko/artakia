@@ -217,29 +217,37 @@ function initFooterParallax() {
 function initSvcHoverDesktop() {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
+  const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+
   document.querySelectorAll('[data-directional-hover]').forEach(list => {
     list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
       const tile = item.querySelector('[data-directional-hover-tile]');
       if (!tile) return;
 
-      gsap.set(tile, { yPercent: 102 });
+      /* Start hidden below */
+      tile.style.transform  = 'translateY(102%)';
+      tile.style.transition = `transform 0.6s ${EASE}`;
 
       function getDir(e) {
         const r = item.getBoundingClientRect();
-        return (e.clientY - r.top) < r.height / 2 ? -1 : 1;
+        return (e.clientY - r.top) < r.height / 2 ? 'top' : 'bottom';
       }
 
       item.addEventListener('mouseenter', e => {
-        const d = getDir(e);
+        const dir = getDir(e);
         item.classList.add('is-svc-active');
-        gsap.set(tile, { yPercent: d * 102 });
-        gsap.to(tile, { yPercent: 0, duration: 0.6, ease: 'expo.out', overwrite: true });
+        /* Snap to entry edge (no transition), force reflow, then animate in */
+        tile.style.transition = 'none';
+        tile.style.transform  = dir === 'top' ? 'translateY(-102%)' : 'translateY(102%)';
+        void tile.offsetHeight;
+        tile.style.transition = `transform 0.6s ${EASE}`;
+        tile.style.transform  = 'translateY(0%)';
       });
 
       item.addEventListener('mouseleave', e => {
-        const d = getDir(e);
+        const dir = getDir(e);
         item.classList.remove('is-svc-active');
-        gsap.to(tile, { yPercent: d * 102, duration: 0.5, ease: 'expo.out', overwrite: true });
+        tile.style.transform = dir === 'top' ? 'translateY(-102%)' : 'translateY(102%)';
       });
     });
   });
