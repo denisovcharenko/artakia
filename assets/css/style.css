@@ -901,6 +901,7 @@ body:has([data-cursor]:hover) .cursor {
   /* Philosophy grid */
   .phil-grid   { flex-direction: column; }
   .phil-center { padding: 0 0 3em; justify-content: flex-start; }
+  .phil-center-text { text-align: left; max-width: 100%; }
   .phil-right  { flex: none; width: 100%; }
 
   /* Footer */
