@@ -213,68 +213,74 @@ function initFooterParallax() {
   }
 }
 
-/* ─── 6. SERVICES — hover on desktop, scroll on touch ───── */
-function initDirectionalListHover() {
-  const lists = document.querySelectorAll('[data-directional-hover]');
-  if (!lists.length) return;
+/* ─── 6a. SERVICES — desktop hover (init immediately) ───── */
+function initSvcHoverDesktop() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
-  const useMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  lists.forEach(list => {
+  document.querySelectorAll('[data-directional-hover]').forEach(list => {
     list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
       const tile = item.querySelector('[data-directional-hover-tile]');
       if (!tile) return;
 
       gsap.set(tile, { yPercent: 102 });
 
-      if (useMouse) {
-        /* Desktop — Osmo pattern: snap to entry edge → expo.out slide in */
-        function getDir(e) {
-          const r = item.getBoundingClientRect();
-          return (e.clientY - r.top) < r.height / 2 ? -1 : 1;
-        }
-
-        item.addEventListener('mouseenter', e => {
-          const d = getDir(e);
-          item.classList.add('is-svc-active');
-          gsap.set(tile, { yPercent: d * 102 });
-          gsap.to(tile, { yPercent: 0, duration: 0.6, ease: 'expo.out', overwrite: true });
-        });
-
-        item.addEventListener('mouseleave', e => {
-          const d = getDir(e);
-          item.classList.remove('is-svc-active');
-          gsap.to(tile, { yPercent: d * 102, duration: 0.5, ease: 'expo.out', overwrite: true });
-        });
-
-      } else {
-        /* Mobile — instant trigger at center crossing */
-        ScrollTrigger.create({
-          trigger: item,
-          start: 'top 35%',
-          end:   'bottom 35%',
-          onEnter: () => {
-            gsap.killTweensOf(tile);
-            item.classList.add('is-svc-active');
-            gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
-          },
-          onLeave: () => {
-            gsap.killTweensOf(tile);
-            item.classList.remove('is-svc-active');
-            gsap.to(tile, { yPercent: -102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
-          },
-          onEnterBack: () => {
-            gsap.killTweensOf(tile);
-            item.classList.add('is-svc-active');
-            gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
-          },
-          onLeaveBack: () => {
-            gsap.killTweensOf(tile);
-            item.classList.remove('is-svc-active');
-            gsap.to(tile, { yPercent: 102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
-          },
-        });
+      function getDir(e) {
+        const r = item.getBoundingClientRect();
+        return (e.clientY - r.top) < r.height / 2 ? -1 : 1;
       }
+
+      item.addEventListener('mouseenter', e => {
+        const d = getDir(e);
+        item.classList.add('is-svc-active');
+        gsap.set(tile, { yPercent: d * 102 });
+        gsap.to(tile, { yPercent: 0, duration: 0.6, ease: 'expo.out', overwrite: true });
+      });
+
+      item.addEventListener('mouseleave', e => {
+        const d = getDir(e);
+        item.classList.remove('is-svc-active');
+        gsap.to(tile, { yPercent: d * 102, duration: 0.5, ease: 'expo.out', overwrite: true });
+      });
+    });
+  });
+}
+
+/* ─── 6b. SERVICES — mobile scroll (init after loader) ──── */
+function initSvcScrollMobile() {
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  document.querySelectorAll('[data-directional-hover]').forEach(list => {
+    list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
+      const tile = item.querySelector('[data-directional-hover-tile]');
+      if (!tile) return;
+
+      gsap.set(tile, { yPercent: 102 });
+
+      ScrollTrigger.create({
+        trigger: item,
+        start: 'top 35%',
+        end:   'bottom 35%',
+        onEnter: () => {
+          gsap.killTweensOf(tile);
+          item.classList.add('is-svc-active');
+          gsap.fromTo(tile, { yPercent: 102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
+        },
+        onLeave: () => {
+          gsap.killTweensOf(tile);
+          item.classList.remove('is-svc-active');
+          gsap.to(tile, { yPercent: -102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
+        },
+        onEnterBack: () => {
+          gsap.killTweensOf(tile);
+          item.classList.add('is-svc-active');
+          gsap.fromTo(tile, { yPercent: -102 }, { yPercent: 0, duration: 0.65, ease: 'power2.out', overwrite: true });
+        },
+        onLeaveBack: () => {
+          gsap.killTweensOf(tile);
+          item.classList.remove('is-svc-active');
+          gsap.to(tile, { yPercent: 102, duration: 0.55, ease: 'power2.inOut', overwrite: true });
+        },
+      });
     });
   });
 }
@@ -631,6 +637,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initBasicCustomCursor();
   initCopyEmailClipboard();
   initMobileNav();
+  initSvcHoverDesktop();
   initLoaderThreeSteps();
 
   let heroWords = ['Music', 'Brands', 'Potential', 'Projects'];
@@ -648,7 +655,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initNumberOdometer();
     initProgressNavigation();
     initFooterParallax();
-    initDirectionalListHover();
+    initSvcScrollMobile();
     initMaTextReveal();
     initBgTextReveal();
     initHighlightText();
