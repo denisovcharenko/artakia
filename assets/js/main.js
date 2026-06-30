@@ -141,8 +141,16 @@ function initProgressNavigation() {
   function activate(target) {
     buttons.forEach(b => b.classList.remove('active'));
     const btn = navList.querySelector(`[data-progress-nav-target="${target}"]`);
-    if (btn) { btn.classList.add('active'); moveIndicator(btn); }
+    if (btn) {
+      btn.classList.add('active');
+      moveIndicator(btn);
+      gsap.to(indicator, { opacity: 1, duration: 0.3 });
+    } else {
+      gsap.to(indicator, { opacity: 0, duration: 0.3 });
+    }
   }
+
+  gsap.set(indicator, { opacity: 0 });
 
   buttons.forEach(btn => {
     btn.addEventListener('click', e => {
@@ -173,10 +181,6 @@ function initProgressNavigation() {
     });
   });
 
-  if (buttons.length) {
-    buttons[0].classList.add('active');
-    requestAnimationFrame(() => moveIndicator(buttons[0]));
-  }
 }
 
 /* ─── 5. FOOTER PARALLAX ────────────────────────────────── */
