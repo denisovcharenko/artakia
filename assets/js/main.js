@@ -218,39 +218,58 @@ function initSvcHoverDesktop() {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
   const EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+  const items = [...document.querySelectorAll('[data-directional-hover-item]')];
+  if (!items.length) return;
 
-  document.querySelectorAll('[data-directional-hover]').forEach(list => {
-    list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
-      const tile = item.querySelector('[data-directional-hover-tile]');
-      if (!tile) return;
+  let curX = 0, curY = 0, activeItem = null;
 
-      /* Start hidden below */
-      tile.style.transform  = 'translateY(102%)';
-      tile.style.transition = `transform 0.6s ${EASE}`;
-
-      function getDir(e) {
-        const r = item.getBoundingClientRect();
-        return (e.clientY - r.top) < r.height / 2 ? 'top' : 'bottom';
-      }
-
-      item.addEventListener('mouseenter', e => {
-        const dir = getDir(e);
-        item.classList.add('is-svc-active');
-        /* Snap to entry edge (no transition), force reflow, then animate in */
-        tile.style.transition = 'none';
-        tile.style.transform  = dir === 'top' ? 'translateY(-102%)' : 'translateY(102%)';
-        void tile.offsetHeight;
-        tile.style.transition = `transform 0.6s ${EASE}`;
-        tile.style.transform  = 'translateY(0%)';
-      });
-
-      item.addEventListener('mouseleave', e => {
-        const dir = getDir(e);
-        item.classList.remove('is-svc-active');
-        tile.style.transform = dir === 'top' ? 'translateY(-102%)' : 'translateY(102%)';
-      });
-    });
+  /* Init all tiles hidden below */
+  items.forEach(item => {
+    const tile = item.querySelector('[data-directional-hover-tile]');
+    if (!tile) return;
+    tile.style.transform  = 'translateY(102%)';
+    tile.style.transition = `transform 0.6s ${EASE}`;
   });
+
+  function dirFrom(item, y) {
+    const r = item.getBoundingClientRect();
+    return (y - r.top) < r.height / 2 ? 'top' : 'bottom';
+  }
+
+  function activate(item, dir) {
+    const tile = item.querySelector('[data-directional-hover-tile]');
+    if (!tile) return;
+    item.classList.add('is-svc-active');
+    tile.style.transition = 'none';
+    tile.style.transform  = dir === 'top' ? 'translateY(-102%)' : 'translateY(102%)';
+    void tile.offsetHeight;
+    tile.style.transition = `transform 0.6s ${EASE}`;
+    tile.style.transform  = 'translateY(0%)';
+  }
+
+  function deactivate(item, dir) {
+    const tile = item.querySelector('[data-directional-hover-tile]');
+    if (!tile) return;
+    item.classList.remove('is-svc-active');
+    tile.style.transform = dir === 'top' ? 'translateY(-102%)' : 'translateY(102%)';
+  }
+
+  function checkHover() {
+    const el   = document.elementFromPoint(curX, curY);
+    const item = el?.closest('[data-directional-hover-item]') || null;
+
+    if (item === activeItem) return;
+
+    if (activeItem) deactivate(activeItem, dirFrom(activeItem, curY));
+    if (item)       activate(item, dirFrom(item, curY));
+    activeItem = item;
+  }
+
+  /* Track cursor always */
+  document.addEventListener('mousemove', e => { curX = e.clientX; curY = e.clientY; checkHover(); });
+
+  /* Re-check during scroll — fixes trackpad suppressing mouseenter */
+  window.addEventListener('scroll', checkHover, { passive: true });
 }
 
 /* ─── 6b. SERVICES — mobile scroll (init after loader) ──── */
