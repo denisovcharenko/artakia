@@ -125,6 +125,7 @@ function initProgressNavigation() {
   const buttons   = navList.querySelectorAll('[data-progress-nav-target]');
   const indicator = navList.querySelector('.progress-nav__indicator');
   let isProgrammaticScroll = false;
+  let firstActivated = false;
 
   function moveIndicator(btn) {
     if (!indicator || !btn) return;
@@ -143,8 +144,16 @@ function initProgressNavigation() {
     const btn = navList.querySelector(`[data-progress-nav-target="${target}"]`);
     if (btn) {
       btn.classList.add('active');
-      moveIndicator(btn);
-      gsap.to(indicator, { opacity: 1, duration: 0.3 });
+      if (!firstActivated) {
+        firstActivated = true;
+        const bRect = btn.getBoundingClientRect();
+        const lRect = navList.getBoundingClientRect();
+        gsap.set(indicator, { x: bRect.left - lRect.left - 4, width: 0, opacity: 1 });
+        gsap.to(indicator, { width: bRect.width, duration: 0.55, ease: 'power2.out' });
+      } else {
+        moveIndicator(btn);
+        gsap.to(indicator, { opacity: 1, duration: 0.3 });
+      }
     } else {
       gsap.to(indicator, { opacity: 0, duration: 0.3 });
     }
