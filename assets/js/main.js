@@ -220,6 +220,16 @@ function initDirectionalListHover() {
 
   const useMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+  function pulseElement(el) {
+    const w       = el.offsetWidth;
+    const h       = el.offsetHeight;
+    const fs      = parseFloat(getComputedStyle(el).fontSize);
+    const stretch = 1.2 * fs;
+    gsap.timeline({ overwrite: 'auto' })
+      .to(el, { scaleX: (w + stretch) / w, scaleY: (h - stretch * 0.33) / h, duration: 0.1, ease: 'power1.out' })
+      .to(el, { scaleX: 1, scaleY: 1, duration: 0.9, ease: 'elastic.out(1, 0.35)' });
+  }
+
   lists.forEach(list => {
     list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
       const tile = item.querySelector('[data-directional-hover-tile]');
@@ -228,8 +238,7 @@ function initDirectionalListHover() {
       gsap.set(tile, { yPercent: 102 });
 
       if (useMouse) {
-        /* Desktop — Osmo pattern: snap to entry edge → expo.out slide in
-           mouseleave: expo.out slide out to exit edge */
+        /* Desktop — Osmo pattern: snap to entry edge → expo.out slide in */
         function getDir(e) {
           const r = item.getBoundingClientRect();
           return (e.clientY - r.top) < r.height / 2 ? -1 : 1;
@@ -249,38 +258,36 @@ function initDirectionalListHover() {
         });
 
       } else {
-        /* Mobile — scrub in as row approaches center */
+        /* Mobile — scrub-linked + bounce at landing */
         gsap.fromTo(tile, { yPercent: 102 }, {
           yPercent: 0,
-          ease: 'none',
+          ease: 'power1.in',
           scrollTrigger: {
             trigger: item,
-            start: 'top 75%',
+            start: 'top 80%',
             end:   'top center',
-            scrub: 0.8,
+            scrub: 0.5,
           },
         });
 
-        /* Activate / deactivate colors at center crossing */
         ScrollTrigger.create({
           trigger: item,
           start: 'top center',
           end:   'bottom center',
-          onEnter:     () => item.classList.add('is-svc-active'),
-          onLeave:     () => item.classList.remove('is-svc-active'),
-          onEnterBack: () => item.classList.add('is-svc-active'),
-          onLeaveBack: () => item.classList.remove('is-svc-active'),
+          onEnter:     () => { item.classList.add('is-svc-active'); pulseElement(item); },
+          onLeave:     () =>   item.classList.remove('is-svc-active'),
+          onEnterBack: () =>   item.classList.add('is-svc-active'),
+          onLeaveBack: () =>   item.classList.remove('is-svc-active'),
         });
 
-        /* Scrub out as row leaves past center */
         gsap.to(tile, {
           yPercent: -102,
-          ease: 'none',
+          ease: 'power1.in',
           scrollTrigger: {
             trigger: item,
             start: 'bottom center',
-            end:   'bottom 25%',
-            scrub: 0.8,
+            end:   'bottom 20%',
+            scrub: 0.5,
           },
         });
       }
