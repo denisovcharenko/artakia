@@ -518,7 +518,11 @@ html, body {
 [data-copy-button="copied"] .footer-cta-slide { transform: translateY(-200%) !important; }
 
 .footer-cta-arrow { display: flex; align-items: flex-end; padding-bottom: 0.5em; flex-shrink: 0; }
-.footer-cta-arrow img { width: 1.75em; height: 1.75em; }
+.footer-cta-arrow img {
+  width: 1.75em; height: 1.75em;
+  transition: width 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.footer-cta-btn:hover .footer-cta-arrow img { width: 3.5em; }
 
 /* Footer wordmark marquee */
 .footer-wordmark-wrap { overflow-x: clip; }
