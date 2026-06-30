@@ -220,81 +220,68 @@ function initDirectionalListHover() {
 
   const useMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  /* Squish + elastic bounce — simulates physical landing */
-  function pulseElement(el) {
-    const w       = el.offsetWidth;
-    const h       = el.offsetHeight;
-    const fs      = parseFloat(getComputedStyle(el).fontSize);
-    const stretch = 1.2 * fs;
-    gsap.timeline({ overwrite: 'auto' })
-      .to(el, { scaleX: (w + stretch) / w, scaleY: (h - stretch * 0.33) / h, duration: 0.1, ease: 'power1.out' })
-      .to(el, { scaleX: 1, scaleY: 1, duration: 0.9, ease: 'elastic.out(1, 0.35)' });
-  }
-
   lists.forEach(list => {
     list.querySelectorAll('[data-directional-hover-item]').forEach(item => {
       const tile = item.querySelector('[data-directional-hover-tile]');
       if (!tile) return;
+
       gsap.set(tile, { yPercent: 102 });
 
       if (useMouse) {
-        /* Desktop — directional elastic slide in, sharp slide out */
+        /* Desktop — Osmo pattern: snap to entry edge → expo.out slide in
+           mouseleave: expo.out slide out to exit edge */
         function getDir(e) {
           const r = item.getBoundingClientRect();
           return (e.clientY - r.top) < r.height / 2 ? -1 : 1;
         }
+
         item.addEventListener('mouseenter', e => {
           const d = getDir(e);
-          gsap.killTweensOf(tile);
           item.classList.add('is-svc-active');
-          gsap.fromTo(tile,
-            { yPercent: d * 102 },
-            { yPercent: 0, duration: 0.55, ease: 'elastic.out(1, 0.5)', overwrite: true }
-          );
+          gsap.set(tile, { yPercent: d * 102 });
+          gsap.to(tile, { yPercent: 0, duration: 0.6, ease: 'expo.out', overwrite: true });
         });
+
         item.addEventListener('mouseleave', e => {
           const d = getDir(e);
-          gsap.killTweensOf(tile);
           item.classList.remove('is-svc-active');
-          gsap.to(tile, { yPercent: d * 102, duration: 0.25, ease: 'power3.in', overwrite: true });
+          gsap.to(tile, { yPercent: d * 102, duration: 0.5, ease: 'expo.out', overwrite: true });
         });
 
       } else {
-        /* Mobile / tablet — scrub-linked + bounce at landing */
-
-        /* Tile scrubs in as row approaches center */
+        /* Mobile — scrub in as row approaches center */
         gsap.fromTo(tile, { yPercent: 102 }, {
           yPercent: 0,
-          ease: 'power1.in',
+          ease: 'none',
           scrollTrigger: {
             trigger: item,
-            start: 'top 80%',
-            end: 'top center',
-            scrub: 0.5,
-          }
+            start: 'top 75%',
+            end:   'top center',
+            scrub: 0.8,
+          },
         });
 
-        /* Activate colors + bounce at the moment of landing */
+        /* Activate / deactivate colors at center crossing */
         ScrollTrigger.create({
           trigger: item,
           start: 'top center',
-          end: 'bottom center',
-          onEnter:      () => { item.classList.add('is-svc-active'); pulseElement(item); },
-          onLeave:      () =>   item.classList.remove('is-svc-active'),
-          onEnterBack:  () =>   item.classList.add('is-svc-active'),
-          onLeaveBack:  () =>   item.classList.remove('is-svc-active'),
+          end:   'bottom center',
+          onEnter:     () => item.classList.add('is-svc-active'),
+          onLeave:     () => item.classList.remove('is-svc-active'),
+          onEnterBack: () => item.classList.add('is-svc-active'),
+          onLeaveBack: () => item.classList.remove('is-svc-active'),
         });
 
-        /* Tile scrubs out as row leaves upward past center */
+        /* Scrub out as row leaves past center */
         gsap.to(tile, {
           yPercent: -102,
-          ease: 'power1.in',
+          ease: 'none',
           scrollTrigger: {
             trigger: item,
             start: 'bottom center',
-            end: 'bottom 20%',
-            scrub: 0.5,
-          }
+            end:   'bottom 25%',
+            scrub: 0.8,
+          },
         });
       }
     });
