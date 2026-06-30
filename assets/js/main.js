@@ -630,6 +630,51 @@ function injectContent(d) {
   text('.copyright', d.footer_copyright);
 }
 
+/* ─── MAGNETIC EFFECT ────────────────────────────────────── */
+function initMagneticEffect() {
+  const magnets = document.querySelectorAll('[data-magnetic-strength]');
+  if (!magnets.length || window.innerWidth <= 991) return;
+
+  const resetEl = (el, immediate) => {
+    if (!el) return;
+    gsap.killTweensOf(el);
+    (immediate ? gsap.set : gsap.to)(el, {
+      x: '0em', y: '0em', rotate: '0deg', clearProps: 'all',
+      ...(!immediate && { ease: 'elastic.out(1, 0.3)', duration: 1.6 }),
+    });
+  };
+
+  magnets.forEach(m => {
+    m.addEventListener('mouseenter', e => {
+      resetEl(m, true);
+      resetEl(m.querySelector('[data-magnetic-inner-target]'), true);
+    });
+
+    m.addEventListener('mousemove', e => {
+      const b = m.getBoundingClientRect();
+      const strength      = parseFloat(m.dataset.magneticStrength)      || 25;
+      const innerStrength = parseFloat(m.dataset.magneticStrengthInner) || strength;
+      const inner = m.querySelector('[data-magnetic-inner-target]');
+      const ox = ((e.clientX - b.left) / m.offsetWidth  - 0.5) * (strength / 16);
+      const oy = ((e.clientY - b.top)  / m.offsetHeight - 0.5) * (strength / 16);
+
+      gsap.to(m, { x: ox + 'em', y: oy + 'em', rotate: '0.001deg', ease: 'power4.out', duration: 1.6 });
+
+      if (inner) {
+        const ix = ((e.clientX - b.left) / m.offsetWidth  - 0.5) * (innerStrength / 16);
+        const iy = ((e.clientY - b.top)  / m.offsetHeight - 0.5) * (innerStrength / 16);
+        gsap.to(inner, { x: ix + 'em', y: iy + 'em', rotate: '0.001deg', ease: 'power4.out', duration: 2 });
+      }
+    });
+
+    m.addEventListener('mouseleave', e => {
+      const inner = m.querySelector('[data-magnetic-inner-target]');
+      gsap.to(m, { x: '0em', y: '0em', ease: 'elastic.out(1, 0.3)', duration: 1.6, clearProps: 'all' });
+      if (inner) gsap.to(inner, { x: '0em', y: '0em', ease: 'elastic.out(1, 0.3)', duration: 2, clearProps: 'all' });
+    });
+  });
+}
+
 /* ─── MOBILE NAV ─────────────────────────────────────────── */
 function initMobileNav() {
   const toggle     = document.querySelector('[data-nav-toggle]');
@@ -662,6 +707,7 @@ function initMobileNav() {
 /* ─── INIT ────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
   initBasicCustomCursor();
+  initMagneticEffect();
   initCopyEmailClipboard();
   initMobileNav();
   initSvcHoverDesktop();

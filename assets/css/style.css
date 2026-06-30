@@ -91,8 +91,9 @@ html, body {
   --button-020-border:                 1px solid #1d1d1d;
   --button-020-border-radius:          1em;
   --button-020-ease-hover:             cubic-bezier(0.32, 0.72, 0, 1);
-  font-size: 0.875em; font-weight: 600; letter-spacing: -0.5px;
+  font-size: 1.125em; font-weight: 600; letter-spacing: -0.72px;
 }
+.btn-magnetic { position: relative; }
 
 /* ── Button 020 ─────────────────────────────────────────── */
 .button-020 {
