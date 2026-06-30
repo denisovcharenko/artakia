@@ -124,6 +124,7 @@ function initProgressNavigation() {
 
   const buttons   = navList.querySelectorAll('[data-progress-nav-target]');
   const indicator = navList.querySelector('.progress-nav__indicator');
+  let isProgrammaticScroll = false;
 
   function moveIndicator(btn) {
     if (!indicator || !btn) return;
@@ -148,10 +149,16 @@ function initProgressNavigation() {
       e.preventDefault();
       const id = btn.dataset.progressNavTarget;
       const section = document.querySelector(id);
-      if (section) {
-        gsap.to(window, { scrollTo: { y: section, offsetY: 72 }, duration: 0.9, ease: 'power3.inOut' });
-      }
       activate(id);
+      if (section) {
+        isProgrammaticScroll = true;
+        gsap.to(window, {
+          scrollTo: { y: section, offsetY: 72 },
+          duration: 0.9,
+          ease: 'power3.inOut',
+          onComplete: () => { isProgrammaticScroll = false; },
+        });
+      }
     });
   });
 
@@ -161,8 +168,8 @@ function initProgressNavigation() {
       trigger: section,
       start: 'top 55%',
       end:   'bottom 55%',
-      onEnter:     () => activate(id),
-      onEnterBack: () => activate(id),
+      onEnter:     () => { if (!isProgrammaticScroll) activate(id); },
+      onEnterBack: () => { if (!isProgrammaticScroll) activate(id); },
     });
   });
 
