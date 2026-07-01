@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060606">
   <title>Artakia — Brands Amplified</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,6 +73,7 @@
     <div class="progress-nav__indicator"></div>
     <button class="progress-nav__btn" data-progress-nav-target="#about">About</button>
     <button class="progress-nav__btn" data-progress-nav-target="#records">Records</button>
+    <button class="progress-nav__btn" data-progress-nav-target="#background">Background</button>
     <button class="progress-nav__btn" data-progress-nav-target="#work">Work</button>
     <button class="progress-nav__btn" data-progress-nav-target="#services">Services</button>
     <button class="progress-nav__btn" data-progress-nav-target="#philosophy">Philosophy</button>
@@ -92,7 +94,7 @@
     </a>
   </div>
 
-  <button class="nav-hamburger" data-nav-toggle aria-label="Menu" aria-expanded="false">
+  <button class="nav-hamburger" data-nav-toggle data-menu-button="burger" aria-label="Menu" aria-expanded="false">
     <span class="nav-hamburger__bar"></span>
     <span class="nav-hamburger__bar"></span>
   </button>
@@ -104,6 +106,7 @@
     <div class="mobile-nav__links">
       <a href="#about"      class="mobile-nav__link" data-nav-close>About</a>
       <a href="#records"    class="mobile-nav__link" data-nav-close>Records</a>
+      <a href="#background" class="mobile-nav__link" data-nav-close>Background</a>
       <a href="#work"       class="mobile-nav__link" data-nav-close>Work</a>
       <a href="#services"   class="mobile-nav__link" data-nav-close>Services</a>
       <a href="#philosophy" class="mobile-nav__link" data-nav-close>Philosophy</a>
@@ -232,7 +235,7 @@
       <span class="stat-pfx">+</span>
       <div class="stat-body">
         <div class="stat-value-row">
-          <span class="stat-num" data-odometer-element data-odometer-target="5">0</span>
+          <span class="stat-num" data-odometer-element data-odometer-duration="1.8">5</span>
         </div>
         <span class="stat-lbl">Years Operating</span>
       </div>
@@ -243,7 +246,7 @@
       <span class="stat-pfx">+</span>
       <div class="stat-body">
         <div class="stat-value-row">
-          <span class="stat-num" data-odometer-element data-odometer-target="30">0</span>
+          <span class="stat-num" data-odometer-element data-odometer-duration="1.8">30</span>
           <span class="stat-unit">MLN</span>
         </div>
         <span class="stat-lbl">Streams</span>
@@ -255,7 +258,7 @@
       <span class="stat-pfx">+</span>
       <div class="stat-body">
         <div class="stat-value-row">
-          <span class="stat-num" data-odometer-element data-odometer-target="10">0</span>
+          <span class="stat-num" data-odometer-element data-odometer-duration="1.8">10</span>
           <span class="stat-unit">MLN</span>
         </div>
         <span class="stat-lbl">Viewers &amp; engagement</span>
@@ -267,7 +270,7 @@
       <span class="stat-pfx stat-pfx-a">°</span>
       <div class="stat-body">
         <div class="stat-value-row">
-          <span class="stat-num" data-odometer-element data-odometer-target="360">0</span>
+          <span class="stat-num" data-odometer-element data-odometer-duration="1.8">360</span>
         </div>
         <span class="stat-lbl">Full-service approach</span>
       </div>
@@ -309,7 +312,7 @@
 </section>
 
 <!-- ─── BACKGROUND ───────────────────────────────────────── -->
-<section class="bg-section" id="background">
+<section class="bg-section" id="background" data-progress-nav-anchor>
   <div class="bg-inner">
     <div class="bg-top">
       <div class="label">
@@ -513,6 +516,7 @@
               <a href="#top"        data-underline-link>Home</a>
               <a href="#about"      data-underline-link>About</a>
               <a href="#records"    data-underline-link>Records</a>
+              <a href="#background" data-underline-link>Background</a>
               <a href="#work"       data-underline-link>Work</a>
               <a href="#services"   data-underline-link>Services</a>
               <a href="#philosophy" data-underline-link>Philosophy</a>
@@ -570,6 +574,7 @@
 
 <!-- ─── GSAP ──────────────────────────────────────────────── -->
 <script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/CustomEase.min.js"></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/js/vendor/SplitText.min.js"></script>
 <script src="assets/js/vendor/ScrollToPlugin.min.js"></script>

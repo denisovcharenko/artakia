@@ -64,7 +64,9 @@ html, body {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.125em 2.25em;
-  background: var(--ground);
+  background: rgba(6, 6, 6, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 .nav-logo {
   font-weight: 900; font-size: 0.875em; font-style: italic;
@@ -182,15 +184,15 @@ html, body {
 .hero-top { display: flex; flex-direction: column; gap: 1.5625em; }
 
 .location-pill {
-  display: inline-flex; align-items: center; gap: 0.625em;
-  border: 1px solid rgba(196, 212, 222, 0.07); border-radius: 0.5em;
-  padding: 0.6875em 1.1875em; align-self: flex-start;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(6, 6, 6, 0.00) 0%, rgba(196, 212, 222, 0.07) 100%);
+  display: inline-flex; align-items: center; gap: 0.5em;
+  border: 1px solid rgba(196, 212, 222, 0.10); border-radius: 100em;
+  padding: 0.5em 1em; align-self: flex-start;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(6, 6, 6, 0.00) 0%, rgba(196, 212, 222, 0.06) 100%);
 }
-.loc-dot   { width: 0.375em; height: 0.375em; background: var(--accent); border-radius: 3px; flex-shrink: 0; }
-.loc-city  { font-size: 0.625em; font-weight: 500; text-transform: uppercase; color: var(--text); }
-.loc-sep   { width: 1px; height: 1em; background: rgba(255, 255, 255, 0.07); }
-.loc-world { font-size: 0.625em; font-weight: 500; text-transform: uppercase; color: #525252; }
+.loc-dot   { width: 0.3125em; height: 0.3125em; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+.loc-city  { font-size: 0.625em; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text); }
+.loc-sep   { width: 1px; height: 0.875em; background: rgba(255, 255, 255, 0.09); }
+.loc-world { font-size: 0.625em; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: #525252; }
 
 /* Hero heading — 165px at 1440px */
 .hero-hl { font-size: 10.3125em; letter-spacing: -0.06em; line-height: 0.8; word-spacing: -0.03em; }
@@ -669,12 +671,14 @@ body:has([data-cursor]:hover) .cursor {
   border: 1px solid rgba(196, 212, 222, 0.07);
   border-radius: 1.25em; padding: 4px; gap: 0;
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
 }
 .progress-nav__indicator {
   position: absolute; top: 4px; left: 4px;
   height: calc(100% - 8px);
   background: rgba(255, 255, 255, 0.12);
   border-radius: 0.875em; pointer-events: none; width: 3.75em;
+  opacity: 0;
 }
 .progress-nav__btn {
   position: relative; z-index: 1;
@@ -757,18 +761,20 @@ body:has([data-cursor]:hover) .cursor {
   background: var(--text);
   display: block;
   border-radius: 2px;
-  transition: transform 0.35s cubic-bezier(.65, 0, 0, 1), opacity 0.25s;
 }
 
 /* Mobile nav panel — full-screen overlay */
 .mobile-nav {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
   z-index: 99;
-  background: var(--ground);
+  background: #060606;
+  background-color: #060606;
   opacity: 0;
   visibility: hidden;
+  overflow: hidden;
   transition: opacity 0.38s cubic-bezier(.65, 0, 0, 1), visibility 0.38s;
 }
 .mobile-nav__inner {
@@ -865,7 +871,8 @@ body:has([data-cursor]:hover) .cursor {
 @media screen and (max-width: 991px) {
 
   /* Nav */
-  .nav-links { display: none; }
+  .nav-links    { display: none; }
+  .progress-nav { display: none; }
 
   /* Hero */
   .hero    { height: auto; min-height: 100svh; padding-bottom: 2.25em; }
@@ -914,16 +921,15 @@ body:has([data-cursor]:hover) .cursor {
 ═══════════════════════════════════════════════════════ */
 @media screen and (max-width: 767px) {
 
-  /* Nav — hide desktop elements, show hamburger */
+  /* Nav — show CTA + hamburger grouped on the right */
   .progress-nav  { display: none; }
-  .nav-cta       { display: none; }
   .nav-hamburger { display: flex; }
   .mobile-nav    { display: flex; flex-direction: column; }
+  .btn-magnetic  { margin-left: auto; }
+  .nav-hamburger { margin-left: 0.75em; }
 
   /* Hamburger + mobile nav open state */
-  body[data-nav-open] .mobile-nav                     { opacity: 1; visibility: visible; }
-  body[data-nav-open] .nav-hamburger__bar:first-child { transform: translateY(3.75px) rotate(45deg); }
-  body[data-nav-open] .nav-hamburger__bar:last-child  { transform: translateY(-3.75px) rotate(-45deg); }
+  body[data-nav-open] .mobile-nav { opacity: 1; visibility: visible; }
 
   /* Footer CTA — show email immediately (no hover on mobile) */
   .footer-cta-slide { transform: translateY(-100%); }
@@ -936,6 +942,13 @@ body:has([data-cursor]:hover) .cursor {
   /* Logo cards — narrower so 2-3 fit in view */
   .logo-card     { width: 10em; height: 4em; }
   .logo-card img { max-height: 1.5em; max-width: 7em; }
+
+  /* Stats — single column */
+  .stats { flex-direction: column; }
+  .stat  { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 1.75em 2.25em; height: auto; }
+  .stat:nth-child(odd)    { border-right: none; }
+  .stat:nth-last-child(2) { border-bottom: 1px solid var(--border); }
+  .stat:last-child        { border-bottom: none; }
 
   /* About + MA — stack inner columns */
   .about-cols { flex-direction: column; }
@@ -954,8 +967,7 @@ body:has([data-cursor]:hover) .cursor {
 ═══════════════════════════════════════════════════════ */
 @media screen and (max-width: 479px) {
 
-  /* Nav */
-  .nav-cta { display: none; }
+  /* Nav — CTA visible at portrait mobile */
 
   /* Hero — remove 100svh so partners marquee is visible in viewport */
   .hero { min-height: 0; justify-content: flex-start; gap: 2.5em; padding-left: 1em; padding-right: 1em; padding-bottom: 1em; }
@@ -1037,4 +1049,12 @@ body:has([data-cursor]:hover) .cursor {
   .copyright     { text-align: left; }
   .copyright-sub { display: block; }
   .designed-by   { flex-direction: column; align-items: flex-end; gap: 1px; }
+}
+
+@media screen and (min-width: 390px) and (max-width: 479px) {
+  .nav-cta { font-size: 0.9em; }
+}
+
+@media screen and (max-width: 389px) {
+  .nav-cta { display: none; }
 }

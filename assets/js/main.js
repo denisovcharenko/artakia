@@ -5,7 +5,7 @@
    Hover · Smooth Scroll · Highlight Text · Fade In
 ═══════════════════════════════════════════════════════ */
 
-gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin, CustomEase);
 
 /* ─── 1. NUMBER LOADER (Osmo Supply 3-step) ──────────── */
 function initLoaderThreeSteps() {
@@ -92,28 +92,25 @@ function initMaskTextReveal() {
 
 /* ─── 3. NUMBER ODOMETER ────────────────────────────────── */
 function initNumberOdometer() {
-  const groups = document.querySelectorAll('[data-odometer-group]');
-  if (!groups.length) return;
+  document.querySelectorAll('[data-odometer-element]').forEach(el => {
+    const target = parseInt(el.textContent.trim(), 10);
+    const dur    = parseFloat(el.dataset.odometerDuration ?? '1.8');
+    if (isNaN(target)) return;
 
-  groups.forEach(group => {
-    const el = group.querySelector('[data-odometer-element]');
-    if (!el) return;
-    const target = parseInt(el.dataset.odometerTarget, 10);
-    const obj = { v: 0 };
-
-    ScrollTrigger.create({
-      trigger: group,
-      start: 'top 80%',
-      once: true,
-      onEnter() {
-        gsap.to(obj, {
-          v: target,
-          duration: 1.8,
-          ease: 'power2.out',
-          onUpdate() { el.textContent = Math.round(obj.v); },
-        });
-      },
-    });
+    gsap.fromTo(el,
+      { textContent: 0 },
+      {
+        textContent: target,
+        duration: dur,
+        ease: 'power3.out',
+        snap: { textContent: 1 },
+        scrollTrigger: {
+          trigger: el.closest('[data-odometer-group]') || el,
+          start: 'top 80%',
+          once: true,
+        },
+      }
+    );
   });
 }
 
@@ -126,6 +123,7 @@ function initProgressNavigation() {
   const indicator = navList.querySelector('.progress-nav__indicator');
   let isProgrammaticScroll = false;
   let firstActivated = false;
+  let lastExitDir = 'left';
 
   function moveIndicator(btn) {
     if (!indicator || !btn) return;
@@ -146,20 +144,54 @@ function initProgressNavigation() {
       btn.classList.add('active');
       if (!firstActivated) {
         firstActivated = true;
+        gsap.killTweensOf(indicator);
         const bRect = btn.getBoundingClientRect();
         const lRect = navList.getBoundingClientRect();
-        gsap.set(indicator, { x: bRect.left - lRect.left - 4, width: 0, opacity: 1 });
-        gsap.to(indicator, { width: bRect.width, duration: 0.55, ease: 'power2.out' });
+        const bX    = bRect.left - lRect.left - 4;
+        const navW  = navList.offsetWidth;
+        if (lastExitDir === 'right') {
+          // Slide in from the right edge of the pill
+          gsap.set(indicator, { x: navW, width: bRect.width, opacity: 1 });
+        } else {
+          // Slide in from the left edge of the pill
+          gsap.set(indicator, { x: -bRect.width, width: bRect.width, opacity: 1 });
+        }
+        gsap.to(indicator, { x: bX, duration: 0.35, ease: 'power2.out' });
       } else {
         moveIndicator(btn);
         gsap.to(indicator, { opacity: 1, duration: 0.3 });
       }
     } else {
-      gsap.to(indicator, { opacity: 0, duration: 0.3 });
+      firstActivated = false;
+      gsap.killTweensOf(indicator);
+      const navW = navList.offsetWidth;
+      if (target === '#contact') {
+        // Slide out through the right edge of the pill
+        lastExitDir = 'right';
+        gsap.to(indicator, {
+          x: navW,
+          duration: 0.35,
+          ease: 'power2.out',
+          onComplete: () => gsap.set(indicator, { opacity: 0 }),
+        });
+      } else {
+        // Slide out through the left edge of the pill
+        lastExitDir = 'left';
+        const curW = gsap.getProperty(indicator, 'width');
+        gsap.to(indicator, {
+          x: -curW,
+          duration: 0.35,
+          ease: 'power2.out',
+          onComplete: () => gsap.set(indicator, { opacity: 0 }),
+        });
+      }
     }
   }
 
   gsap.set(indicator, { opacity: 0 });
+
+  let ready = false;
+  setTimeout(() => { ready = true; }, 150);
 
   buttons.forEach(btn => {
     btn.addEventListener('click', e => {
@@ -185,8 +217,8 @@ function initProgressNavigation() {
       trigger: section,
       start: 'top 55%',
       end:   'bottom 55%',
-      onEnter:     () => { if (!isProgrammaticScroll) activate(id); },
-      onEnterBack: () => { if (!isProgrammaticScroll) activate(id); },
+      onEnter:     () => { if (!isProgrammaticScroll && ready) activate(id); },
+      onEnterBack: () => { if (!isProgrammaticScroll && ready) activate(id); },
     });
   });
 
@@ -553,11 +585,14 @@ function injectContent(d) {
 
   // Stats (array format)
   if (Array.isArray(d.stats)) {
-    const targets = document.querySelectorAll('[data-odometer-target]');
+    const odomEls = document.querySelectorAll('[data-odometer-element]');
     const labels  = document.querySelectorAll('.stat-lbl');
     d.stats.forEach((s, i) => {
-      if (targets[i] && s.value != null) targets[i].dataset.odometerTarget = s.value;
-      if (labels[i]  && s.label)         labels[i].textContent = s.label;
+      const el = odomEls[i];
+      if (el && s.value != null && !el.querySelector('[data-odometer-part]')) {
+        el.textContent = s.value;
+      }
+      if (labels[i] && s.label) labels[i].textContent = s.label;
     });
   }
 
@@ -702,15 +737,38 @@ function initMobileNav() {
   const closeItems = document.querySelectorAll('[data-nav-close]');
   if (!toggle) return;
 
+  // Osmo burger animation (2-bar → X)
+  CustomEase.create('burger-ease', '0.5, 0.05, 0.05, 0.99');
+  const bars = toggle.querySelectorAll('.nav-hamburger__bar');
+  const [line1, line2] = bars;
+  const burgerTl = gsap.timeline({
+    defaults: { overwrite: 'auto', ease: 'burger-ease', duration: 0.3 },
+  });
+
+  function animateOpen() {
+    burgerTl.clear()
+      .to(line1, { y: 3.75, rotate: 45 })
+      .to(line2, { y: -3.75, rotate: -45 }, '<');
+  }
+
+  function animateClose() {
+    burgerTl.clear()
+      .to(bars, { y: 0, rotate: 0, duration: 0.45, overwrite: 'auto' });
+  }
+
   function open() {
     document.body.setAttribute('data-nav-open', '');
     toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('data-menu-button', 'close');
     mobileNav?.setAttribute('aria-hidden', 'false');
+    animateOpen();
   }
   function close() {
     document.body.removeAttribute('data-nav-open');
     toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('data-menu-button', 'burger');
     mobileNav?.setAttribute('aria-hidden', 'true');
+    animateClose();
   }
 
   toggle.addEventListener('click', () =>
