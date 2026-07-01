@@ -476,7 +476,7 @@ html, body {
    FOOTER
 ═══════════════════════════════════════════════════════ */
 .footer { overflow: hidden; }
-.footer-top { padding: 8.75em 2.25em 5em; }
+.footer-top { padding: 8.75em 2.25em 1.875em; }
 .footer-links { display: flex; justify-content: space-between; width: 100%; align-items: flex-start; }
 .footer-nav-cols { display: flex; }
 .footer-nc { width: 14.0625em; display: flex; flex-direction: column; gap: 1em; }
@@ -527,7 +527,7 @@ html, body {
 .footer-cta-btn:hover .footer-cta-arrow img { width: 3.5em; }
 
 /* Footer wordmark marquee */
-.footer-wordmark-wrap { overflow-x: clip; }
+.footer-wordmark-wrap { overflow-x: clip; padding-bottom: 1.25em; }
 .footer-wordmark-track {
   display: flex; align-items: center; gap: 2em;
   width: max-content;
