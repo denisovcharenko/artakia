@@ -520,11 +520,24 @@ function initSmoothScroll() {
 /* ─── VIDEO TAP-TO-PLAY ──────────────────────────────────── */
 function initVideoTapToPlay() {
   document.querySelectorAll('.video-tap').forEach(overlay => {
-    const box    = overlay.closest('.video-box');
-    const iframe = box?.querySelector('iframe');
+    const box         = overlay.closest('.video-box');
+    const iframe      = box?.querySelector('iframe');
+    const fallbackImg = box?.querySelector('.video-fallback');
     if (!iframe || typeof Vimeo === 'undefined') return;
 
     const player = new Vimeo.Player(iframe);
+
+    // Fetch the real Vimeo thumbnail via oEmbed and store on the img
+    if (fallbackImg) {
+      player.getVideoId().then(id => {
+        return fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`);
+      }).then(r => r.json()).then(data => {
+        if (data.thumbnail_url) {
+          // Replace the small default size with 1280×720
+          fallbackImg.src = data.thumbnail_url.replace(/_\d+x\d+(\.\w+)$/, '_1280x720$1');
+        }
+      }).catch(() => {});
+    }
 
     // Try autoplay — if blocked (Low Power Mode), show poster + tap button
     player.play().catch(() => {
