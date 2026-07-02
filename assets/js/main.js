@@ -520,22 +520,24 @@ function initSmoothScroll() {
 /* ─── VIDEO TAP-TO-PLAY ──────────────────────────────────── */
 function initVideoTapToPlay() {
   document.querySelectorAll('.video-tap').forEach(overlay => {
-    const iframe = overlay.closest('.video-box')?.querySelector('iframe');
+    const box    = overlay.closest('.video-box');
+    const iframe = box?.querySelector('iframe');
     if (!iframe || typeof Vimeo === 'undefined') return;
 
     const player = new Vimeo.Player(iframe);
 
-    // Try autoplay — if blocked (Low Power Mode), show overlay
+    // Try autoplay — if blocked (Low Power Mode), show poster + tap button
     player.play().catch(() => {
+      box.classList.add('autoplay-blocked');
       overlay.classList.add('active');
     });
 
-    // Tap: play() inside user gesture — iOS allows this even in Low Power Mode
+    // Tap: swap to interactive player within user-gesture context — iOS allows this
     overlay.addEventListener('click', () => {
-      player.play().then(() => {
-        overlay.classList.add('hidden');
-        setTimeout(() => overlay.remove(), 350);
-      });
+      box.classList.remove('autoplay-blocked');
+      iframe.src = 'https://player.vimeo.com/video/1205783595?loop=1&quality=auto&autoplay=1';
+      overlay.classList.add('hidden');
+      setTimeout(() => overlay.remove(), 350);
     });
   });
 }

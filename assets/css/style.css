@@ -400,6 +400,19 @@ html, body {
   }
 }
 
+/* Poster fallback — shown when autoplay is blocked (e.g. iOS Low Power Mode) */
+.video-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  z-index: 1;
+}
+.video-box.autoplay-blocked .video-fallback { display: block; }
+.video-box.autoplay-blocked iframe          { display: none; }
+
 /* Tap-to-play overlay — shown by JS when autoplay is blocked */
 .video-tap {
   display: none;
@@ -407,6 +420,7 @@ html, body {
   align-items: center; justify-content: center;
   cursor: pointer;
   transition: opacity 0.3s;
+  z-index: 2;
 }
 .video-tap.active  { display: flex; }
 .video-tap.hidden  { opacity: 0; pointer-events: none; }
