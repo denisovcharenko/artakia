@@ -870,9 +870,16 @@ body:has([data-cursor]:hover) .cursor {
 ═══════════════════════════════════════════════════════ */
 @media screen and (max-width: 991px) {
 
-  /* Nav */
-  .nav-links    { display: none; }
-  .progress-nav { display: none; }
+  /* Nav — hide pill, show burger + CTA grouped right */
+  .nav-links     { display: none; }
+  .progress-nav  { display: none; }
+  .nav-hamburger { display: flex; }
+  .mobile-nav    { display: flex; flex-direction: column; }
+  .btn-magnetic  { margin-left: auto; }
+  .nav-hamburger { margin-left: 0.75em; }
+
+  /* Mobile nav open state */
+  body[data-nav-open] .mobile-nav { opacity: 1; visibility: visible; }
 
   /* Hero */
   .hero    { height: auto; min-height: 100svh; padding-bottom: 2.25em; }
@@ -920,16 +927,6 @@ body:has([data-cursor]:hover) .cursor {
    RESPONSIVE — Mobile Landscape (≤ 767px)
 ═══════════════════════════════════════════════════════ */
 @media screen and (max-width: 767px) {
-
-  /* Nav — show CTA + hamburger grouped on the right */
-  .progress-nav  { display: none; }
-  .nav-hamburger { display: flex; }
-  .mobile-nav    { display: flex; flex-direction: column; }
-  .btn-magnetic  { margin-left: auto; }
-  .nav-hamburger { margin-left: 0.75em; }
-
-  /* Hamburger + mobile nav open state */
-  body[data-nav-open] .mobile-nav { opacity: 1; visibility: visible; }
 
   /* Footer CTA — show email immediately (no hover on mobile) */
   .footer-cta-slide { transform: translateY(-100%); }
