@@ -400,7 +400,7 @@ html, body {
   }
 }
 
-/* Tap-to-play overlay — touch devices only */
+/* Tap-to-play overlay — shown by JS when autoplay is blocked */
 .video-tap {
   display: none;
   position: absolute; inset: 0;
@@ -408,6 +408,8 @@ html, body {
   cursor: pointer;
   transition: opacity 0.3s;
 }
+.video-tap.active  { display: flex; }
+.video-tap.hidden  { opacity: 0; pointer-events: none; }
 .video-tap__btn {
   width: 4em; height: 4em;
   background: rgba(255, 255, 255, 0.12);
@@ -419,10 +421,6 @@ html, body {
   color: #fff;
 }
 .video-tap__btn svg { width: 1.5em; height: 1.5em; margin-left: 0.15em; }
-@media (hover: none) {
-  .video-tap { display: flex; }
-}
-.video-tap.hidden { opacity: 0; pointer-events: none; }
 
 .video-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .video-box .video-placeholder-label {

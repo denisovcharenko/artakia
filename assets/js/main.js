@@ -520,16 +520,22 @@ function initSmoothScroll() {
 /* ─── VIDEO TAP-TO-PLAY ──────────────────────────────────── */
 function initVideoTapToPlay() {
   document.querySelectorAll('.video-tap').forEach(overlay => {
+    const iframe = overlay.closest('.video-box')?.querySelector('iframe');
+    if (!iframe || typeof Vimeo === 'undefined') return;
+
+    const player = new Vimeo.Player(iframe);
+
+    // Try autoplay — if blocked (Low Power Mode), show overlay
+    player.play().catch(() => {
+      overlay.classList.add('active');
+    });
+
+    // Tap: play() inside user gesture — iOS allows this even in Low Power Mode
     overlay.addEventListener('click', () => {
-      const iframe = overlay.closest('.video-box').querySelector('iframe');
-      if (iframe) {
-        const src = iframe.src;
-        iframe.src = src
-          .replace('background=1', 'autoplay=1&muted=1&loop=1&controls=0')
-          + '&playsinline=1';
-      }
-      overlay.classList.add('hidden');
-      setTimeout(() => overlay.remove(), 350);
+      player.play().then(() => {
+        overlay.classList.add('hidden');
+        setTimeout(() => overlay.remove(), 350);
+      });
     });
   });
 }
