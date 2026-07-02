@@ -517,6 +517,23 @@ function initSmoothScroll() {
   });
 }
 
+/* ─── VIDEO TAP-TO-PLAY ──────────────────────────────────── */
+function initVideoTapToPlay() {
+  document.querySelectorAll('.video-tap').forEach(overlay => {
+    overlay.addEventListener('click', () => {
+      const iframe = overlay.closest('.video-box').querySelector('iframe');
+      if (iframe) {
+        const src = iframe.src;
+        iframe.src = src
+          .replace('background=1', 'autoplay=1&muted=1&loop=1&controls=0')
+          + '&playsinline=1';
+      }
+      overlay.classList.add('hidden');
+      setTimeout(() => overlay.remove(), 350);
+    });
+  });
+}
+
 /* ─── 12. CUSTOM CURSOR ──────────────────────────────────── */
 function initBasicCustomCursor() {
   const cursor = document.querySelector('.cursor');
@@ -790,6 +807,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initMobileNav();
   initSvcHoverDesktop();
   initLoaderThreeSteps();
+  initVideoTapToPlay();
 
   let heroWords = ['Music', 'Brands', 'Potential', 'Projects'];
   try {
