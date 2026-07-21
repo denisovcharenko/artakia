@@ -72,6 +72,10 @@ html, body {
   font-weight: 900; font-size: 0.875em; font-style: italic;
   letter-spacing: -0.69px; text-transform: uppercase;
   color: var(--text); text-decoration: none;
+  display: flex; align-items: center;
+}
+.nav-logo__img {
+  height: 23px; width: auto; display: block;
 }
 .nav-links {
   position: absolute; left: 50%; transform: translateX(-50%);
