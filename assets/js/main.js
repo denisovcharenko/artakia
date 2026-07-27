@@ -667,7 +667,7 @@ function injectContent(d) {
       let embed = '';
       const isYtEmbed = u.includes('youtube.com/embed/');
       const ytId = !isYtEmbed && u.match(/(?:v=|youtu\.be\/)([^&?/]+)/)?.[1];
-      const vmId = u.match(/vimeo\.com\/(\d+)/)?.[1];
+      const vmId = u.match(/vimeo\.com\/(?:video\/)?(\d+)/)?.[1];
       if (vmId) {
         // For Vimeo: update src only — preserve .video-fallback and .video-tap for iOS
         const existingIframe = box.querySelector('iframe');
