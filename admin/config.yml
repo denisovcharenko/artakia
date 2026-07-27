@@ -112,6 +112,11 @@ collections:
                 hint: "SVG or PNG, transparent background"
 
           # ── M.A RECORDS ───────────────────────────────────────
+          - label: "M.A Records — Heading"
+            name: ma_heading
+            widget: string
+            hint: "Use <span>…</span> around words you want in accent colour"
+
           - label: "M.A Records — Column 1"
             name: ma_col_1
             widget: text

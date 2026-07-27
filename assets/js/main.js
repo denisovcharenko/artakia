@@ -668,6 +668,7 @@ function injectContent(d) {
   }
 
   // MA Records
+  html('.ma-h', d.ma_heading);
   const maCols = document.querySelectorAll('.ma-col');
   if (maCols[0] && d.ma_col_1) maCols[0].innerHTML = d.ma_col_1;
   if (maCols[1] && d.ma_col_2) maCols[1].innerHTML = d.ma_col_2;
