@@ -605,7 +605,8 @@ function injectContent(d) {
 
   // SEO & Nav
   if (d.page_title) document.title = d.page_title;
-  text('.nav-cta', d.nav_cta);
+  text('.button-020__default-text', d.nav_cta);
+  text('.button-020__hover-text',   d.nav_cta);
 
   // Hero
   text('.hero-hl-bold', d.hero_bold);
