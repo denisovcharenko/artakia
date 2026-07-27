@@ -545,13 +545,20 @@ function initVideoTapToPlay() {
       overlay.classList.add('active');
     });
 
-    // Tap: swap to interactive player within user-gesture context — iOS allows this
+    // Tap: call player.play() directly within click (user-gesture context) — iOS allows this.
+    // Do NOT replace iframe.src — iOS blocks autoplay on src-swapped iframes even within a gesture.
     overlay.addEventListener('click', () => {
-      const videoId = iframe.src.match(/vimeo\.com\/video\/(\d+)/)?.[1] ?? '1211681422';
-      box.classList.remove('autoplay-blocked');
-      iframe.src = `https://player.vimeo.com/video/${videoId}?loop=1&quality=auto&autoplay=1`;
       overlay.classList.add('hidden');
-      setTimeout(() => overlay.remove(), 350);
+      player.play().then(() => {
+        box.classList.remove('autoplay-blocked');
+        setTimeout(() => overlay.remove(), 350);
+      }).catch(() => {
+        // SDK play still blocked — force-reload iframe with explicit autoplay as last resort
+        const videoId = iframe.src.match(/vimeo\.com\/video\/(\d+)/)?.[1] ?? '1211681422';
+        box.classList.remove('autoplay-blocked');
+        iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&quality=auto&playsinline=1`;
+        setTimeout(() => overlay.remove(), 350);
+      });
     });
   });
 }
