@@ -601,16 +601,9 @@ html, body {
 .footer-bottom-inner { display: flex; width: 100%; justify-content: space-between; align-items: center; }
 .copyright { font-size: 0.875em; font-weight: 500; letter-spacing: -0.56px; color: #fff; opacity: .6; }
 .designed-by {
-  font-size: 0.9375em; font-weight: 500; letter-spacing: -0.6px; color: #faf5f5; opacity: .3;
-  text-decoration: none; position: relative; white-space: nowrap;
+  font-size: 0.9375em; font-weight: 500; letter-spacing: -0.6px;
+  color: rgba(255, 255, 255, 0.25); text-decoration: none; white-space: nowrap;
 }
-.designed-by::after {
-  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
-  height: 1px; background: currentColor;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform .35s cubic-bezier(.65, 0, 0, 1);
-}
-.designed-by:hover::after { transform: scaleX(1); }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track, .footer-wordmark-track { animation: none; }
