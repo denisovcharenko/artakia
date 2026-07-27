@@ -528,7 +528,7 @@ function initVideoTapToPlay() {
     const player = new Vimeo.Player(iframe);
 
     // Fetch the real Vimeo thumbnail via oEmbed — skip if a custom poster is set
-    if (fallbackImg && !fallbackImg.dataset.customPoster) {
+    if (fallbackImg && !fallbackImg.hasAttribute('data-custom-poster')) {
       player.getVideoId().then(id => {
         return fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${id}`);
       }).then(r => r.json()).then(data => {
@@ -681,7 +681,7 @@ function injectContent(d) {
           existingIframe.src = `https://player.vimeo.com/video/${vmId}?background=1&loop=1&quality=auto`;
         }
         const fallback = box.querySelector('.video-fallback');
-        if (fallback && !fallback.dataset.customPoster) fallback.src = `https://vumbnail.com/${vmId}.jpg`;
+        if (fallback && !fallback.hasAttribute('data-custom-poster')) fallback.src = `https://vumbnail.com/${vmId}.jpg`;
       } else if (isYtEmbed) {
         embed = `<iframe src="${u}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
         box.innerHTML = embed;
