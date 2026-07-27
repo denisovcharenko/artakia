@@ -539,16 +539,17 @@ function initVideoTapToPlay() {
       }).catch(() => {});
     }
 
-    // Try autoplay — if blocked (Low Power Mode), show poster + tap button
-    player.play().catch(() => {
+    // Wait for player ready, then try autoplay — if blocked (Low Power Mode), show poster + tap
+    player.ready().then(() => player.play()).catch(() => {
       box.classList.add('autoplay-blocked');
       overlay.classList.add('active');
     });
 
     // Tap: swap to interactive player within user-gesture context — iOS allows this
     overlay.addEventListener('click', () => {
+      const videoId = iframe.src.match(/vimeo\.com\/video\/(\d+)/)?.[1] ?? '1211681422';
       box.classList.remove('autoplay-blocked');
-      iframe.src = 'https://player.vimeo.com/video/1205783595?loop=1&quality=auto&autoplay=1';
+      iframe.src = `https://player.vimeo.com/video/${videoId}?loop=1&quality=auto&autoplay=1`;
       overlay.classList.add('hidden');
       setTimeout(() => overlay.remove(), 350);
     });
