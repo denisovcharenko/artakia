@@ -555,7 +555,7 @@ function initVideoTapToPlay() {
         // SDK play still blocked — force-reload iframe with explicit autoplay as last resort
         const videoId = iframe.src.match(/vimeo\.com\/video\/(\d+)/)?.[1] ?? '1211681422';
         box.classList.remove('autoplay-blocked');
-        iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&quality=auto&playsinline=1`;
+        iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&quality=1080p&playsinline=1`;
         setTimeout(() => overlay.remove(), 350);
       });
     });
@@ -678,7 +678,7 @@ function injectContent(d) {
         // For Vimeo: update src only — preserve .video-fallback and .video-tap for iOS
         const existingIframe = box.querySelector('iframe');
         if (existingIframe) {
-          existingIframe.src = `https://player.vimeo.com/video/${vmId}?background=1&loop=1&quality=auto`;
+          existingIframe.src = `https://player.vimeo.com/video/${vmId}?background=1&loop=1&quality=1080p`;
         }
         const fallback = box.querySelector('.video-fallback');
         if (fallback && !fallback.hasAttribute('data-custom-poster')) fallback.src = `https://vumbnail.com/${vmId}.jpg`;
