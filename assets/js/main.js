@@ -626,6 +626,16 @@ function injectContent(d) {
     metaSet('meta[property="og:image"]', d.og_image);
     metaSet('meta[name="twitter:image"]', d.og_image);
   }
+  if (d.linkedin_url) {
+    document.querySelectorAll('[data-linkedin-link]').forEach(a => { a.href = d.linkedin_url; });
+  }
+  if (d.contact_email) {
+    text('.mobile-nav__email-text', d.contact_email);
+  }
+  if (d.video_poster) {
+    const poster = document.querySelector('.video-fallback');
+    if (poster) poster.src = d.video_poster;
+  }
   text('.button-020__default-text', d.nav_cta);
   text('.button-020__hover-text',   d.nav_cta);
 

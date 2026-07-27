@@ -35,6 +35,17 @@ collections:
             hint: "Preview image when sharing on social media (1200×630px recommended)"
             required: false
 
+          - label: "LinkedIn URL"
+            name: linkedin_url
+            widget: string
+            hint: "Full LinkedIn profile URL"
+
+          - label: "Video Poster Image"
+            name: video_poster
+            widget: image
+            hint: "Shown instead of video in iOS Low Power Mode (16:9 or 4:5 portrait)"
+            required: false
+
           - label: "Nav — CTA Button"
             name: nav_cta
             widget: string
