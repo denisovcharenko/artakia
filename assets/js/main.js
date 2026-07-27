@@ -612,6 +612,20 @@ function injectContent(d) {
 
   // SEO & Nav
   if (d.page_title) document.title = d.page_title;
+  const metaSet = (sel, val) => { const el = document.querySelector(sel); if (el && val) el.setAttribute('content', val); };
+  if (d.meta_description) {
+    metaSet('meta[name="description"]', d.meta_description);
+    metaSet('meta[property="og:description"]', d.meta_description);
+    metaSet('meta[name="twitter:description"]', d.meta_description);
+  }
+  if (d.page_title) {
+    metaSet('meta[property="og:title"]', d.page_title);
+    metaSet('meta[name="twitter:title"]', d.page_title);
+  }
+  if (d.og_image) {
+    metaSet('meta[property="og:image"]', d.og_image);
+    metaSet('meta[name="twitter:image"]', d.og_image);
+  }
   text('.button-020__default-text', d.nav_cta);
   text('.button-020__hover-text',   d.nav_cta);
 

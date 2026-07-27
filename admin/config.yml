@@ -24,6 +24,17 @@ collections:
             name: page_title
             widget: string
 
+          - label: "Meta Description"
+            name: meta_description
+            widget: text
+            hint: "Shown in Google search results and social shares (150–160 chars recommended)"
+
+          - label: "Social Share Image (OG Image)"
+            name: og_image
+            widget: image
+            hint: "Preview image when sharing on social media (1200×630px recommended)"
+            required: false
+
           - label: "Nav — CTA Button"
             name: nav_cta
             widget: string
