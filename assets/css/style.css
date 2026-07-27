@@ -604,7 +604,7 @@ html, body {
 .designed-by .by  { font-size: 0.9375em; font-weight: 500; letter-spacing: -0.6px; color: #faf5f5; opacity: .3; }
 .designed-by .who {
   font-size: 0.9375em; font-weight: 500; letter-spacing: -0.6px; color: #faf5f5;
-  text-decoration: none; position: relative;
+  text-decoration: none; position: relative; white-space: nowrap;
 }
 .designed-by .who::after {
   content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
