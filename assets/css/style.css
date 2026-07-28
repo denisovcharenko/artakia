@@ -613,7 +613,7 @@ html, body {
   height: 0.89em; width: auto;
   fill: currentColor; display: inline-block;
   vertical-align: middle; position: relative; top: -0.07em;
-  transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1), color 0.35s cubic-bezier(0.76, 0, 0.24, 1);
 }
 .designed-by:hover .od-logo { transform: scale(1.4); }
 
