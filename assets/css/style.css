@@ -608,6 +608,7 @@ html, body {
   transition: color 0.35s cubic-bezier(0.76, 0, 0.24, 1);
 }
 .designed-by:hover { color: rgba(255, 255, 255, 0.75); cursor: none; }
+.designed-by:hover .od-logo { color: var(--accent); }
 .od-logo {
   height: 0.89em; width: auto;
   fill: currentColor; display: inline-block;
