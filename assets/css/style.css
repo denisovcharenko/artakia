@@ -1119,15 +1119,12 @@ body:has([data-cursor]:hover) .cursor {
 
 .cursor-scramble__text {
   letter-spacing: 0.06em;
-  font-size: 0.625em;
+  font-size: 0.5em;
   font-weight: 500;
   text-transform: uppercase;
 }
 
-.cursor-scramble__chevron {
-  color: var(--accent);
-  width: .25em;
-}
+.cursor-scramble__chevron { display: none; }
 
 @media (hover: hover) and (pointer: fine) {
   [data-sc] .cursor-scramble {
