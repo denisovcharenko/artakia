@@ -894,6 +894,67 @@ document.addEventListener('DOMContentLoaded', async () => {
     initHighlightText();
     initFadeInReveal();
     initSmoothScroll();
+    initScrambleTextCursor();
     ScrollTrigger.refresh();
   });
 });
+
+function initScrambleTextCursor() {
+  const cursor = document.querySelector("[data-cursor]");
+  const cursorTextTarget = document.querySelector("[data-cursor-text-target]");
+
+  if (!cursor || !cursorTextTarget || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+  gsap.registerPlugin(ScrambleTextPlugin);
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let hasMouseMoved = false;
+  let activeHoverItem = null;
+
+  const scrambleCharacters = "XYZxy#&@0$€£";
+
+  const xTo = gsap.quickTo(cursor, "x", {duration: 0.4, ease: "power3.out"});
+  const yTo = gsap.quickTo(cursor, "y", {duration: 0.4, ease: "power3.out"});
+
+  function updateCursor() {
+    const hoverItem = document.elementFromPoint(mouseX, mouseY)?.closest("[data-cursor-hover]");
+    const rect = cursor.getBoundingClientRect();
+
+    const isHovering = !!hoverItem;
+    const isEdge = rect.right >= window.innerWidth;
+    const text = hoverItem?.getAttribute("data-cursor-text") || "";
+
+    cursor.setAttribute("data-cursor", isHovering ? (isEdge ? "active-edge" : "active") : "");
+
+    if (hoverItem !== activeHoverItem) {
+      gsap.to(cursorTextTarget, {
+        duration: 0.6,
+        overwrite: "auto",
+        scrambleText: {
+          text: text,
+          chars: scrambleCharacters,
+          speed: 1.2
+        }
+      });
+
+      activeHoverItem = hoverItem;
+    }
+  }
+
+  window.addEventListener("mousemove", (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    hasMouseMoved = true;
+
+    xTo(mouseX);
+    yTo(mouseY);
+
+    requestAnimationFrame(updateCursor);
+  });
+
+  window.addEventListener("scroll", () => {
+    if (!hasMouseMoved) return;
+    requestAnimationFrame(updateCursor);
+  }, { passive: true });
+}

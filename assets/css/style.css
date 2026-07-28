@@ -1094,3 +1094,69 @@ body:has([data-cursor]:hover) .cursor {
 @media screen and (max-width: 389px) {
   .nav-cta { display: none; }
 }
+
+/* ═══════════════════════════════════════════════════════
+   SCRAMBLE TEXT CURSOR
+═══════════════════════════════════════════════════════ */
+
+.cursor {
+  z-index: 25;
+  pointer-events: none;
+  padding-top: 1em;
+  padding-left: .5em;
+  padding-right: 1em;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.cursor-scramble {
+  grid-column-gap: .5em;
+  grid-row-gap: .5em;
+  opacity: 0;
+  color: #fff;
+  background-color: #000;
+  border-radius: .25em;
+  justify-content: center;
+  align-items: center;
+  height: 2em;
+  padding-left: .75em;
+  padding-right: .75em;
+  display: flex;
+  position: relative;
+}
+
+.cursor-scramble__text {
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  font-size: .875em;
+  font-weight: 500;
+}
+
+.cursor-scramble__chevron {
+  color: #a1ff62;
+  width: .375em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-cursor] .cursor-scramble {
+    transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0.1s;
+    transform: translateX(0%) scale(1) rotate(0.001deg);
+  }
+
+  [data-cursor="active"] .cursor-scramble {
+    transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0s;
+    opacity: 1;
+    transform: translateX(0%) scale(1) rotate(0.001deg);
+  }
+
+  [data-cursor="active-edge"] .cursor-scramble {
+    transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0s;
+    opacity: 1;
+    transform: translateX(-100%) scale(1) rotate(0.001deg);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor { display: none; }
+}
