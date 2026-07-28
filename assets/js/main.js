@@ -922,10 +922,9 @@ function initScrambleTextCursor() {
     const rect = cursor.getBoundingClientRect();
 
     const isHovering = !!hoverItem;
-    const isEdge = rect.right >= window.innerWidth;
     const text = hoverItem?.getAttribute("data-cursor-text") || "";
 
-    cursor.setAttribute("data-sc", isHovering ? (isEdge ? "active-edge" : "active") : "");
+    cursor.setAttribute("data-sc", isHovering ? "active" : "");
 
     if (hoverItem !== activeHoverItem) {
       gsap.to(cursorTextTarget, {

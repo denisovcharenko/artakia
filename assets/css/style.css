@@ -1102,58 +1102,51 @@ body:has([data-cursor]:hover) .cursor {
 .sc-cursor {
   z-index: 25;
   pointer-events: none;
-  padding-top: 1em;
-  padding-left: .5em;
-  padding-right: 1em;
   position: fixed;
   top: 0;
   left: 0;
 }
 
 .cursor-scramble {
-  grid-column-gap: .5em;
-  grid-row-gap: .5em;
+  gap: 0.5em;
   opacity: 0;
-  color: #fff;
-  background-color: #000;
-  border-radius: .25em;
+  color: var(--text);
+  border: 1px solid rgba(196, 212, 222, 0.10);
+  border-radius: 100em;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(6, 6, 6, 0.00) 0%, rgba(196, 212, 222, 0.06) 100%);
+  backdrop-filter: blur(8px);
   justify-content: center;
   align-items: center;
   height: 2em;
-  padding-left: .75em;
-  padding-right: .75em;
+  padding-left: .875em;
+  padding-right: .875em;
   display: flex;
+  white-space: nowrap;
   position: relative;
 }
 
 .cursor-scramble__text {
-  letter-spacing: -.01em;
-  white-space: nowrap;
-  font-size: .875em;
+  letter-spacing: 0.06em;
+  font-size: 0.625em;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .cursor-scramble__chevron {
-  color: #a1ff62;
+  color: var(--accent);
   width: .375em;
 }
 
 @media (hover: hover) and (pointer: fine) {
   [data-sc] .cursor-scramble {
     transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0.1s;
-    transform: translateX(0%) scale(1) rotate(0.001deg);
+    transform: translateX(calc(-100% - 0.75em)) translateY(-50%) scale(1) rotate(0.001deg);
   }
 
   [data-sc="active"] .cursor-scramble {
     transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0s;
     opacity: 1;
-    transform: translateX(0%) scale(1) rotate(0.001deg);
-  }
-
-  [data-sc="active-edge"] .cursor-scramble {
-    transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0s;
-    opacity: 1;
-    transform: translateX(-100%) scale(1) rotate(0.001deg);
+    transform: translateX(calc(-100% - 0.75em)) translateY(-50%) scale(1) rotate(0.001deg);
   }
 }
 
