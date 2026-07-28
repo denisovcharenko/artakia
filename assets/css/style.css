@@ -55,7 +55,9 @@ html, body {
   font-size: var(--size-font);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  scrollbar-width: none;
 }
+::-webkit-scrollbar { display: none; }
 
 /* ═══════════════════════════════════════════════════════
    NAV
@@ -1132,19 +1134,19 @@ body:has([data-cursor]:hover) .cursor {
 @media (hover: hover) and (pointer: fine) {
   [data-sc] .cursor-scramble {
     transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0.1s;
-    transform: translateX(0%) translateY(-50%) scale(1) rotate(0.001deg);
+    transform: translateX(0%) translateY(-80%) scale(1) rotate(0.001deg);
   }
 
   [data-sc="active"] .cursor-scramble {
     transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0s;
     opacity: 1;
-    transform: translateX(0%) translateY(-50%) scale(1) rotate(0.001deg);
+    transform: translateX(0%) translateY(-80%) scale(1) rotate(0.001deg);
   }
 
   [data-sc="active-edge"] .cursor-scramble {
     transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0s;
     opacity: 1;
-    transform: translateX(calc(-100% - 1.75em)) translateY(-50%) scale(1) rotate(0.001deg);
+    transform: translateX(calc(-100% - 1.75em)) translateY(-80%) scale(1) rotate(0.001deg);
   }
 }
 
