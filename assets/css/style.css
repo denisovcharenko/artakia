@@ -1099,7 +1099,7 @@ body:has([data-cursor]:hover) .cursor {
    SCRAMBLE TEXT CURSOR
 ═══════════════════════════════════════════════════════ */
 
-.cursor {
+.sc-cursor {
   z-index: 25;
   pointer-events: none;
   padding-top: 1em;
@@ -1139,18 +1139,18 @@ body:has([data-cursor]:hover) .cursor {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [data-cursor] .cursor-scramble {
+  [data-sc] .cursor-scramble {
     transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0.1s;
     transform: translateX(0%) scale(1) rotate(0.001deg);
   }
 
-  [data-cursor="active"] .cursor-scramble {
+  [data-sc="active"] .cursor-scramble {
     transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0s;
     opacity: 1;
     transform: translateX(0%) scale(1) rotate(0.001deg);
   }
 
-  [data-cursor="active-edge"] .cursor-scramble {
+  [data-sc="active-edge"] .cursor-scramble {
     transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.2s ease 0s;
     opacity: 1;
     transform: translateX(-100%) scale(1) rotate(0.001deg);
@@ -1158,5 +1158,5 @@ body:has([data-cursor]:hover) .cursor {
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .cursor { display: none; }
+  .sc-cursor { display: none; }
 }

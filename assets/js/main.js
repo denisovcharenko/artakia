@@ -900,7 +900,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function initScrambleTextCursor() {
-  const cursor = document.querySelector("[data-cursor]");
+  const cursor = document.querySelector("[data-sc]");
   const cursorTextTarget = document.querySelector("[data-cursor-text-target]");
 
   if (!cursor || !cursorTextTarget || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
@@ -925,7 +925,7 @@ function initScrambleTextCursor() {
     const isEdge = rect.right >= window.innerWidth;
     const text = hoverItem?.getAttribute("data-cursor-text") || "";
 
-    cursor.setAttribute("data-cursor", isHovering ? (isEdge ? "active-edge" : "active") : "");
+    cursor.setAttribute("data-sc", isHovering ? (isEdge ? "active-edge" : "active") : "");
 
     if (hoverItem !== activeHoverItem) {
       gsap.to(cursorTextTarget, {
