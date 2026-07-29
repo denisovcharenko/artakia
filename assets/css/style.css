@@ -832,7 +832,6 @@ body:has([data-cursor]:hover) .cursor {
 .mobile-nav__links {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--border);
 }
 .mobile-nav__link {
   display: flex;
