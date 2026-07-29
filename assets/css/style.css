@@ -846,6 +846,7 @@ body:has([data-cursor]:hover) .cursor {
   border-bottom: 1px solid var(--border);
   transition: color 0.2s;
 }
+.mobile-nav__link:last-child { border-bottom: none; }
 .mobile-nav__link:hover, .mobile-nav__link:active { color: var(--text); }
 
 /* Bottom section — Social + CTA — pushed to bottom */
