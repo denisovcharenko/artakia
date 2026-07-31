@@ -40,7 +40,7 @@
 
 /* ── Osmo Scaling — Mobile Portrait */
 @media screen and (max-width: 479px) {
-  :root { --size-container-ideal: 390; --size-container-min: 320px; --size-container-max: 479px; }
+  :root { --size-container-ideal: 420; --size-container-min: 320px; --size-container-max: 479px; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -279,7 +279,7 @@ html, body {
   object-fit: contain; display: block;
 }
 .logo-card img[src*="sony"] {
-  max-height: 3.75em; max-width: 12em;
+  height: 3.2em; max-height: 3.2em; width: auto; max-width: 12em;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -585,6 +585,7 @@ html, body {
   text-transform: uppercase; color: #0e0e0e;
   white-space: nowrap; user-select: none;
 }
+.footer-wordmark-text--records { padding-right: 0.15em; }
 .footer-wordmark-star {
   width: 3.25em; height: 3.25em; flex-shrink: 0;
   animation: star-spin 8s linear infinite;
@@ -986,6 +987,7 @@ body:has([data-cursor]:hover) .cursor {
   /* Logo cards — narrower so 2-3 fit in view */
   .logo-card     { width: 10em; height: 4em; }
   .logo-card img { max-height: 1.5em; max-width: 7em; }
+  .logo-card img[src*="sony"] { height: 2.2em; max-height: 2.2em; }
 
   /* Stats — single column */
   .stats { flex-direction: column; }
@@ -1071,7 +1073,7 @@ body:has([data-cursor]:hover) .cursor {
   .phil-item  { padding-right: 0; }
 
   /* Footer */
-  .footer-nav-cols { flex-direction: row; gap: 2.5em; }
+  .footer-nav-cols { flex-direction: row; gap: 4.5em; }
   .footer-nc  { flex: 1; width: auto; }
   .footer-top { padding: 5em 1em 3em; }
   .footer-cta-text-wrap { overflow: visible; clip-path: inset(0 -999em); }

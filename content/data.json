@@ -83,7 +83,7 @@
   "services": [
     {
       "name": "Label & Development",
-      "desc": "M.A Records — a private label within Artakia. Developing artists from the ground up: A&R, creative direction, commercial strategy, release planning. Global distribution through The Orchard · Sony Music.",
+      "desc": "M.A Records – a private label within Artakia. Developing artists from the ground up: A&R, creative direction, commercial strategy, release planning. Global distribution through The Orchard · Sony Music.",
       "tags": [
         "A&R",
         "Talent Management"
@@ -91,7 +91,7 @@
     },
     {
       "name": "Production & Content",
-      "desc": "Photo and video production for artists and brands. Full-cycle delivery — from concept and creative direction to final cut.",
+      "desc": "Photo and video production for artists and brands. Full-cycle delivery – from concept and creative direction to final cut.",
       "tags": [
         "Brand Content",
         "Film",
@@ -101,7 +101,7 @@
     },
     {
       "name": "Strategy & Marketing",
-      "desc": "The most requested. Figuring out what should happen — and in what order. Campaigns, releases, brand identity, digital growth. Diagnosing before prescribing.",
+      "desc": "The most requested. Figuring out what should happen – and in what order. Campaigns, releases, brand identity, digital growth.",
       "tags": [
         "Release Strategy",
         "Brand",
