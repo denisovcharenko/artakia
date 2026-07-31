@@ -525,7 +525,7 @@ function initVideoTapToPlay() {
     const fallbackImg = box?.querySelector('.video-fallback');
     if (!iframe || typeof Vimeo === 'undefined') return;
 
-    const player = new Vimeo.Player(iframe);
+    let player = new Vimeo.Player(iframe);
 
     // Fetch the real Vimeo thumbnail via oEmbed — skip if a custom poster is set
     if (fallbackImg && !fallbackImg.hasAttribute('data-custom-poster')) {
@@ -538,25 +538,35 @@ function initVideoTapToPlay() {
       }).catch(() => {});
     }
 
-    // Wait for player ready, then try autoplay — if blocked (Low Power Mode), show poster + tap
-    player.ready().then(() => player.play()).catch(() => {
+    // Hide overlay only when video actually fires 'play' — catches Safari silent-resolve race
+    function onPlaying() {
+      box.classList.remove('autoplay-blocked');
+      overlay.classList.remove('active');
+      overlay.classList.add('hidden');
+      setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 350);
+    }
+    player.on('play', onPlaying);
+
+    function showBlockedOverlay() {
       box.classList.add('autoplay-blocked');
       overlay.classList.add('active');
-    });
+    }
 
-    // Tap: call player.play() directly within click (user-gesture context) — iOS allows this.
-    // Do NOT replace iframe.src — iOS blocks autoplay on src-swapped iframes even within a gesture.
+    // Try autoplay; use getPaused() to catch Safari's silent no-op resolve
+    player.ready()
+      .then(() => player.play())
+      .then(() => player.getPaused())
+      .then(paused => { if (paused) showBlockedOverlay(); })
+      .catch(() => showBlockedOverlay());
+
+    // Tap: synchronous play() within user-gesture — iOS requires this
     overlay.addEventListener('click', () => {
-      overlay.classList.add('hidden');
-      player.play().then(() => {
-        box.classList.remove('autoplay-blocked');
-        setTimeout(() => overlay.remove(), 350);
-      }).catch(() => {
-        // SDK play still blocked — force-reload iframe with explicit autoplay as last resort
+      player.play().catch(() => {
+        // Last resort: reload iframe with explicit params and re-bind player
         const videoId = iframe.src.match(/vimeo\.com\/video\/(\d+)/)?.[1] ?? '1211681422';
-        box.classList.remove('autoplay-blocked');
-        iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&loop=1&quality=1080p&playsinline=1`;
-        setTimeout(() => overlay.remove(), 350);
+        iframe.src = `https://player.vimeo.com/video/${videoId}?background=1&autoplay=1&muted=1&loop=1&quality=1080p&playsinline=1`;
+        player = new Vimeo.Player(iframe);
+        player.on('play', onPlaying);
       });
     });
   });
@@ -703,7 +713,7 @@ function injectContent(d) {
         // For Vimeo: update src only — preserve .video-fallback and .video-tap for iOS
         const existingIframe = box.querySelector('iframe');
         if (existingIframe) {
-          existingIframe.src = `https://player.vimeo.com/video/${vmId}?background=1&loop=1&quality=1080p`;
+          existingIframe.src = `https://player.vimeo.com/video/${vmId}?background=1&autoplay=1&muted=1&loop=1&quality=1080p&playsinline=1`;
         }
         const fallback = box.querySelector('.video-fallback');
         if (fallback && !fallback.hasAttribute('data-custom-poster')) fallback.src = `https://vumbnail.com/${vmId}.jpg`;
