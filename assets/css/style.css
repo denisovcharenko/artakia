@@ -634,22 +634,18 @@ html, body {
   z-index: 999; pointer-events: none;
   opacity: 0; visibility: hidden;
   width: 10px; height: 10px;
-  will-change: transform;
-}
-.cursor::before {
-  content: '';
-  position: absolute;
-  inset: 0;
   background: var(--accent);
+  border: 1px solid var(--accent);
   border-radius: 100em;
   transition:
-    transform .375s cubic-bezier(.625, .05, 0, 1),
+    width  .375s cubic-bezier(.625, .05, 0, 1),
+    height .375s cubic-bezier(.625, .05, 0, 1),
     background-color .375s cubic-bezier(.625, .05, 0, 1);
 }
-body:has(a:hover) .cursor::before,
-body:has(button:hover) .cursor::before,
-body:has([data-cursor]:hover) .cursor::before {
-  transform: scale(4.4);
+body:has(a:hover) .cursor,
+body:has(button:hover) .cursor,
+body:has([data-cursor]:hover) .cursor {
+  width: 44px; height: 44px;
   background: rgba(196, 212, 222, 0.15);
 }
 @media (hover: none) and (pointer: coarse) { .cursor { display: none; } }
