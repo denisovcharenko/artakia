@@ -641,7 +641,6 @@ html, body {
   position: absolute;
   inset: 0;
   background: var(--accent);
-  border: 1px solid var(--accent);
   border-radius: 100em;
   transition:
     transform .375s cubic-bezier(.625, .05, 0, 1),
