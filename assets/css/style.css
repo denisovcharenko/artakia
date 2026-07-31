@@ -1081,6 +1081,7 @@ body:has([data-cursor]:hover) .cursor {
 
   /* Footer wordmark — slightly lighter than desktop dark-on-dark */
   .footer-wordmark-text { font-size: 6em; color: rgba(242, 240, 237, 0.14); }
+  .footer-wordmark-star { width: 1.5em; height: 1.5em; }
 
   /* Logo cards — slightly brighter on small screens */
   .logo-card { background: rgba(196, 212, 222, 0.08); }
