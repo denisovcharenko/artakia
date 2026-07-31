@@ -278,6 +278,9 @@ html, body {
   max-height: 2.1875em; max-width: 8.75em;
   object-fit: contain; display: block;
 }
+.logo-card img[src*="sony"] {
+  max-height: 3em; max-width: 10.5em;
+}
 
 /* ═══════════════════════════════════════════════════════
    Section label (shared)
