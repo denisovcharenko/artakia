@@ -594,23 +594,14 @@ function initBasicCustomCursor() {
   });
 }
 
-/* ─── 13. COPY EMAIL TO CLIPBOARD (3-state) ─────────────── */
+/* ─── 13. EMAIL MAILTO ───────────────────────────────────── */
 function initCopyEmailClipboard() {
   document.querySelectorAll('[data-copy-button]').forEach(btn => {
-    let timer;
-
     btn.addEventListener('click', () => {
       const email = btn.getAttribute('data-copy-email') ||
         btn.querySelector('[data-copy-email-element]')?.textContent.trim();
       if (!email) return;
-
-      navigator.clipboard.writeText(email).then(() => {
-        clearTimeout(timer);
-        btn.dataset.copyButton = 'copied';
-        timer = setTimeout(() => {
-          btn.dataset.copyButton = '';
-        }, 2200);
-      });
+      window.location.href = 'mailto:' + email;
     });
   });
 }
