@@ -623,6 +623,9 @@ function injectContent(d) {
     metaSet('meta[property="og:title"]', d.page_title);
     metaSet('meta[name="twitter:title"]', d.page_title);
   }
+  if (d.og_site_name) {
+    metaSet('meta[property="og:site_name"]', d.og_site_name);
+  }
   if (d.og_image) {
     metaSet('meta[property="og:image"]', d.og_image);
     metaSet('meta[name="twitter:image"]', d.og_image);

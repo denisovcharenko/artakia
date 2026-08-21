@@ -24,6 +24,11 @@ collections:
             name: page_title
             widget: string
 
+          - label: "Site Name (og:site_name)"
+            name: og_site_name
+            widget: string
+            hint: "Shown as the site name in link previews (e.g. in iMessage/Slack/Telegram unfurls)"
+
           - label: "Meta Description"
             name: meta_description
             widget: text
